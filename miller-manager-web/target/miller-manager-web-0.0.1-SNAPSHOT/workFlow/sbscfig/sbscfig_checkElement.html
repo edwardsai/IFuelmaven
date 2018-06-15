@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>查看业务要素</title>
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+</head>
+<body style="line-height:50px;">
+	<h3 class="header-h3"></h3>
+	<table class="table-list table-striped table-hover table-border" style="margin:10px auto;font-size:14px;">
+			<tbody>
+				<tr>
+					<td style="text-align:right;width:15%">
+						<span>业务系统：</span>
+					</td>
+					<td style="text-align:left;width:35%">
+						<span id="CFsystem_code" name="CF.system_code"></span>
+					</td>
+					<td style="text-align:right;width:15%">
+						<span>状态：</span>
+					</td>
+					<td style="text-align:left;width:35%" >
+						<span id="CFb_state" name="CF.b_state"></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;width:15%">
+						<span>要素类别：</span>
+					</td>
+					<td  style="text-align:left;width:35%">
+						<span id="CFrule_type" name="CF.rule_type"></span>
+					</td>
+					<td style="text-align:right;width:15%">
+						<span>业务要素ID：</span>
+					</td>
+					<td  style="text-align:left;width:35%">
+						<span id="CFfactor_code" name="CF.factor_code"></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;width:15%">
+						<span>业务要素名称：</span>
+					</td>
+					<td  style="text-align:left;width:35%">
+						<span id="CFfactor_name" name="CF.factor_name"></span>
+					</td>
+					<td style="text-align:right;width:15%">
+						<span>业务要素类型：</span>
+					</td>
+					<td style="text-align:left;width:35%" >
+						<span id="CFfactor_type" name="CF.factor_type" ></span>
+					</td>
+				</tr>
+				<tr>
+					<td style="text-align:right;width:15%">
+						<span>操作人：</span>
+					</td>
+					<td style="text-align:left;width:35%" >
+						<span name="CF.opt_person" id="CFopt_person"></span>
+					</td>
+					<td style="text-align:right;width:15%">
+						<span>操作时间：</span>
+					</td>
+					<td style="text-align:left;width:35%" >
+						<span name="CF.opt_time" id="CFopt_time"></span>
+					</td>
+				</tr>
+				<tr rowspan="3">
+					<td style="text-align:right;width:15%" >
+						<span>备注：</span>
+					</td>
+					<td colspan="3" style="text-align:left;">
+						<span  name="CF.memo" id="CFmemo"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	<!-- table结束 -->
+	<div style="width:200px;margin:30px auto;" >
+   		<button type="button" id="CgoBackSbscfigList" class="btns">返回</button> 				
+	</div>
+	<script src="workFlow/sbscfig/sbscfig_checkElement.js"></script>
+</body>
+</html>

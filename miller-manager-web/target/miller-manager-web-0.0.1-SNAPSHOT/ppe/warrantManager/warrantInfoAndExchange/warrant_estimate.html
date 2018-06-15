@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>权证估价</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link href="css/city.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="js/city/Popt.js"></script>
+<script type="text/javascript" src="js/city/cityJson.js"></script>
+<script type="text/javascript" src="js/city/citySet.js"></script>
+<script type="text/javascript" src="ppe/warrantManager/warrantInfoAndExchange/warrant_estimate.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+table{width:99.5%!important;}
+.warrant_estimate_det{display:none;}
+</style>
+</head>
+<body>
+<h3 class="header-h3">权证估价</h3>
+    <div class="row-fluid">
+			<div>
+			    <table class="table_input table table-striped table-hover table-border">
+			    	<tr>
+			    		<td class="tableColumnName" style="width:150px;"><span style="font-weight: bolder;">常用城市：</span></td>
+						<td class="" colspan="1"><input type="text" value="昆明、衡阳" id="" /></td>
+			    	
+			    		<td class="tableColumnName" style="width:150px;"><span style="font-weight: bolder;">城市：</span></td>
+						<td class="" colspan="1"><input type="text" id="city_ld" /></td>
+			    	
+			    		<td class="tableColumnName" style="width:150px;"><span style="font-weight: bolder;">楼盘：</span></td>
+						<td class="" style="width:310px;"><input type="text" id="" /></td>
+						</tr>
+			    	<tr>
+						<td class="tableColumnName" ><span style="font-weight: bolder;">楼栋：</span></td>
+						<td class="" style="width:310px;"><input type="text" id="" /></td>
+			    	
+			    		<td class="tableColumnName" ><span style="font-weight: bolder;">楼层：</span></td>
+						<td class="" style="width:310px;"><input type="text" id="" /></td>
+						<td class="tableColumnName" ><span style="font-weight: bolder;">房号：</span></td>
+						<td class="" style="width:310px;"><input type="text" id="" /></td>
+			    	</tr>
+			    	<tr>
+			    		<td class="tableColumnName" ><span style="font-weight: bolder;">备注：</span></td>
+						<td colspan="5">
+							<textarea name="remark" style="width: 96.5%; line-height:2;resize: none;" rows="3"></textarea>
+						</td>
+			    	</tr>
+			    </table>
+</div>
+<!-- 估价详情 -->
+<div class="warrant_estimate_det">
+<h3 class="header-h3">估价详情</h3>
+<div class="warrant_estimate_detD">
+	<ul class="warrant_estimate_detD_tit"><li>询价物业/询价人</li><li>估价结果</li><div style="clear:both;"></div></ul>
+	<ul class="warrant_estimate_detD_cont">
+	<li class="warrant_estimate_detD_contL">
+		<ul>
+		<li>
+		<div class="pcenter">
+		<b>中南四季城（永州）1栋2层201（123.2m<sup>2</sup>）</b>
+		<div>位置、照片、案例</div>
+		<div>询价人：黎明</div>
+		<div>2017/02/12 12:12:23</div>
+		<div style="clear:both;"></div>
+		</div>
+		</li>
+		<li>
+		<div class="pcenter">
+		<div>单价：<span class="price">12,234元/m<sup>2</sup></span></div>
+		<div>总价：2,345,234元</div>
+		<div>位置、照片、案例</div></div>
+		</li>
+		<div style="clear:both;"></div>
+		</ul>
+	</li>
+	
+	<li class="warrant_estimate_detD_contL">
+		<ul>
+		<li>
+		<div class="pcenter">
+		<b>中南四季城（永州）1栋2层201（123.2m<sup>2</sup>）</b>
+		<div>位置、照片、案例</div>
+		<div>询价人：黎明</div>
+		<div>2017/02/12 12:12:23</div>
+		<div style="clear:both;"></div>
+		</div>
+		</li>
+		<li>
+		<div class="pcenter">
+		<div>单价：<span class="price">12,234元/m<sup>2</sup></span></div>
+		<div>总价：2,345,234元</div>
+		<div>位置、照片、案例</div></div>
+		</li>
+		<div style="clear:both;"></div>
+		</ul>
+	</li>
+	
+	</ul>
+</div>
+<div style="clear:both;"></div>
+</div>
+	<div style="margin:30px auto;" align="center">
+		<button class="estimateBtn btns ilsh_left">估价</button>
+		<button class="btns ilsh_left" id="back_warrant_estimate">返回</button>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+$("#city_ld").click(function (e) {
+	SelCity(this,e);
+});
+$(".estimateBtn").click(function(){
+	$(".warrant_estimate_det").show();
+})
+</script>
+</html>

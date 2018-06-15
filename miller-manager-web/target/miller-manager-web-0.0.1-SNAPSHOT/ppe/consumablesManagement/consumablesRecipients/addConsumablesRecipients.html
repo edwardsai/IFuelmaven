@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>添加出库信息</title>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<style type="text/css">
+	.rightTitle{
+		padding-bottom:8px;font-weight:bolder;text-align:right;
+	}
+	#tb_recipientInfo_table.table_input tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+	#tb_recipientInfo_table.table_input tbody > tr > td:nth-child(even){text-align:left}
+td {
+    height: 35px;
+}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">领用基本信息</h3>
+	<div id="recipientInfo_table" class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<div>
+		<input type="hidden" name="ACM.ID" />
+			<table id="tb_recipientInfo_table" class="table_input table table-striped table-hover table-border" style="width:99.5%;margin-bottom:5px;font-size:14px">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:15%;">出库单号：</td>
+					<td  style="width:35%">
+					    <input type="text" name="ACM.OUT_ID" readOnly="true" validate="v.required"  valititle="该项为必填项"/></td>
+					<td class="rightTitle tableColumnName" >出库仓库：</td>
+					<td><input type="text" name="ACM.ROOM_NAME" placeholder="点击选择仓库" readOnly="true" validate="v.required"  valititle="该项为必填项"/>
+					     <input type="hidden" name="ACM.ROOM" />
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >领用人：</td>
+					<td><input type="text" name="ACM.GETUSER_NAME" readOnly="true" placeholder="点击选择..." validate="v.required"  valititle="该项为必填项"/>
+					    <input type="hidden" name="ACM.GETUSER_NO" /></td>
+					    <td class="rightTitle tableColumnName" >领用人部门：</td>
+					<td><input type="text" name="ACM.GETUSER_ORG_NAME" readOnly="true" validate="v.required"  valititle="该项为必填项"/>
+					    <input type="hidden" name="ACM.GETUSER_ORG" /></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >登记人：</td>
+					<td><input type="text" name="ACM.CREATE_USER_NAME" readOnly="true" validate="v.required"  valititle="该项为必填项"/>
+					    <input type="hidden" name="ACM.CREATE_USER" />
+					    <input type="hidden" name="ACM.CREATE_ORG" /></td>
+					<td class="rightTitle tableColumnName" >登记时间：</td>
+					<td><input type="text" name="ACM.CREATE_DATE" readOnly="true" validate="v.required"  valititle="该项为必填项"/></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >备注：</td>
+					<td colspan="3">
+					<textarea name="ACM.DESCR" style="width:91.3%;box-shadow:none;resize:none;height:100px;padding:10px"></textarea></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!-- 选择物品 -->
+<div class="row-fluid" style="margin-bottom:10px;">
+	<div style="margin-top: 20px;margin-bottom: 10px;">
+		<button class="btns ilsh_left" id="addConsumables_newadd">选择物品</button>
+		<button class="btns ilsh_left" id="addConsumables_delete">删除</button>
+	    <div style="clear:both;"></div>
+	</div>
+	<div>	
+	    <table id="table_selectInfo" class="table_input table table-striped table-hover table-border qgy" style="margin-top:-10px;width:99.5%;font-size: 14px">
+		</table>
+	</div>
+</div>	
+	<div align="center" style="margin-top:20px;margin-bottom:100px;">
+		<button class="ilsh_left btns" id="save_addConsumablesRecipients">保存</button>
+		<button class="ilsh_left btns" id="submit_addConsumablesRecipients">保存&提交</button>
+		<button class="ilsh_left btns" id="back_addConsumablesRecipients">返回</button>
+	</div>
+     <!-- 选择物品模态框 -->
+     <div id="myModal_addConsumablesStorage_newadd" class="modal hide fade" tabindex="-1" style="width: 950px; left: 50%; margin-left: -475px;padding-left: 0px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5>选择物品</h5>
+		</div>
+		<div class="modal-body" style="line-height:24px;max-height:350px;padding: 20px 30px;">
+			<div style="margin-top:0;float:left;height:300px;width:30%;overflow-y:auto;border:1px solid #f8f8f8;box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125) !important;">
+				<ul id="treeDemo_modalStorage" class="ztree" >
+				</ul>
+			</div>
+			<div style="margin-top:0px;font-size:14px;width:67%;float:right;">
+				<div style="height:300px">
+				<h4 id="ConsumablesStorageTitle"></h4>
+				<table id="table_modalStorage" ></table>
+				<div style="margin-top:30px;">
+				<button class="ilsh_left btns" id="addModal_ConsumablesStorage" style="float: right;">选择&amp;返回</button>
+				<button class="ilsh_left btns" data-dismiss="modal" aria-hidden="true" style="float: right;">取消</button>
+				</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer"></div>
+	</div>
+	<div id="userPop_cmrecipientsModal"></div>
+</body>
+<script src="ppe/consumablesManagement/consumablesRecipients/addConsumablesRecipients.js"></script>
+<script src="ppe/consumablesManagement/consumablesRecipients/userPop.js"></script>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>编辑领用信息</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/zebra_dialog.css"/>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="ppe\propertyManager\propertyRecipients\EditpropertyRecipients_user.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+</style>
+</head>
+<body class="left_bor">
+	<h3 class="header-h3">资产申请基本信息</h3>
+	  <div>
+		<!-- 基本信息部分 -->
+		<div class="row-fluid">
+			<table class="table_input table table-striped table-hover table-border" style="width: 99.5%">
+				<tbody>
+					 <tr>
+						<td class="tableColumnName" style="width:250px;"><span
+							style="font-weight: bolder;">申请流水号： </span></td>
+						<td style="width:310px;"><span name="ZHO.apply_id" id="ZHO.apply_id"></span></td>
+						<td class="tableColumnName" style="width:250px;"><span
+							style="font-weight: bolder;">使用方式： </span></td>
+						<td style="width:310px;"><span name="ZHO.use_method_name" id="ZHO.use_method"></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请人：</span></td>
+						<td><span name="ZHO.apply_user_name" id="ZHO.apply_user"></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">领用数量：</span></td>
+						<td><span name="ZHO.apply_num" id="ZHO.apply_num"></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请时间：</span></td>
+						<td><span name="ZHO.apply_date" id="ZHO.apply_date"></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">资产类型：</span></td>
+						<td><span name="ZHO.category_name" id="ZHO.category_id"></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请人机构：</span></td>
+						<td>
+							<span name="ZHO.apply_org_name" id="ZHO.apply_org"></span>
+							
+							<span name="ZHO.org_no" class="hide"></span>
+						</td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">要求使用时间：</span></td>
+						<td><span name="ZHO.required_date" id="ZHO.required_date"></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">备注：</span></td>
+						<td colspan="3"><span name="ZHO.remark" id="ZHO.remark"></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--设备具体领用情况-->
+		<div class="row-fluid">
+			<h3 class="header-h3">资产具体领用信息</h3>
+			<div class="submenuList" style="margin-bottom:7px;" id="submenuList_propertyRecipientsList">
+			<ul class="" style="margin-left:0px">
+				<li class="ilsh submenuList1" id="EditpropertyRecipients_newadd"><i class="icon-plus" style="margin:4px 3px 0 0"></i>新增</li>
+				<li class="ilsh submenuList1" id="EditpropertyRecipients_delete"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+				<li class="ilsh submenuList1" id="EditpropertyRecipients_insert">导入</li>
+			</ul>
+		   <div style="clear: both;"></div>
+	       </div>
+			<div>
+			    <table id="tb_editPropertyRecipients_user"></table>
+			</div>
+		</div>
+		<!-- 设备具体使用情况结束 -->
+		<div class="row-fluid" align="center"
+			style="margin: 20px 0px; margin-bottom: 60px;">
+			<button class="btns ilsh_left" type="button" id="save_editRecipientsUser">保存</button>
+			<button class="btns ilsh_left" type="button" id="back_RecipientsList">返回</button>
+		</div>
+	</div>
+	<!-- 资产信息模态框 -->
+	<div id="propertyRecipientPop" class="modal hide fade" tabindex="-1"  style="width:900px;left:55%;margin-left:-415px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5 id="myModalLabel">资产信息列表</h5>
+		</div>
+		<div class="modal-body">
+			<div class="popModal">
+				<label style="margin-left:60px;display:inline;vertical-align: super;">资产编号:</label>
+				<input type="text" id="PRRasset_num"   name="PRR.asset_num" class="span2"  style="width:170px;margin-left:3px;">
+				<label  style="margin-left:150px;display:inline;vertical-align: super;">资产名称 :</label>
+				<input type="text" id="PRRasset_name"  name="PRR.asset_name"  class="span2"   style="width:170px;">
+				<div style="margin:10px 0;text-align:center;">
+				    <button class="ilsh_left btns" id="get_AssetInfo" style="float:left">选择并返回</button>
+					<div class="ilsh_left searchBtn" id="pop_Search_Recipient"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+					<div class="ilsh_left resetBtn" id="pop_Reset_Recipient"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				</div>
+			</div>
+			<table id="Table_propertyRecipient" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+		    </table>
+		</div>
+		<div class="modal-footer"></div>
+	</div>
+</body>
+</html>

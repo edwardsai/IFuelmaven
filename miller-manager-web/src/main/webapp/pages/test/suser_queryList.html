@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>人员管理列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+
+</head>
+<body>
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				用户编号：<input type="text" class="span3"  />
+			</div>
+			<div class="span5 h50">
+				用户名称：<input type="text" class="span3" />
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" style="display: none;" id="moreSearch_suserList">
+			<div class="span5 h50">
+				登  录  名 ：<input type="text" class="span3"  />
+			</div>
+			<div class="span5 h50">
+				用户状态：<select class="span3" style="width:201px"></select>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" ><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1"><i class="icon-plus" style="margin:4px 3px 0 0"></i>高级查询</li>
+			<li class="ilsh submenuList1">新增</li>
+			<li class="ilsh submenuList1">修改</li>
+			<li class="ilsh submenuList1">删除</li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<table></table>
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+		<tbody>
+			<tr id="head">
+				<td><input name="chkAll" id="chkAll" title="全选"
+					onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" /></td>
+				<td class="newStyle"><span>用户编号</span></td>
+				<td class="newStyle"><span>用户名称</span></td>
+				<td class="newStyle"><span>登录名</span></td>
+				<td class="newStyle"><span>用户状态</span></td>
+				<td class="newStyle"><span>所属部门</span></td>
+				<td class="newStyle"><span>用户邮箱</span></td>
+				<td class="newStyle"><span>用户等级</span></td>
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>1</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>01</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='2'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>2</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>02</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='3'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>3</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>03</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='4'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>4</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>04</span></td>
+
+			</tr>
+		</tbody>
+	</table>
+	<!-- table结束 -->
+	<!-- 分页开始 -->
+	<div style="font-size:13px">
+			<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+				<span class="pagination-info">每页显示5条   共4条</span>
+			</div>
+		    <div class="pull-right pagination pull-right">
+				<ul class="pagination">
+					<li class="page-first disabled">
+						<a href="javascript:void(0)">首页</a>
+					</li>
+					<li class="page-pre disabled">
+						<a href="javascript:void(0)">上一页</a>
+					</li>
+					<li class="page-next">
+						<a href="javascript:void(0)">下一页</a>
+					</li>
+					<li class="page-last">
+						<a href="javascript:void(0)">末页</a>
+					</li>
+					<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+		    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+				</ul>
+			</div>
+		</div>
+	<!-- 分页结束 -->
+</body>
+</html>

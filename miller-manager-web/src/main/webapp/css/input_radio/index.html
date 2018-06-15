@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta content="width=device-width" name="viewport">  
+  <link href="skins/all.css" rel="stylesheet">
+  <script src="js/jquery.js"></script>
+  <script src="icheck.js"></script>  
+</head>
+<body>          
+    <input tabindex="1" type="checkbox">
+    <input tabindex="1" type="checkbox">       
+    <input tabindex="4" type="radio" name="demo-radio">
+     
+     <script>
+     $(document).ready(function(){
+       $('input[type="checkbox"],input[type="radio"]').iCheck({
+         checkboxClass: 'icheckbox_square-blue',
+         radioClass: 'iradio_square-blue',
+         increaseArea: '20%'
+       });
+     });
+     </script>       
+</body>
+</html>

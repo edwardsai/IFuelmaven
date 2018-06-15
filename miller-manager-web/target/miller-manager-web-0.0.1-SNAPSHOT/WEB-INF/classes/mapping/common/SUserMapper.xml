@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SUserDao">
+	<select id="findByParam"
+	parameterType="java.util.Map"
+	resultType="com.yusys.entity.SUser">
+		select u.user_no,
+       u.user_name,
+       u.login_name,
+       u.password,
+       u.nick_name,
+       u.state,
+       u.user_post,
+       u.user_level,
+       o.org_name org_no_name,
+       u.user_mail,
+       u.user_mobile,
+       u.memo,
+       u.u_extend1,
+       u.u_extend2,
+       u.u_extend3,
+       u.create_no,
+       u.create_time,
+       u.update_no,
+       u.update_time,
+       u.org_no,
+       u.user_belong,
+       u.wechart_no
+  from s_user u
+  left join s_org o
+    on u.org_no = o.org_code
+		where 1=1
+		<if test="null != loginname and loginname != ''">
+				and u.login_name = #{loginname}
+		</if>
+		<if test="null != password and password != ''">
+				and u.password = #{password}
+		</if>
+		<if test="null != user_no and user_no !=''">
+				and u.user_no = #{user_no}
+		</if>
+		<if test="null != user_name and user_name !=''">
+				and u.user_name = #{user_name}
+		</if>
+		<if test="null != wechart_no and wechart_no !=''">
+				and u.wechart_no = #{wechart_no}
+		</if>
+	</select>
+	<!-- 查询所有用户信息  -->
+	<select id="queryAllUser" parameterType="java.util.Map" resultType="java.util.Map">
+		select su.user_no,su.user_name,su.login_name,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USERSTATE' and sdi.item_code=su.state) as state,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USER_BELONG' and sdi.item_code=su.user_belong) as user_belong,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USERLEVEL' and sdi.item_code=su.user_level) as user_level,
+		so.org_name as org_no_name,su.user_mail
+		from s_user su,s_org so where su.org_no = so.org_code and user_flag='00'
+		<if test="user_no!=null and user_no!=''">
+				and su.user_no like #{user_no}
+		</if>
+		<if test="user_name!=null and user_name!=''">
+				and su.user_name like #{user_name}
+		</if>
+		<if test="login_name!=null and login_name!=''">
+				and su.login_name like #{login_name}
+		</if>
+		<if test="state!=null and state!=''">
+				and su.state like  #{state}
+		</if>
+		<if test="user_belong!=null and user_belong!=''">
+				and su.user_belong like  #{user_belong}
+		</if>
+		order by su.user_no desc
+	</select>
+	
+	<!-- 查询单个用户详细信息  -->
+	<select id="queryOneUser" parameterType="java.lang.String" resultType="com.yusys.entity.SUser">
+	    select su.user_no,su.user_name,su.login_name,su.state, su.user_post,su.user_level, so.org_name as org_no_name,
+	    so.org_code as org_no_code,su.user_mail,su.nick_name,su.user_mobile,su.memo,su.user_belong,
+	    (select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USERSTATE' and sdi.item_code=su.state) as state_name,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USER_BELONG' and sdi.item_code=su.user_belong) as user_belong_name,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USERLEVEL' and sdi.item_code=su.user_level) as user_level_name,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='S_DIC_USERPOST' and sdi.item_code=su.user_post) as user_post_name,
+		(select count(*) from ASS_REPAIR_APPLY where user_no=su.user_no) as repairlist_num,
+		(select count(*) from ASS_REPAIR_APPLY where user_no=su.user_no and repair_status='03') as finish_repairlist_num,
+		(select count(*) from ASS_REPAIR_APPLY where user_no=su.user_no and repair_status='02') as unfinish_repairlist_num
+	    from s_user su,s_org so 
+	    where su.org_no = so.org_code and user_no = #{user_no}
+	</select>
+	
+	<!-- 插入用户信息  -->
+	<insert id="insertNewUser" parameterType="java.util.Map">
+	 insert into s_user(user_no,user_name,login_name,password,state,user_post,user_level,user_mobile,
+	 org_no,user_mail,nick_name,memo,create_no,create_time,user_flag,user_belong) 
+	 values(#{user_no},#{user_name},#{login_name},#{password},#{state},#{user_post},#{user_level},#{user_mobile},
+	 #{org_no_code},#{user_mail},#{nick_name},#{memo},#{create_no},#{create_time},'00',#{user_belong})
+	</insert>
+	
+	<!-- 修改用户信息  -->
+	<update id="updateUser" parameterType="java.util.Map">
+	update s_user set user_name=#{user_name},login_name=#{login_name},user_mobile=#{user_mobile},state=#{state},
+	user_post=#{user_post},user_level=#{user_level},org_no=#{org_no_code},user_mail=#{user_mail},nick_name=#{nick_name},memo=#{memo},
+	update_no=#{update_no},update_time=#{update_time},user_belong=#{user_belong} 
+	where user_no=#{user_no}
+	</update>
+	
+	<!-- 删除用户(标记位删除)  -->
+	<update id="delteUser" parameterType="java.util.Map">
+	update s_user set user_flag='01',state='00',update_no=#{update_no},update_time=#{update_time} where user_no=#{user_no}
+	</update>
+	
+	<!-- 查询角色   -->
+	<select id="queryRoleuser" parameterType="java.util.Map" resultType="java.util.Map">
+		select role_no from s_roleuser where user_no = #{user_no} 
+	</select>
+	
+	<!-- 给员工生成角色  -->
+	<insert id="insertRoleuser" parameterType="java.util.Map">
+		insert into s_roleuser(user_no,role_no,opt_no,opt_time)
+		values(#{user_no},#{role_no},#{opt_no},#{opt_time})
+	</insert>
+	
+	<!-- POP框多条件查询用户 -->
+	<select id="popFindAllUser"    parameterType="java.util.Map"	resultType="java.util.Map">
+		select t.*,s.org_name from s_user t,s_org s where t.org_no=s.org_code
+		<if test="user_no!=null and user_no!=''">
+				and user_no like #{user_no}
+		</if>
+		<if test="user_name!=null and user_name!=''">
+				and user_name like #{user_name}
+		</if>
+		<if test="login_name!=null and login_name!=''">
+				and login_name like #{login_name}
+		</if>
+		<if test="state!=null and state!=''">
+				and state = #{state}
+		</if>	
+	</select>			
+	<!-- 查询用户密码  -->
+	<select id="findUserPass" parameterType="java.lang.String" resultType="java.lang.String" >
+		select password from s_user where user_no = #{user_no}
+	</select>
+	
+	<!-- 修改用户密码 -->
+	<update id="updatePass" parameterType="java.util.Map">
+		update s_user set password = #{password} where user_no = #{user_no}
+	</update>
+	<!-- 绑定个人微信号  -->
+	<update id="updateWechartNo" parameterType="java.util.Map">
+		update s_user set wechart_no=#{wechart_no} where user_no=#{user_no}
+	</update>
+</mapper>

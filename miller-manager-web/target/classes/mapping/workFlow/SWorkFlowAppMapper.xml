@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WorkFlowAppDao">
+	<select id="queryWFProcessNodesInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from wf_node_info where n_id in(select n_id from wf_process where p_id=#{p_id} and (state is null or state='00')) order by order_id
+	</select>
+ <!-- 查询流程矩阵 -->
+	<select id="queryWFNodeInfoByProcess" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from wf_node_info where n_id in(select n_id from wf_app_process where instance_id=#{instance_id} and app_person=#{app_person})
+	</select>
+    <!-- 查询流程矩阵 -->
+	<select id="queryWFMatrixByWFId" parameterType="java.lang.String" resultType="java.util.Map">
+		select m_id,wf_id,r_id,(select r_exp from wf_rule where r_id=wm.r_id) r_exp from (
+		select m_id,max(wf_id)wf_id,max(r_id) r_id from wf_matrix where wf_id=#{wf_id} and (m_state is null or m_state='00') group by m_id) wm
+	</select>
+	<!-- 查询流程矩阵下的审批流配置 -->
+	<select id="queryWFProcessByMId" parameterType="java.lang.String" resultType="java.util.Map">
+		select p_id,m_id,r_id,(SELECT WF_RULE.R_EXP FROM WF_RULE WHERE WF_RULE.R_ID=wfp.r_id) r_exp
+		from (select max(p_id) p_id,max(m_id) m_id,max(r_id)r_id from wf_process where (state is null or state!='01') and m_id=#{m_id} group by p_id) wfp
+	</select>
+	 <!-- 检查业务数据的流程状态 -->
+	<select id="checkBizIdState" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from wf_instance where opt_id=#{opt_id} and state='00'
+	</select>
+	<!-- 根据流程实例ID获取业务数据ID -->
+	<select id="findOptIdByInstance" parameterType="java.lang.String" resultType="java.lang.String">
+		select opt_id from wf_instance where instance_id=#{instance_id}
+	</select>
+	<!-- 增加审批实例 -->
+	 <insert id="addWFInstance" parameterType="java.util.Map">
+		insert into wf_instance(instance_id,state,p_id,opt_id,opt_person,opt_time,wf_id)
+		values(#{instance_id},#{state},#{p_id},#{opt_id},#{opt_person},#{opt_time},#{wf_id})
+	</insert>
+	<!-- 查询已经审批过了的审批信息 -->
+	<select id="queryAppedProcessInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		select wr.*,su.user_name person_name,(
+			select item_name from s_dic_item where dic_code='WF_DIC_APP_STATE' and item_code=wr.app_state
+		) state_name from wf_app_record wr left join s_user su on wr.app_person=su.user_no
+	 		where instance_id=#{instance_id} order by opt_time asc
+	</select>
+	<!-- 查询审批中的审批信息 -->
+	<select id="queryAppingPersonInfo" parameterType="java.lang.String" resultType="java.util.Map">
+		select wp.*,su.user_name person_name,'apping' apping, (
+			select item_name from s_dic_item where dic_code='WF_DIC_APP_STATE' and item_code=wp.app_state
+		) state_name from wf_app_process wp left join s_user su on wp.app_person=su.user_no 
+			where instance_id=#{instance_id} order by opt_time asc		
+	</select>
+	<!-- 查询未审批的节点 -->
+	<select id="queryNoAppNodesInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from wf_node_info 
+		 where exists(select state from wf_instance where instance_id=#{instance_id} and state='00') 
+		 	and n_id in(
+		 		select n_id from wf_process where n_id not in(select n_id from wf_app_process where instance_id=#{instance_id}) 
+				and n_id not in(select n_id from wf_app_record where instance_id=#{instance_id}) 
+				and  p_id in(select p_id from wf_instance where instance_id=#{instance_id})
+	 		) order by order_id
+	</select>
+	<!-- 根据流程实例ID获取流程ID -->
+	<select id="getWorkFlowIdByInstance" parameterType="java.lang.String" resultType="java.lang.String">
+       select wf_id from wf_matrix where rownum=1 
+		      and m_id=(select m_id from wf_process where rownum=1 and p_id=(select p_id from wf_instance where instance_id=#{instance_id}))
+	</select>
+	<!-- 查询根据业务ID查询最新的流程实例ID -->
+	<select id="queryInstanceIdByBizId" parameterType="java.lang.String" resultType="java.lang.String">
+		select instance_id from wf_instance where  (opt_time,opt_id)=
+			(select max(opt_time) opt_time,max(opt_id) opt_id from wf_instance where  opt_id=#{opt_id})
+	</select>
+	<!-- 检查审批权限 -->
+	<select id="checkWFAppPerm" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from wf_app_process where instance_id=#{instance_id} and app_person=#{app_person}
+	</select>
+	<!-- 查询历史审批记录 -->
+	<select id="findWFHistroyAppRecord" parameterType="java.lang.String" resultType="java.util.Map">
+	 select su.user_name,
+	 	(select item_name from s_dic_item where dic_code='WF_DIC_APP_STATE' and item_code=wap.app_state) app_state_name,
+      	(select wf_info.wf_name from wf_info where wf_info.wf_id=wi.wf_id)wf_name,wap.*
+     	from wf_instance wi left join wf_app_record wap on wi.instance_id=wap.instance_id 
+      	left join s_user su on wap.app_person=su.user_no
+      where wi.state='01' and wi.opt_id=#{opt_id} order by wap.OPT_TIME asc
+	</select>
+	<!-- 删除审批过程记录 -->
+	<delete id="deleteWFAppProcessRecord"  parameterType="java.util.Map">
+		delete from wf_app_process where instance_id=#{instance_id} 
+		<if test="app_person!=null and app_person!=''">
+			and app_person=#{app_person}
+ 		</if>
+	</delete>
+	<!-- 增加审批过程记录 -->
+	<insert id="addWFAppProcessRecord" parameterType="java.util.Map">
+		insert into wf_app_process(id,n_id,app_person,instance_id,n_name,role_id)
+		values(#{id},#{n_id},#{app_person},#{instance_id},#{n_name},#{role_id})
+	</insert>
+	<!-- 增加审批记录 -->
+	<insert id="addWFAppRecordByProcess" parameterType="java.util.Map">
+		insert into wf_app_record(id,n_id,app_person,app_state,app_content,instance_id,opt_time,n_name,role_id)
+		(select id,n_id,app_person,#{app_state} app_state,#{app_content} app_content,instance_id,#{opt_time} opt_time,n_name,role_id
+			from wf_app_process where instance_id=#{instance_id} and app_person=#{app_person})
+	</insert>
+	<!-- 增加审批记录 -->
+	<insert id="addWFAppRecord" parameterType="java.util.Map">
+		insert into wf_app_record(id,n_id,app_person,app_state,app_content,instance_id,opt_time,n_name)
+		values(#{id},#{n_id},#{app_person},#{app_state},#{app_content},#{instance_id},#{opt_time},#{n_name})
+	</insert>	
+	<!-- 修改流程实例状态 -->
+	<update id="updateWFInstanceState" parameterType="java.util.Map">
+		update WF_INSTANCE set state=#{state} where instance_id=#{instance_id}
+	</update>
+	<!-- 查询审批角色名称 -->
+	<select id="findWFAppRoleName" parameterType="java.lang.String" resultType="java.lang.String">
+		select role_name from wf_app_role where role_id=#{role_id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

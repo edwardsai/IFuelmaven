@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>耗材预警统计</title>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<script type="text/javascript" src="ppe/consumablesManagement/statisticsConsumableSupplies/statisticsConsumableSupplies.js"></script>
+
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	.spanLink{
+		color:blue;
+	}
+	.spanLink span:hover{
+		color:blue;
+		font-weight:bolder;
+		text-decoration: underline;
+	}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				耗材类型：
+				<input type="text"  id="CATEGORY_NAME_list" readonly="readonly" placeholder="耗材类别"/>
+				<input type="hidden" id="CATEGORY_ID_list"/>				
+			</div>
+			<div class="span5 h50">
+				状态：
+				<select style="width:201px" id="is_status_statisticsConsumableSupplies" diccode="CG_SUPPLIES_CONFIG_STATUS">
+				</select>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="search_statisticsConsumableSupplies"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_statisticsConsumableSupplies"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+			</div>
+		</div>
+	</div>
+	
+		<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="add_statisticsConsumableSupplies" ><i class="icon-plus" style="margin:4px 3px 0 0"></i>添加</li>
+			<li class="ilsh submenuList1" id="edit_statisticsConsumableSupplies"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>修改</li>
+			<li class="ilsh submenuList1" id=del_statisticsConsumableSupplies><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+
+<div>
+	<table id="tb_statisticsConsumableSupplies"></table>
+</div>
+</body>
+
+</html>

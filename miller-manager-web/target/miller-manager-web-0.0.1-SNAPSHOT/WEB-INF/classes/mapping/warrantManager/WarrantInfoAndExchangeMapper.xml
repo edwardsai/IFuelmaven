@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.warrantmanager.WarrantInfoAndExchangeDao">
+	<!-- 查询所有权证 -->
+	<select id="queryAllWarrant" parameterType="java.util.Map" resultType="java.util.Map">
+			SELECT W.CONTRACT_NO,
+		       W.GUARANTEE_ID,
+		       W.GUARANTEE_NAME,
+		       W.WARR_CLASSIFY,
+		       W.OWNER_ID,
+		       W.ID_TYPE,
+		       W.WARRANT_NO,
+		       W.PROPERTY_OWNER,
+		       W.TAG_ID,
+		       W.WARR_TYPE,
+		       W.CAB_NUM,
+		       W.LAYER,
+		       W.WARR_STATUS,
+		       ASF.ORG_NAME,
+		       SU.ORG_NO JG_ORG_NO,
+		       W.ID_NUMBER,
+		       W.PHOTO_ID,
+		       W.SERNO,
+		       W.AREA,
+		       W.TAKE_EFFECT_TIME,
+		       W.EXPIRE_TIME,
+		       W.FLOOR,
+		       W.MACHINE_ROOM,
+		       S.STORE_NAME STORAGEPLACENAME,
+		       B.STORE_NAME  FLOORNAME,
+		       ASB.AREA_TYPE,
+		       AUR.USER_NAME STORY_MGR_NAME,
+		       AC.CAB_NAME CABINETNUM,
+		       ACB.STORE_FILED STORE_FILED,
+		       WWH.EXECUTE_DATE EXECUTE_DATE,
+		       ASD.ITEM_NAME ID_TYPE_NAME,
+		       DSA.ITEM_NAME WARR_CLASSIFY_NAME,
+		       IDS.ITEM_NAME WARR_STATUS_NAME,
+		       CCC.CATEGORY_NAME WARR_TYPE_NAME,
+		       US.USER_NAME  PROPERTY_OWNER_NAME,
+		       SO.ORG_NAME STORY_MGR_ORGNAME,
+		       (COALESCE(S.STORE_NAME,'')||COALESCE(B.STORE_NAME,'')||COALESCE(ASB.STORE_NAME,'')||COALESCE(ADI.ITEM_NAME,''))AS AREA_NAME,
+		       (COALESCE(ASB.STORE_NAME,'')||COALESCE(ADI.ITEM_NAME,''))AS MACHINEROOMNAME
+			FROM WRT_WARRANT_STOCK W  
+	        LEFT JOIN AMC_STORE_HOUSE ASH
+	            ON ASH.STORE_ID=W.MACHINE_ROOM
+	        LEFT JOIN S_USER SU
+	            ON SU.USER_NO=ASH.STORY_MGR
+	        LEFT JOIN S_ORG ASF
+	            ON ASF.ORG_CODE=SU.ORG_NO
+	        LEFT JOIN AMC_STORE_HOUSE S
+	             ON S.STORE_ID=W.AREA 
+	        LEFT JOIN AMC_STORE_HOUSE B
+	             ON B.STORE_ID=W.FLOOR
+	        LEFT JOIN AMC_STORE_HOUSE ASB
+	             ON ASB.STORE_ID=W.MACHINE_ROOM 
+	        LEFT JOIN S_DIC_ITEM ADI
+	             ON ADI.ITEM_CODE =ASB.AREA_TYPE AND ADI.DIC_CODE='AMC_DIC_AREA_TYPE'
+	        LEFT JOIN AMC_CABINET AC
+	             ON AC.CAB_NUM=W.CAB_NUM
+	        LEFT JOIN AMC_STORE_HOUSE ACB
+	             ON ACB.STORE_ID=W.MACHINE_ROOM
+	        LEFT JOIN WRT_WARRANT_HISTORY WWH
+	             ON WWH.SERNO=W.SERNO AND WWH.STORAGE_TYPE='00'
+	        LEFT JOIN S_DIC_ITEM ASD
+	             ON ASD.ITEM_CODE=W.ID_TYPE AND ASD.DIC_CODE='WRT_DIC_ID_TYPE'
+	        LEFT JOIN S_DIC_ITEM DSA 
+	             ON DSA.ITEM_CODE=W.WARR_CLASSIFY AND DSA.DIC_CODE='WRT_DIC_WARR_CLASSIFY'
+	        LEFT JOIN S_DIC_ITEM IDS
+	             ON IDS.ITEM_CODE=W.WARR_STATUS AND IDS.DIC_CODE='WRT_DIC_WARRANT_STATE'
+	        LEFT JOIN CAT_CATEGORY_CONFIG CCC
+	             ON CCC.CATEGORY_ID=W.WARR_TYPE
+	        LEFT JOIN S_USER US
+	             ON US.USER_NO=W.PROPERTY_OWNER
+	        LEFT JOIN S_USER SUS
+	             ON SUS.USER_NO=ASB.STORY_MGR
+	        LEFT JOIN S_ORG SO
+	             ON SO.ORG_CODE=SUS.ORG_NO
+	        LEFT JOIN AMC_STORE_HOUSE AMH
+	        	 ON AMH.STORE_ID=W.MACHINE_ROOM
+	       	LEFT JOIN S_USER AUR
+	       		 ON AUR.USER_NO=AMH.STORY_MGR
+			WHERE 1=1 
+		<if test="null != warrant_no and warrant_no != ''">
+			and W.WARRANT_NO = #{warrant_no}
+		</if>
+		<if test="null != tag_id and tag_id != ''">
+			and W.TAG_ID like #{tag_id}
+		</if>
+		<if test="null != warrant_state and warrant_state != ''">
+			and W.WARR_STATUS like #{warrant_state}
+		</if>
+		<if test="null != warr_classify_o and warr_classify_o != ''">
+			and W.WARR_TYPE like #{warr_classify_o}
+		</if>
+		ORDER BY W.WARRANT_NO DESC
+	</select>
+	<!-- 查询权证类型  -->
+	<select id="queryAllWarrantCategroy" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT CATEGORY_ID ID,CATEGORY_NAME NAME,PRE_CATEGORY_ID PID FROM CAT_CATEGORY_CONFIG WHERE 
+		FLAG='00' AND PRE_CATEGORY_ID IN(SELECT  CATEGORY_ID FROM CAT_CATEGORY_CONFIG WHERE PRE_CATEGORY_ID =#{pre_category_id}) OR PRE_CATEGORY_ID=#{pre_category_id} ORDER BY ORDER_ID
+	</select>
+	<!-- 跟节点 -->
+	<select id="queryFatherWarrantCategroy" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT CATEGORY_ID ID,CATEGORY_NAME NAME,PRE_CATEGORY_ID PID FROM CAT_CATEGORY_CONFIG WHERE FLAG='00'AND CATEGORY_ID=#{pre_category_id}
+	</select>
+	<!-- 权证出入库信息 -->
+	<select id="queryWarrantHistory" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT W.STORAGE_TYPE,W.APPLY_USER,W.EXECUTE_DATE,W.EXCHANGE_USER,W.APPROVE_USER,
+		(SELECT SDI.ITEM_NAME FROM S_DIC_ITEM SDI WHERE SDI.DIC_CODE='WRT_DIC_ENTER_TYPE' AND SDI.ITEM_CODE=W.STORAGE_TYPE)AS STORAGE_TYPE_NAME,
+		(SELECT U.USER_NAME FROM S_USER U WHERE U.USER_NO=W.EXCHANGE_USER)AS EXCHANGE_USER_NAME,
+		(SELECT U.USER_NAME FROM S_USER U WHERE U.USER_NO=W.APPROVE_USER)AS APPROVE_USER_NAME,
+		(SELECT U.USER_NAME FROM S_USER U WHERE U.USER_NO=W.APPLY_USER)AS APPLY_USER_NAME
+		FROM WRT_WARRANT_HISTORY W WHERE W.SERNO=#{serno} ORDER BY W.ID DESC
+	</select>
+	<!-- 权证变更信息 -->
+	<select id="queryWarrantChange" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT W.EXCHANGE_DATE,W.EXCHANGE_TYPE,W.ORIGINAL_VALUE,W.NOW_VALUE,W.EXCHANGE_USER,
+		(SELECT SDI.ITEM_NAME FROM S_DIC_ITEM SDI WHERE SDI.DIC_CODE='WRT_DIC_WARR_EXCHANEG' AND SDI.ITEM_CODE=W.EXCHANGE_TYPE)AS EXCHANGE_TYPE_NAME,
+		(SELECT U.USER_NAME FROM S_USER U WHERE U.USER_NO=W.EXCHANGE_USER)AS EXCHANGE_USER_NAME
+		FROM WRT_EXCHANGE_HISTORY W WHERE W.SERNO=#{serno} ORDER BY W.ID DESC
+	</select>
+	<!-- 权证价值信息 -->
+	<select id="queryWarrantWorth" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT W.EVA_METHOD,W.CURRENCY,W.INNER_ASSESS_VALUE,W.ASSESS_VALUE,W.ASSESS_DATE,W.ASSESS_COST,
+		W.HIGH_PLEDGE_RATE,W.CAN_PLEDGE_RATE,W.INNER_SET_PLEDGE_RATE,W.INNER_SET_VALUE,W.NOMINAL_RATE,
+		W.NOMINAL_VALUE,W.HIGH_PLEDGE_VALUE,
+		(SELECT SDI.ITEM_NAME FROM S_DIC_ITEM SDI WHERE SDI.DIC_CODE='WRT_DIC_ASSESS_INFO' AND SDI.ITEM_CODE=W.EVA_METHOD)AS EVA_METHOD_NAME
+		 FROM WRT_WARRANT_VALUE W WHERE W.SERNO=#{serno}
+	</select>
+	<!-- 标签变更 -->
+	<update id="updateWarrantTagId" parameterType="java.util.Map">
+		UPDATE WRT_WARRANT_STOCK SET TAG_ID =#{newTagId} WHERE WARRANT_NO=#{warrant_no}
+	</update>
+	<!-- 存放区域变更 -->
+	<update id="updateWarrantArea" parameterType="java.util.Map">
+		UPDATE WRT_WARRANT_STOCK S SET S.FLOOR =#{floor},S.MACHINE_ROOM =#{machine_room},S.CAB_NUM =#{cabinetnum},S.LAYER =#{layer},S.AREA=#{area} WHERE S.WARRANT_NO=#{warrant_no}
+	</update>
+	<!-- 更新文件柜柜位信息 -->
+	<update id="updateCabinetFloor" parameterType="java.util.Map">
+		UPDATE 
+			AMC_CABINET_UFLOOR T
+		SET 
+			T.ASSET_NUM=#{assetNum}
+		WHERE 
+			T.CAB_NUM=#{cabinetNum}
+			AND T.UFLOOR_NUM IN (${floorNum})
+	</update>
+	<!-- 清空以前数据 -->
+	<update id="updateTodeleteOwn" parameterType="java.util.Map">
+		UPDATE
+			AMC_CABINET_UFLOOR T
+		SET 
+			T.ASSET_NUM=NULL
+		WHERE 
+			T.CAB_NUM=#{cabinetNum} AND 
+			T.ASSET_NUM=#{assetNum}
+	</update>
+	<!-- 查询机柜使用率 -->
+	<select id="queryCabinetUse" parameterType="java.lang.String" resultType="java.util.Map">
+		SELECT 
+			C.CAB_NUM, TO_CHAR(C.TOTAL_CONTENT) TOTAL_CONTENT, TO_CHAR((SELECT COUNT(*) FROM AMC_CABINET_UFLOOR WHERE CAB_NUM=C.CAB_NUM AND ASSET_NUM IS NOT NULL)) USE_NUM 
+		FROM 
+			AMC_CABINET C
+		WHERE
+			C.CAB_NUM=#{cabinetnum}
+	</select>
+	<!-- 更新机柜使用率 -->
+	<update id="updateCabinetUse" parameterType="java.util.Map">
+		UPDATE AMC_CABINET T
+		SET T.CAB_USE_RATIO=#{cab_use_ratio}
+		WHERE T.CAB_NUM=#{CAB_NUM}
+	</update>
+	<!-- 根据合同查权证 -->
+	<select id="queryWarrantByContract" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT W.CONTRACT_NO,W.GUARANTEE_ID,W.GUARANTEE_NAME,W.WARR_CLASSIFY,W.WARRANT_NO,W.TAG_ID,
+		(SELECT SDI.ITEM_NAME FROM S_DIC_ITEM SDI WHERE SDI.DIC_CODE='WRT_DIC_WARR_CLASSIFY' AND SDI.ITEM_CODE=W.WARR_CLASSIFY)AS WARR_CLASSIFY_NAME
+		 FROM WRT_WARRANT_STOCK W WHERE W.CONTRACT_NO=#{contract_no}
+	</select>
+	<!-- 变更记录 -->
+	<insert id="updateWarrExchange" parameterType="java.util.Map">
+		INSERT INTO WRT_EXCHANGE_HISTORY(SERNO,EXCHANGE_DATE,EXCHANGE_TYPE,ORIGINAL_VALUE,NOW_VALUE,EXCHANGE_USER,ID)
+		VALUES(#{serno},#{exchange_date},#{exchange_type},#{original_value},#{now_value},#{exchange_user},#{id})
+	</insert>
+</mapper>

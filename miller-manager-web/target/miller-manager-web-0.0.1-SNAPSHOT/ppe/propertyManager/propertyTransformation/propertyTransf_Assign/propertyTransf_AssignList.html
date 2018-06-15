@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产转移（部门）</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div id="propertyAssignInfo"  class="form-inline" style="font-size:15px">
+		<div class="row" align="center"  style="font-size:15px">
+			<div class="span5 h50">
+				资产调拨名称：<input type="text" class="span3" id="PTtransferasset_name" />
+			</div>
+			<div class="span5 h50">
+				分配状态：<select sel="assign_state" class="span3"  style="width:201px;text-align: center" diccode="ASS_DIC_ASSIGN_STATUS" id="PTassign_status"></select>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" btn="query" id="select_AssignInfoList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_AssignInfo"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="propertyTransf_Assign"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>资产调拨分配</li>
+			<li class="ilsh submenuList1" id="viewpropertyTransf_Assign"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看详情</li>	
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table  id="deptAssign_tableInfo"></table>
+	<!-- table结束 -->
+</div>
+</body>
+<script src="ppe/propertyManager/propertyTransformation/propertyTransf_Assign/propertyTransf_AssignList.js"></script>
+</html>

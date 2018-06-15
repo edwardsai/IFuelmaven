@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.milley.manager</groupId>
+  <artifactId>milley-manager</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <modules>
+  	<module>milley-manager-pojo</module>
+  	<module>milley-manager-mapper</module>
+  	<module>milley-manager-service</module>
+  	<module>miller-manager-web</module>
+  	<module>miller-manager-common</module>
+  </modules>
+  
+  <properties>
+  	<redis.clients.version>2.8.2</redis.clients.version>
+  	<log4j.version>1.2.17</log4j.version>
+  	<org.springframework.version>4.2.5.RELEASE</org.springframework.version>
+  	<org.springframework.data.version>1.4.2.RELEASE</org.springframework.data.version>
+  	<org.mybatis.version>3.4.0</org.mybatis.version>
+  	<org.aspectj.version>1.8.9</org.aspectj.version>
+  	<org.jeecg.version>2.3.0.2</org.jeecg.version>
+  	<log4j.log4j.version>1.2.17</log4j.log4j.version>
+  	<net.sf.json-lib.version>2.3</net.sf.json-lib.version>
+  	<org.codehaus.groovy.version>1.7.7</org.codehaus.groovy.version>
+  	<javazoom.upload.version>1.0</javazoom.upload.version>
+  	<uploadutilities.filemover.version>1.0</uploadutilities.filemover.version>
+  </properties>
+</project>

@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产报废列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script src="ppe/propertyManager/propertyDealManager/propertyDiscarding/propertyDiscardList.js"></script>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div  class="form-inline" style="font-size:15px" id="asset_propertyDiscard">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				报废流水号：<input type="text" class="span3" id="APDscrap_id"/>
+			</div>
+			<div class="span5 h50">
+						 <!-- <input type="hidden" name="scrapasset_type_id" readonly="readonly" class="span3"/> -->
+				报废名称：<input type="text" id="APDscrap_name" class="span3" />
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="selectPropretyDiscard"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="resetPropertyDiscard"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_propertyDiscard"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_propertyDiscard" style="display: none;">
+		
+			<div class="span5 h50">
+				报废申请人：<input type="text" class="span3" id="APDscrap_apply_user"/>
+			</div>
+			<div class="span5 h50">
+				审批状态：<select  class="span3"  style="width:201px"  diccode="ASS_DIC_APPROVAL_STATUS" id="APDapprove_state"></select>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="add_propertyDiscardList"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>新增报废</li>
+			<li class="ilsh submenuList1" id="update_propertyDiscardList"><i class="icon-pencil" style="margin:4px 3px 0 0;"></i>修改</li>
+			<li class="ilsh submenuList1" id="delete_propertyDiscardList"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li class="ilsh submenuList1" id="viewApp_propertyDiscardList"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看审批</li>	
+			<li class="ilsh submenuList1" id="app_propertyDiscardList">发起审批</li>
+			<li class="ilsh submenuList1" id="passApp_propertyDiscardList">审批通过</li>
+			<!-- <li class="ilshA" id="moreIlsh"></li> -->
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px" id="table_propertyDiscard_info"></table>
+	<!-- table结束 -->
+</div>
+</body>
+</html>

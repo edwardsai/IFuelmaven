@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>角色权限设置</title>
+<link rel="stylesheet" href="../../../ztree3.5.22/css/demo.css" type="text/css">
+<link rel="stylesheet" href="../../../ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/jquery.datetimepicker.css"/>
+
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+
+<style>
+	/*表格表头加粗*/
+	#head{
+		font-weight:bolder;
+	}
+	.table{
+		height: 30px;
+	}
+	li {
+		list-style-type:none;
+		font-size:14px;
+		line-height: 16px;
+	}
+</style>
+
+
+</head>
+<body class="left_bor">
+	<h3 class="header-h3" style="font-size:16px;font-weight:700;">当前角色：部门经理-0003</h3>
+	<div class="tabbable"> <!-- Only required for left/right tabs -->
+	  <ul class="nav nav-tabs" style="margin-bottom: 1px;">
+	    <li class="active" ><a href="#tab1" data-toggle="tab"><i class="icon-list" style="margin-top: 3px;"></i>  角色菜单配置</a></li>
+	    <li><a href="#tab2" data-toggle="tab"><i class="icon-cog" style="margin-top: 3px;"></i>  角色操作级配置</a></li>
+	    <li ><a href="#tab3" data-toggle="tab"><i class="icon-list-alt" style="margin-top: 3px;"></i>  角色数据级权限</a></li>
+	    <li ><a href="#tab4" data-toggle="tab"><i class="icon-font" style="margin-top: 3px;"></i>  角色字段级权限</a></li>
+	    <li ><a href="roleManageList.html" ><i class="icon-arrow-left" style="margin-top: 3px;"></i>  返回</a></li>
+	  </ul>
+	  <div class="tab-content" style="overflow: hidden;">
+	  	<!-- tab1内容开始 -->
+	    <div class="tab-pane  active" id="tab1" style="padding: 5px 1px 0 1px">
+		  
+		  <div class="row-fluid">
+			  <div class="span6" style="border-right:0px solid gray;height:570px;width: 18%;float:left;">
+			  		<div class="widget-box" style="margin-top: 0px;background-color: white;">
+			  			<div class="widget-title">
+			  				<span class="icon"> <i class="icon-align-justify"></i></span>
+			  				<span style="line-height: 36px;font-size:14px;font-weight:700;">请选择菜单</span>
+			  				<button type="button" style="float: right;margin:2px 2px;padding:6px 6px;" id="addMenu" class="btns">保存</button>
+			  			</div>
+			  			<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;">
+								<div class="controls">
+									<ul id="treeDemo" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+		  			</div>
+			  </div>
+			  <!-- 
+			  <div class="tabbable" style="width: 50%;height:50px; margin: 0px 10px 10px 2px;float:left;" id="subject">
+			  	<div class="widget-box" style="height:40px;margin-top: 0px;background-color: white;border-bottom: 1px solid #CDCDCD;">
+			  		<button class="btns" id="save">保存</button>
+			  	</div>
+			  </div>
+			   -->
+		  </div>
+		  
+		<br>
+		</div>
+	    <!-- tab1结束 -->
+	    
+	    <!-- tab2开始 -->
+	    <div class="tab-pane" id="tab2" style="padding: 0 1px 0 1px">
+	      	<div class="row-fluid">
+			  <div class="span6" style="border-right:0px solid gray;height:570px;width: 18%;float:left;">
+			  		<div class="widget-box" style="margin-top: 0px;background-color: white;">
+			  			<div class="widget-title">
+			  				<span class="icon"> <i class="icon-align-justify"></i></span>
+			  				<span style="line-height: 36px;font-size:14px;font-weight:700;">请选择菜单</span>
+			  			</div>
+			  			<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;">
+								<div class="controls">
+									<ul id="treeDemo1" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+		  			</div>
+			  </div>
+			  <div class="tabbable" style="width: 75%; margin-left: 12px;float:left;" id="subject">
+			  	<h3>角色操作级配置</h3>
+			  		<div class="tab-pane  active" id="addSubject">
+								<div class="tz_btn">
+									<button class="btns" id="save">保存</button>
+									<button class="btns" id="reset">重置</button>
+								</div>
+								<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+									<tbody>
+										<tr>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>操作ID</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>操作描述</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>提示信息</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>隐藏</span> 
+											</td>
+										</tr>
+										<tr>
+											<td >
+												<span>addSupplier</span>
+											</td>
+											<td >
+												<span>新增</span>
+											</td>
+											<td >
+												<span>保存成功!</span>
+											</td>
+											<td >
+												<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+											</td>
+										</tr>
+										<tr>
+											<td >
+												<span>updateSupplier</span>
+											</td>
+											<td >
+												<span>修改</span>
+											</td>
+											<td >
+												<span>保存成功!</span>
+											</td>
+											<td >
+												<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+											</td>
+										</tr>
+										<tr>
+											<td >
+												<span>delSupplier</span>
+											</td>
+											<td >
+												<span>删除</span>
+											</td>
+											<td >
+												<span>保存成功!</span>
+											</td>
+											<td >
+												<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+											</td>
+										</tr>
+										<tr>
+											<td >
+												<span>360ViewSupplier</span>
+											</td>
+											<td >
+												<span>供应商360视图</span>
+											</td>
+											<td >
+												<span>保存成功!</span>
+											</td>
+											<td >
+												<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+											</td>
+										</tr>
+									</tbody>
+								</table>
+	    				</div>
+			  </div>
+		  </div>
+	    </div>
+	    <!-- tab2结束 -->
+	    <!-- tab3开始 -->
+	    <div class="tab-pane" id="tab3" style="padding: 0 1px 0 1px">
+			<div class="row-fluid">
+			  <div class="span6" style="border-right:0px solid gray;height:570px;width: 18%;float:left;">
+			  		<div class="widget-box" style="margin-top: 0px;background-color: white;">
+			  			<div class="widget-title">
+			  				<span class="icon"> <i class="icon-align-justify"></i></span>
+			  				<span style="line-height: 36px;font-size:14px;font-weight:700;">请选择菜单</span>
+			  			</div>
+			  			<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;">
+								<div class="controls">
+									<ul id="treeDemo2" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+		  			</div>
+			  </div>
+			  <div class="tabbable" style="width: 75%; margin-left: 12px;float:left;" id="subject">
+			  	<h3>角色数据级权限</h3>
+			  		<div class="tab-pane  active" id="addSubject">
+								<div class="tz_btn">
+									<button class="btns" id="save">保存</button>
+									<button class="btns" id="reset">重置</button>
+								</div>
+								<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+									<tbody>
+										<tr>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>字典编码</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>文本值</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>说明</span> 
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">
+												<span>没有找到匹配的记录</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+	    				</div>
+			  </div>
+		  </div>
+	    </div>
+	    <!-- tab3结束 -->
+	    <!-- tab4开始 -->
+	    <div class="tab-pane" id="tab4" style="padding: 0 1px 0 1px">
+	    	<div class="row-fluid">
+			  <div class="span6" style="border-right:0px solid gray;height:570px;width: 18%;float:left;">
+			  		<div class="widget-box" style="margin-top: 0px;background-color: white;">
+			  			<div class="widget-title">
+			  				<span class="icon"> <i class="icon-align-justify"></i></span>
+			  				<span style="line-height: 36px;font-size:14px;font-weight:700;">请选择菜单</span>
+			  			</div>
+			  			<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;">
+								<div class="controls">
+									<ul id="treeDemo3" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+		  			</div>
+			  </div>
+			  <div class="tabbable" style="width: 75%; margin-left: 12px;float:left;" id="subject">
+			  	<h3>角色字段级权限</h3>
+			  		<div class="tab-pane  active" id="addSubject">
+								<div class="tz_btn">
+									<button class="btns" id="save">保存</button>
+									<button class="btns" id="reset">重置</button>
+								</div>
+								<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+									<tbody>
+										<tr>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>属性ID</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>属性名称</span> 
+											</td>
+											<td class="tableColumnName" style="font-weight:700;">
+												<span>隐藏</span> 
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3">
+												<span>没有找到匹配的记录</span>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+	    				</div>
+			  </div>
+		  </div>
+	    </div>
+	    <!-- tab4结束 -->
+	
+	  </div>
+	  <br>
+	</div>
+</body>
+<script type='text/javascript'>
+	var setting = {
+		view : {
+			showIcon : false
+		},
+		check : {
+			enable : true,
+			chkStyle : "checkbox",
+			radioType : "level"
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
+		callback : {
+			//				beforeCheck: beforeCheck,
+			onCheck : onCheck
+		}
+	};
+	var zNodes = [ {
+		id : 1,
+		pId : 0,
+		name : "供应商管理系统",
+		open : true
+	}, {
+		id : 11,
+		pId : 1,
+		name : "名录管理",
+		open : true
+	}, {
+		id : 111,
+		pId : 11,
+		name : "供应商信息管理"
+		 
+	}, {
+		id : 22,
+		pId : 1,
+		name : "人员管理",
+		open:true
+	}, {
+		id : 221,
+		pId : 22,
+		name : "人员信息管理"
+		 
+	}, {
+		id : 222,
+		pId : 22,
+		name : "人员入场管理"
+	}, {
+		id : 222,
+		pId : 22,
+		name : "人员离场管理"
+	}, {
+		id : 222,
+		pId : 22,
+		name : "人员请销假管理"
+		 
+	}, {
+		id : 33,
+		pId : 1,
+		name : "评价管理",
+		open:true
+	}, {
+		id : 331,
+		pId : 33,
+		name : "背景调查管理"
+	}, {
+		id : 3311,
+		pId : 331,
+		name : "背景调查管理"
+	}, {
+		id : 3312,
+		pId : 331,
+		name : "在线申报情况"
+	}, {
+		id : 3313,
+		pId : 331,
+		name : "在线评分"
+	}, {
+		id : 3314,
+		pId : 331,
+		name : "调查报告管理"
+		 
+	}, {
+		id : 332,
+		pId : 33,
+		name : "现场评价"
+	}, {
+		id : 3321,
+		pId : 332,
+		name : "人员评价管理"
+	}, {
+		id : 33211,
+		pId : 3321,
+		name : "人员评价管理"
+	}, {
+		id : 33212,
+		pId : 3321,
+		name : "人员评价管理"
+	}, {
+		id : 33213,
+		pId : 3321,
+		name : "人员评价管理"
+	}, {
+		id : 3322,
+		pId : 3321,
+		name : "项目评价管理"
+	}, {
+		id : 3323,
+		pId : 332,
+		name : "供应商服务评价"
+		 
+	}, {
+		id : 333,
+		pId : 33,
+		name : "综合评估报告",
+	}, {
+		id : 333,
+		pId : 33,
+		name : "评价配置管理",
+	}, {
+		id : 3331,
+		pId : 333,
+		name : "评价配置",
+	}, {
+		id : 33311,
+		pId : 3331,
+		name : "背景调查配置",
+	}, {
+		id : 33312,
+		pId : 3331,
+		name : "人员评价配置",
+	}, {
+		id : 33313,
+		pId : 3331,
+		name : "项目评价项配置",
+	}, {
+		id : 33314,
+		pId : 3331,
+		name : "供应商评价项配置",
+	}, {
+		id : 3332,
+		pId : 333,
+		name : "评价模板配置",
+	}, {
+		id : 33321,
+		pId : 3332,
+		name : "背景调查模板配置",
+	}, {
+		id : 33322,
+		pId : 3332,
+		name : "人员评价模板配置",
+	}, {
+		id : 33323,
+		pId : 3332,
+		name : "项目评价模板配置",
+	}, {
+		id : 33324,
+		pId : 3332,
+		name : "供应商评价模板配置",
+		
+	}, {
+		id : 44,
+		pId : 1,
+		name : "投诉建议",
+		open:true
+	}, {
+		id : 441,
+		pId : 44,
+		name : "发起投诉建议"
+		 
+	}, {
+		id : 442,
+		pId : 44,
+		name : "处理投诉建议"
+		 
+	}, {
+		id : 55,
+		pId : 1,
+		name : "等级管理",
+		open:true
+	}, {
+		id : 551,
+		pId : 55,
+		name : "等级管理"
+	}, {
+		id : 552,
+		pId : 55,
+		name : "禁用管理"
+	}, {
+		id : 553,
+		pId : 55,
+		name : "解禁管理"
+		 
+	}, {
+		id : 66,
+		pId : 1,
+		name : "合同信息",
+		open:true
+	}, {
+		id : 661,
+		pId : 66,
+		name : "合同信息管理"
+	}, {
+		id : 77,
+		pId : 1,
+		name : "报表管理",
+		open:true
+	}, {
+		id : 771,
+		pId : 77,
+		name : "供应商报表分析"
+	}, {
+		id : 88,
+		pId : 1,
+		name : "后台管理",
+		//open:true	
+	}, {
+		id : 881,
+		pId : 88,
+		name : "菜单管理"	 
+	}, {
+		id : 882,
+		pId : 88,
+		name : "机构管理"	 
+	}, {
+		id : 883,
+		pId : 88,
+		name : "用户管理"	 
+	}, {
+		id : 884,
+		pId : 88,
+		name : "角色管理"	 
+	}, {
+		id : 885,
+		pId : 88,
+		name : "字典数据管理"	 
+	}];
+
+	var code;
+	function setCheck() {
+		var type = $("#level").attr(
+				"checked") ? "level"
+				: "all";
+		setting.check.radioType = type;
+		showCode('setting.check.radioType = "'
+				+ type + '";');
+		$.fn.zTree.init($("#treeDemo"),
+				setting, zNodes);
+		$.fn.zTree.init($("#treeDemo1"),
+				setting, zNodes);
+		$.fn.zTree.init($("#treeDemo2"),
+				setting, zNodes);
+		$.fn.zTree.init($("#treeDemo3"),
+				setting, zNodes);
+	}
+	function showCode(str) {
+		if (!code)
+			code = $("#code");
+		code.empty();
+		code.append("<li>" + str + "</li>");
+	}
+	function onCheck(e, treeId, treeNode) {
+		var pNode = treeNode
+				.getParentNode();
+		var reValue = treeNode.name;
+		if (pNode != null && pNode.id != 1) {
+			reValue = pNode.name + "/"
+					+ treeNode.name;
+		}
+		window.parent
+				.$("#institutionsname")
+				.val(reValue);
+	}
+	$(document).ready(
+			function() {
+				$("div [id=dep]").hide();
+				setCheck();
+				$("#level").bind("change",
+						setCheck);
+				$("#all").bind("change",
+						setCheck);
+			});
+</script>
+	
+</html>

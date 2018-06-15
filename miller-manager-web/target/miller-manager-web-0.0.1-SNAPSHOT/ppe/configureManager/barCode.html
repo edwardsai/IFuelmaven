@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>条码规则设置</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<script type="text/javascript" src="js/jquery/jquery-ui.min.js"></script>
+<script src="ppe/configureManager/barCode.js"></script>
+<style>
+    .selectbox div 
+    {
+        float: left;
+    }
+    .selectbox .select-bar #notChooseBarList,
+    .selectbox .select-bar #chooseBarList
+    {
+        width: 150px;
+        height: 250px;
+        border: 1px #3c8dbc solid;
+        padding: 4px;
+        font-size: 14px;
+        border-radius: 6px;
+        overflow: auto;
+        outline: none;
+        float:none;
+    }
+    .selectbox .placeHolder{
+  		padding:4px;
+        border-radius:4px;
+        margin-bottom:1px;
+        display:block;
+        width:95%;
+        border:solid 1px #3c8dbc
+   }
+    
+    .selectbox .select-bar li{
+        padding:4px;
+        background:#3c8dbc;
+        text-align:center;
+        border-radius:4px;
+        margin-bottom:1px;
+        color:#fff;
+        display:block;
+        border:none;
+        width:95%;
+        outline:none;
+    }
+    .btn-bar {
+            margin: 0 10px;
+           margin-top:100px;
+           text-align:center;
+        }
+</style>
+</head>
+<body class="left_bor">
+	<div id="setAssetCode"  tabindex="-1" style="width: 100%;">
+		<div class="">
+			<button type="button" class="close"  aria-hidden="true">×</button>
+			<h3 class="header-h3" id="myCodeLabel">条码规则设置</h3>
+		</div>
+		<div  id="dragSortSelect"  class="selectbox ">
+			<p id="ms_context">
+			<div width="100%" style=" margin-left: 15px;">
+				
+					<div class="widget-box" style="margin-top:0;">
+						<fieldset  class="widget-title" style="font-size: 12px;">
+							<span class="icon"> <i style="background-image: url('img/glyphicons-halflings.png');" class="icon-align-justify"></i></span>							
+						</fieldset>
+						<div  class="widget-content nopadding">
+						<ul id="treeAssetRole" class="ztree" style="height:350px;width: 230px;overflow-y: auto;"></ul>
+						</div>
+					</div>
+					
+					<div style="margin-top:50px;margin-left:50px;">
+						<div id="select1">
+							<div class="select-bar text-center" style="margin-top:-50px">
+							<fieldset>
+						    	<legend style="height: 30px;line-height: 30px;font-size: 16px;font-weight: bold;text-align:center;">已选字段： </legend>
+								<ul id="chooseBarList" style="border:solid 1px #3c8dbc" class="connectedSortable">	
+								</ul>
+							</fieldset>
+							</div>
+						</div>
+						<div>
+							<div class="btn-bar" style="margin-left:10px;">
+						       <img src="images/icon-loop.png">
+						       <p>（左右拖拽）</p>
+						    </div>
+						</div>
+						<div id="select2">
+							<div class="select-bar text-center" style="margin-top:-50px"> 
+							<fieldset>
+								<legend style="height: 30px;line-height: 30px;font-size: 16px;font-weight: bold;text-align:center;">未选字段：</legend>
+								<ul id="notChooseBarList"  style="border:solid 1px #3c8dbc"  class="connectedSortable">	
+								</ul>
+							</fieldset>
+							</div>
+						</div>
+						<div style="margin-left: 104px;">
+							<div class="select-bar text-center" style="margin-top:-50px"> 
+							<fieldset>
+								<legend style="height: 30px;line-height: 30px;font-size: 16px;font-weight: bold; text-align:center;">
+								条码规则：</legend>
+								
+									<!-- <input name="chooseBarListSortOrder" type="text" style="border-style: solid; border-width: 0;width:100%;" disabled="disabled"/> -->
+									<textarea style="border-radius: 6px;border: solid 1px #3c8dbc;width: 160px;padding: 5px;line-height: 25px;height: 180px;" name="chooseBarListSortOrder" ></textarea>
+							</fieldset>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		
+		<div>
+			<button class="btns ilsh_left step2" id="addAssetCode" style="margin-top: -50px;margin-left:500px;">保存</button>
+		</div>
+	</div>
+</body>
+	
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>流程查询列表</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+</style>
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				流程名称：<input type="text" class="span3" id="wf_name" />
+			</div>
+			<div class="span5 h50">
+			           业务系统：<select id="wf_sys_name" diccode="WF_DIC_SYSTEM" class="span3" style="width:201px">
+			           	  
+			          </select>	
+			</div>
+			<div class="span5 h50">
+				流程状态：<select id="wf_state" diccode="WF_DIC_STATE" class="span3" style="width:201px">
+						 
+				       </select>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" id="submenuList_swfiList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="queryProcess"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="resetProcess"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="addProcess" >新增流程</li>
+			<li class="ilsh submenuList1" id="updateProcess">修改流程</li>
+			<li class="ilsh submenuList1" id="deleteProcess">删除流程</li>
+			<li class="ilsh submenuList" id="noteConfig" onclick="pageDispatch_node(this,'wf_node')">节点配置</li>
+			<li class="ilsh submenuList" id="matrixConfig">流程矩阵配置</li>
+			<li class="ilshA" id="moreIlsh_swfiList"></li>
+		</ul>
+	    <div style="clear: both;"></div>
+    </div>
+	<!-- table开始 -->
+	<table id="SWfiTableInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px"></table>
+	<!-- table结束 -->
+
+<script type="text/javascript" src="bootstrap/js/select2.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script> 
+<script src="workFlow/swfi/swfi_queryList.js"></script>
+<script src="workFlow/swfi/swfi_noteConfig.js"></script>
+</body>
+</html>

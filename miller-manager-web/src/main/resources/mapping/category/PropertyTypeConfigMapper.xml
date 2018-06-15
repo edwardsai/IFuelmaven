@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.category.PropertyTypeConfigDao">
+
+<!-- 查询所有类别配置 -->
+	<select id="queryAllCategroy" parameterType="java.lang.String" resultType="java.util.Map">
+		select category_id id,category_name name,pre_category_id pId from cat_category_config where flag='00' order by order_id
+    </select>
+<!-- 查询资产类别配置 -->
+	<select id="queryAllAssetCategroy" parameterType="java.lang.String" resultType="java.util.Map">
+		select category_id id,
+      	       category_name name,
+       		   pre_category_id pId 
+        from cat_category_config 
+        where flag='00' and category_id not in(select category_id from cat_category_config connect by prior category_id=pre_category_id start with category_id ='0104')
+        order by order_id
+    </select>
+<!-- 根据类型编号，查询一条类别 -->
+	<select id="findOneConfigInfo" parameterType="java.lang.String" resultType="com.yusys.category.PropertyTypeConfig">
+		select * from cat_category_config where category_id = #{category_id} and flag='00'
+	</select>    
+<!-- 添加资产类别配置 -->
+    <insert id="addProTypeConfig" parameterType="java.util.Map">
+    	insert into cat_category_config (
+			c_id, category_id, category_name, pre_category_id, create_id, create_org,
+			create_date, menu_level, order_id, description, flag)
+		values (
+			#{c_id}, #{category_id}, #{category_name}, #{pre_category_id}, #{create_id}, #{create_org}, 
+			#{create_date}, #{menu_level}, #{order_id}, #{description}, #{flag})
+    </insert>
+<!-- 修改资产类别配置 -->    
+    <update id="updateProTypeConfig" parameterType="java.util.Map">
+    	update cat_category_config 
+		set 
+			category_id = #{category_id}, category_name = #{category_name}, pre_category_id = #{pre_category_id},
+			menu_level = #{menu_level}, order_id = #{order_id}, description = #{description}
+		where 
+			category_id = #{old_category_id} and flag = '00'
+    </update>
+<!-- 修改子类别的父级类别编号 -->
+    <update id="updateChildConfigSupNo" parameterType="java.util.Map">
+		update cat_category_config 
+		set pre_category_id = #{category_id}
+		where pre_category_id = #{old_category_id} and pre_category_id != #{category_id}
+	</update>
+<!-- 修改子类别的类别级别-->
+    <update id="updateChildConfigLevel" parameterType="java.util.Map">
+		update cat_category_config 
+		set 
+			menu_level = to_number(menu_level)+to_number(#{gap}) where category_id in(
+				select category_id from cat_category_config t start with t.category_id = #{category_id}
+				connect by prior t.category_id = t.pre_category_id and t.flag = '00'		
+		)
+	</update>
+<!-- 清空类别父节点 -->
+    <update id="clearConfigSupNoInfo" parameterType="java.lang.String">
+		update cat_category_config set pre_category_id = ''  where category_id = #{haveId}
+	</update>
+<!-- 删除类别配置 -->
+	<update id="delProTypeConfig" parameterType="java.util.Map">
+		update cat_category_config set flag='01' where category_id in
+		<foreach item="item" index="index" collection="category_ids" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</update>
+<!-- 删除类别对应的字段信息 -->
+	<delete id="delFieldInTypeConfig" parameterType="java.util.Map">
+		delete from cat_field_config where category_id in 
+		<foreach item="item" index="index" collection="category_ids" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</delete>
+		
+</mapper>

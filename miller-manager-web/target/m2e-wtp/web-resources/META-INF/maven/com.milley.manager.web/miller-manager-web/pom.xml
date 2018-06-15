@@ -1,0 +1,83 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.milley.manager</groupId>
+    <artifactId>milley-manager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.milley.manager.web</groupId>
+  <artifactId>miller-manager-web</artifactId>
+  <packaging>war</packaging>
+  
+  <dependencies>
+	  <dependency>
+	  	<groupId>com.milley.manager.common</groupId>
+	    <artifactId>milley-manager-common</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
+	  <dependency>
+	  	<groupId>com.milley.manager.service</groupId>
+	    <artifactId>milley-manager-service</artifactId>
+	    <version>0.0.1-SNAPSHOT</version>
+	  </dependency>
+		<dependency> 
+			<groupId>com.thoughtworks.xstream</groupId> 
+			<artifactId>xstream</artifactId> 
+			<version>1.4.4</version> 
+		</dependency>
+  </dependencies>
+  <profiles>
+  		<profile>
+			<!-- 本地开发环境 -->
+			<id>development</id>
+			<properties>
+				<profiles.active>development</profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<!-- 测试环境 -->
+			<id>test</id>
+			<properties>
+				<profiles.active>test</profiles.active>
+			</properties>
+		</profile>
+		<profile>
+			<!-- 生产环境 -->
+			<id>production</id>
+			<properties>
+				<profiles.active>production</profiles.active>
+			</properties>
+		</profile>
+  </profiles>
+  
+  <build>
+  	<!-- <finalName>IFuel_backup1</finalName> -->
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-war-plugin</artifactId>
+            <version>2.6</version>
+            <configuration>
+                <failOnMissingWebXml>false</failOnMissingWebXml>
+            </configuration>
+        </plugin>
+    </plugins>
+    <resources>
+		<resource>
+			<directory>src/main/resources</directory>
+			<excludes>
+				<exclude>test/*</exclude>
+				<exclude>production/*</exclude>
+				<exclude>development/*</exclude>
+			</excludes>
+		</resource>
+		<resource>
+			<directory>src/main/resources/${profiles.active}</directory>
+		</resource>
+	</resources>
+  </build>
+
+</project>

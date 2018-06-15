@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>新增字典类</title>
+		<link rel="stylesheet" href="../../../css/bootstrap.css" />
+		<link rel="stylesheet" href="../../../css/matrix-style.css" />
+		<link rel="stylesheet" href="../../../css/select2.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css"/>
+		<link rel="stylesheet" type="text/css" href="../../../css/jquery.datetimepicker.css"/>
+		<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+		<script src="../../../js/jquery.datetimepicker.js"></script>
+		<script src="../../../js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../../js/select2.js"></script>
+		<style>
+			.span10{
+				width:752px;
+			}
+		
+		</style>
+	</head>
+	<body style=" line-height:24px;">
+		<h3 class="header-h3"></h3>
+		<form class="form-inline" style="font-size:15px">
+			<div class="row" align="center">
+				<div class="span5 h50">
+					类  别  编  码：<input type="text" class="span3"/>
+				</div>
+				<div class="span5 h50">
+					类  别  名  称：<input type="text" class="span3"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span5 h50">
+					类  别  状  态：<select id="task_state" class="span3" name="T.task_state" style="width: 53.5%;">
+						<option>请选择</option>
+						<option>启用</option>
+						<option>停用</option>
+					</select>
+				</div>
+				<div class="span5 h50">
+					所  属  菜  单：<input type="text" class="span3"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span10 h50" style="height:100px;width:752px;">
+					类  别  说  明：<textarea rows="5" cols="20" style="line-height:2.0; 
+					text-indent:2em; height:100px; width:76.3%;resize: none;"></textarea>
+				</div>
+			</div>
+		</form>
+		<div class="row" align="center" style="margin-top:40px;width:752px;">
+				<div class="span10">
+					<button class="btns" id="save">保存</button>
+					<button class="btns" id="back">返回</button>
+				</div>
+		</div>
+	<script type="text/javascript">
+		$("#back").click(function(){
+			window.location.assign("dictionaryConfigList.html");
+		});
+		
+		$("#save").click(function(){
+			window.location.assign("dictionaryConfigList.html");
+		});
+	</script>	
+	</body>
+</html>

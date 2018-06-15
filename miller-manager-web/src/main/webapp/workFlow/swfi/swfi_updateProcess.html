@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+<style type="text/css">
+	#updateSwfi_from div{
+		padding:7px;
+	}
+</style>
+</head>
+<body>
+	<div >
+		<!-- <div  style="width:95%;margin:30px auto;"> -->
+		<input name="Swfi.WF_ID" id="Uwf_id" type="hidden" value="存放记录ID"/>
+		<form action="" class="form-inline" style="margin:30px auto;font-size:15px" id="updateSwfi_from">
+			<div class="row">
+				<div class="span2" style="text-align: right;">
+					流程名称：
+				</div>
+				<div class="span10">
+					<input style="width:90%" type="text" name="Swfi.WF_NAME" id="Uwf_name" validate="v.required" valititle="该项为必填项"/>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span2" style="text-align: right;">流程状态：</div>
+				<div class="span3" id="Uwf_state" ></div>
+				<div class="span2" style="text-align: right;">业务系统：</div>
+				<div class="span5">
+					<select style="width:88%" name="Swfi.WF_SYS_NAME" diccode="WF_DIC_SYSTEM" id="Uwf_sys_name" validate="v.required" valititle="该项为必填项">
+					</select>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span2" style="text-align: right;">备注：</div>
+				<div class="span10">
+					<textarea style="width:92%" name="Swfi.WF_MEMO" placeholder="备注" id="Uwf_memo" ></textarea>
+				</div>
+			</div>
+		</form>
+		<div style="clear:both;"></div>
+		<div style="width:200px;margin:30px auto;" >
+    		<button type="button" id="updateSProcess" class="btns" >保存</button>     
+    		<button type="button" id="goBackToSwfiList" class="btns">返回</button> 				
+		</div>
+	</div>
+<script type="text/javascript" src="bootstrap/js/select2.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script> 
+<script src="workFlow/swfi/swfi_updateProcess.js"></script>
+<script src="js/commons/Math.uuid.js"></script>
+</body>
+</html>

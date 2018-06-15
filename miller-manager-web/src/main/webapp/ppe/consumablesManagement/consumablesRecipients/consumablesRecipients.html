@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>耗材领用</title>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	.spanLink{
+		color:blue;
+	}
+	.spanLink span:hover{
+		color:blue;
+		font-weight:bolder;
+		text-decoration: underline;
+	}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div id="search_RecipientInfo" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				出库单号：<input type="text" id="CMRout_id"  class="span3" />
+			</div>
+			<div class="span5 h50">
+				出库仓库：<input type="text" id="CMRroom_name" readOnly="true" placeholder="点击选择仓库" class="span3" /> 
+				        <input type="hidden" id="CMRroom_id"/>	
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="select_cmRecipients"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_cmRecipients"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_cmRecipients"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_cmRecipients">
+			<div class="span5 h50">
+				出库状态：<select style="width:201px;" id="CMRout_status" diccode="CM_DIC_OUT_STATUS">
+				</select>
+			</div>
+			<div class="span7 h50">
+				&nbsp;&nbsp;出库时间：<input placeholder="点击选择" type="text" style="width: 30%;" id="CMstart_time" readOnly="true" 
+				onClick="WdatePicker({})"/> 至 
+				<input type="text" placeholder="点击选择" style="width: 30%;" id="CMend_time" readOnly="true" 
+				onClick="WdatePicker({})"/>
+			</div>
+		</div>
+	</div>
+    
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="addconsumablesRecipients"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>新增出库</li>
+			<li class="ilsh submenuList1" id="updateconsumablesRecipients"><i class="icon-pencil" style="margin:4px 3px 0 0;"></i>修改</li>
+			<li class="ilsh submenuList1" id="deleteconsumablesRecipients"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li class="ilsh submenuList1" id="viewconsumablesRecipients"><i class="icon-eye-open" style="margin:4px 3px 0 0;"></i>查看详情</li>
+			<li class="ilsh submenuList1" id="sureconsumablesRecipients">确认出库</li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div style="margin-bottom:100px;">
+	<!-- table开始 -->
+	<table id="table_cmRecipientsInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size: 14px">
+	</table>
+	<!-- table结束 -->
+</div>
+</body>
+<script src="ppe/consumablesManagement/consumablesRecipients/consumablesRecipients.js"></script>
+</html>

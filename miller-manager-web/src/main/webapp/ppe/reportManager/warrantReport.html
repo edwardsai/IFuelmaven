@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>人员报表</title>
+<script src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="ppe/reportManager/warrantReport.js"></script>
+<style>
+.table-hover tbody tr.tableFirTR td{background:#3399FF;color:#fff;}
+.table tbody tr td{
+    border:1px solid rgb(221, 221, 221);
+}
+</style>
+</head>
+<body class="left_bor" style="line-height:24px;margin:20px 10px 10px 10px;">
+	<h3 class="header-h3"></h3>
+	<form id="" action=""  class="" style="font-size:15px">
+		<div class="row" align="center">
+		<div class="span5 h50" >
+				担保合同编号：
+				<input type="text" class="span4" id="contract_no_warrantReportDetail"/>
+			</div>
+			
+			<div class="span5 h50" >
+				标签编号：
+				<input type="text" class="span4" id="tag_id_warrantReportDetail"/>
+			</div>
+			<div class="span5 h50" >
+				权证状态：
+				<select diccode="WRT_DIC_WARRANT_STATE" id="warr_status_warrantReportDetail" style="width: 201px;"></select>
+			</div>
+		</div>
+		<div class="row" align="center">
+			
+			<div class="span5 h50" >
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;权证编号：
+				<input type="text" class="span4" id="warrant_no_warrantReportDetail"/>
+			</div>
+			
+			
+			<div class="span5 h50" >
+				库房编号：
+				<input type="text" class="span4" id="machine_room_warrantReportDetail"/>
+			</div>
+			<div class="span5 h50" >
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;柜号：
+				<input type="text" class="span4"  id="cab_num_warrantReportDetail"/>
+			</div>
+		</div>
+	</form>
+	
+	<div style="text-align:right;margin-right:10px;margin-top: 15px;">
+		
+		&nbsp;&nbsp;<a href="#" style="float:left;margin:0 1%;" onClick="report_warrant_saveAsExcel();return false;"><img src="images/report/rq_excel.gif" border=no style="vertical-align:middle" alt="存为Excel"></a>
+		&nbsp;&nbsp;<a href="#" style="float:left;" onClick="report_warrant_saveAsWord();return false;"><img src="images/report/doc.gif" border=no style="vertical-align:middle" alt="存为Word"></a>
+	
+	
+		<button type="button" class="btns ilsh_left searchBtn" id="query_warrantReportDetail">查询</button>
+		<button type="button" id="reset_warrantReportDetail" class="btns ilsh_left resetBtn">重置</button>
+	</div>
+	<div style="overflow-x:auto;margin-top: 5px;">
+		<div id="reportWarrantDetail" style="width:99%; overflow-x:auto; margin: auto;">
+		</div>
+		<div id="e_c_pageInfo" style="margin:15px 20px;float:right;">
+			&nbsp;&nbsp;<input class="btns" type="button" id="warrant_first_page" value="首页" onclick="warrant_toPage(1)">
+			&nbsp;&nbsp;<input class="btns" type="button" id="warrant_pre_page" value="上一页" onclick="warrant_toPage(report_warrant_getCurrPage()-1)"> 
+			&nbsp;&nbsp;第<font id="e_c_page_span">1</font>页 
+			&nbsp;&nbsp;共<font id="e_t_page_span"></font>页   
+			&nbsp;&nbsp;<input class="btns" type="button" id="warrant_next_page" value="下一页" onclick="warrant_toPage(report_warrant_getCurrPage()+1)">
+			&nbsp;&nbsp;<input class="btns" type="button" id="warrant_last_page" value="尾页" onclick="warrant_toPage(report_warrant_getTotalPage())">
+			<!-- &nbsp;&nbsp;<a href="#" onClick="report_warrant_saveAsExcel();return false;"><img src="images/report/rq_excel.gif" border=no style="vertical-align:middle" alt="存为Excel"></a>
+			&nbsp;&nbsp;<a href="#" onClick="report_warrant_saveAsWord();return false;"><img src="images/report/doc.gif" border=no style="vertical-align:middle" alt="存为Word"></a> -->
+			<!-- <div id=div1 style="width:100%;height:100%"></div> -->
+		</div>
+	</div>
+</body>
+</html>

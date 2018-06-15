@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>维保异常清单</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="ppe/configureManager/warningDayExceptionList.js"></script>
+<style>
+ #infoDiv_warningDayExceptionList .table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder;width:20%} 
+  #infoDiv_warningDayExceptionList .table-info tbody > tr > td:nth-child(even){text-align:left;width:30%}
+</style>
+</head>
+<body>
+	<h3 class="header-h3">预警基本信息</h3>
+		<div id="infoDiv_warningDayExceptionList">
+          	<table class="table table-striped" style="width: 99.5%">
+				<tbody>
+				    <tr>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;font-weight:bolder;">资产类型：</td>
+						<td wdel="ASSET_TYPE_NAME"></td>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">是否启用：</td>
+						<td wdel="IS_USE"></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">资产闲置率(%)：</td>
+						<td wdel="UNUSE_WARN"></td>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">维修到期天数(天)：</td>
+						<td wdel="WARN_DAY"></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">安全库存下限(数量)：</td>
+						<td wdel="DOWN_WARN"></td>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">安全库存上限(数量)：</td>
+						<td wdel="UP_WARN"></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="width:250px;font-weight:bolder;">备注：</td>
+						<td colspan="3" wdel="MARKS"></td>	
+					</tr>
+				</tbody>
+			</table>
+			<h3 class="header-h3">维保异常清单</h3>
+			<table id="tb_warningDayExceptionList"></table>
+          </div>
+   	<div align="center"  style="margin-bottom:50px;">
+		<button class="btns ilsh_left" id="back_warningDayExceptionList">返回</button>
+	</div>	
+</body>
+</html>

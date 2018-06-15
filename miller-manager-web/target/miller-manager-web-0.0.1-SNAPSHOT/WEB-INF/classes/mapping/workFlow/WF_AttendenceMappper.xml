@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WFAttendenceDao">
+
+    <!-- 查询业务数据 -->
+	<select id="queryWFAttendenceData" parameterType="java.lang.String" resultType="java.util.Map">
+		select
+      		t.report_patch_num reportPatchNum, e.emp_num empNum, e.emp_name empName, e.supplier_num supplierNum, t.report_date reportDate, 
+      		e.supplier_name supplierName, count(t.attendence_id) examinationDay, 
+      		(select dic.item_name from s_dic_item dic where dic.dic_code='E_APPROVE_STATUS' and dic.item_code=t.examination_status) examinationStatus
+		from
+	        emp_attendence_record_report t , emp_attendence_record e
+		where 
+	        t.report_patch_num = #{id}
+		group by 
+	        t.report_patch_num, e.emp_num, e.emp_name, t.report_date, t.examination_status, e.supplier_num, e.supplier_name 
+		<!-- select 
+			attendence_id attendenceId, attendence_type attendenceType, abnormal_report abnormalReport, abnormal_desc abnormalDesc, 
+			examination_status examinationStatus, examination_desc examinationDesc, examination_day examinationDay, 
+			report_patch_num reportPatchNum, report_date reportDate, curr_user_no curr_user_no
+		from 
+			EMP_ATTENDENCE_RECORD_REPORT 
+		where 
+			 report_patch_num = #{id}  -->
+	</select>
+	<!-- 根据id修改项目对应信息审批状态 -->
+	<update id="updateAttendenceById" parameterType="java.util.Map">
+		UPDATE EMP_ATTENDENCE_RECORD_REPORT SET 
+			examination_status=#{examination_status}
+		WHERE report_patch_num=#{id}
+	</update>
+	<!-- 根据id修改项目信息的当前审批人 -->
+	<update id="updateCurrPersonById" parameterType="java.util.Map">
+		UPDATE EMP_ATTENDENCE_RECORD_REPORT SET 
+			curr_user_no=#{curr_user_no}
+		WHERE report_patch_num=#{id}
+	</update>
+	<!-- 通过流程实例id获取审批过程信息 -->
+	<select id="queryAppIdByInstId" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from WF_APP_PROCESS where instance_id=#{instance_id}
+	</select>
+</mapper>

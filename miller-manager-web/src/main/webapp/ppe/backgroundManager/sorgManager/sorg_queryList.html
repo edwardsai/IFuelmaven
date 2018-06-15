@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../../../ztree3.5.22/css/demo.css" type="text/css">
+<link rel="stylesheet" href="../../../ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/public.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/jquery.datetimepicker.css" />
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+<script type="text/javascript" src="../../../js/commons/Math.uuid.js"></script>
+
+<!-- 模态框的样式 -->
+<style rel="stylesheet" type="text/css">
+	#left, #right {
+		text-align:left;
+		width:100%;	
+	}
+	
+	#middle {
+		text-align:center;
+		width:100%;	
+		border-left:0;	
+		border-right:0;
+	}
+	#middle p {
+		margin:10px;	
+	}
+	select {
+		margin:0px;
+		width:100%;	
+	}
+	select[multiple]{
+		height:200px;
+	}
+	option {
+		padding:10px;
+		text-align:center;
+	}
+</style>
+
+		
+</head>
+<body class="left_bor">
+	<div class="container-fluid"  id="org_mm">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span6" style="width:25%;min-width:230px;">
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify"></i></span>
+							<h5>机构管理</h5>
+							<button type="button" style="float: right;margin:2px 2px;padding:6px 6px;" id="addOrg" class="btns">创建机构</button>
+						</div>
+						<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;">
+								<div class="controls">
+									<ul id="treeDemo" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span6" style="width:60%;margin-left:10px;min-width: 600px;">
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify"></i></span>
+							<h5>机构详情</h5>
+						</div>
+						<div class="widget-content nopadding">
+						<form action="#" method="get" class="form-horizontal" id="org_from">
+							<div class="control-group"></div>
+							<div class="control-group">
+								<label class="control-label">机构编号 :</label>
+								<div class="controls">
+									<input type="text" name="O.org_code" style="width:88.8%;" id="org_code"
+										placeholder="机构编号 " validate="v.required" valititle="该项为必填项" value="00010101">
+									<input type="hidden" name="O.old_org_code" id="old_org_code" />
+									<i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">机构名称 :</label>
+								<div class="controls">
+									<input type="text" name="O.org_name"style="width:88.8%;"  id="org_name"
+										placeholder="机构名称" validate="v.required" valititle="该项为必填项" value="综合管理部">
+									<i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">上级机构名称:</label>
+								<div class="controls">
+									<input type="text" name="O.suporg_name"style="width:88.8%;"  id="suporg_name"
+										placeholder="上级机构名称" value="新合支行">
+										<input type="hidden" name="O.suporg_code" id="suporg_code"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">设立日期:</label>
+								<div class="controls">
+									<input type="text" name="O.launch_date" style="width:88.8%;" id="launch_date"
+										placeholder="设立日期" validate="v.required" valititle="该项为必填项" value="2013-12-1">
+									<i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">部门经理:</label>
+								<div class="controls">
+									<input type="text" name="O.org_manager_name" style="width:88.8%;" id="org_manager_name"
+										placeholder="部门经理" validate="v.required" valititle="该项为必填项" readyonly />
+									<input type="hidden" name="O.org_manager_code"  id="org_manager_code" />
+									<i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">所属大区:</label>
+								<div class="controls">
+									<select  name="O.org_area" style="width:91.35%;" id="org_area"
+										 validate="v.required" valititle="该项为必填项">
+										 <option>请选择</option>
+										 <option>总部</option>
+										 <option>北部大区</option>
+										 <option>南部大区</option>
+										 <option>东部大区</option>
+										 <option>西部大区</option>
+								    </select>
+								    <i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">业务类型:</label>
+								<div class="controls">
+									<select id="business_type" name="O.business_type" style="width:91.35%;" validate="v.required" valititle="该项为必填项">
+										<option>请选择</option>
+										<option>其他</option>
+										<option>信贷</option>
+										<option>网银</option>
+										<option>测试</option>
+										<option>数据</option>
+									</select>
+									<i class="red" >*</i>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">序号:</label>
+								<div class="controls">
+									<input type="text" name="O.order_no" style="width:88.8%;"
+										placeholder="序号" >
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">地址:</label>
+								<div class="controls">
+									<textarea  name="O.org_address" placeholder="地址" style="width:91.35%;max-width:667px;height:50px;resize: none;"></textarea>
+								</div>
+							</div>
+							<div class="form-actions" align="center">
+								<button type="button" id="updateOrg" style="padding:6px 6px;" class="btns">保存</button>
+								<button type="button" id="delOrg" style="padding:6px 6px;" class="btns">删除</button>
+								<button type="button" id="resetOrg" style="padding:6px 6px;" class="btns">重置</button>
+							</div>
+						</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<!-- 用户模态框 -->
+<div id="myModal_user" class="modal hide fade" tabindex="-1"  style="width:850px;left:50%;margin-left:-425px;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+		<h5 id="myModalLabel">用户查询页面</h5>
+	</div>
+	<div class="modal-body">
+			<div class="popModal">
+				<label style="margin-left:60px;display:inline">用户编号 :</label>
+				<input type="text" id="pop_userCode"   name="user" class="span2" placeholder="用户编号" style="width:170px;">
+				<label  style="margin-left:150px;display:inline">用户名称 :</label>
+				<input type="text" id="pop_username"  name="user"  class="span2"  placeholder="用户名 " style="width:170px;">
+			</div>
+			<div class="popModal">
+				<label style="margin-left:74px;display:inline">登录名 :</label>
+				<input type="text" id="pop_userLoginName"   name="user" class="span2" placeholder="登录名" style="width:170px;">			
+				<label style="margin-left:150px;display:inline;padding:0 0 0 31px;">状态 :</label>
+				<select id="pop_userState"   style="width:185px;z-index:999999;">
+					<option>请选择</option>
+					<option>启用</option>
+					<option>停用</option>
+				</select>
+			</div>
+			<button class="btns" id="pop_userSearch"   style="margin-left:250px;">查询</button>
+			<button class="btns" id="pop_userReset"  style="margin-left:150px;">重置</button>
+			<br>	<br>
+			<table id="pop_userTable" class="table-list table-striped table-hover table-border">
+				<tbody>
+					<tr>
+						<td><span>用户编号</span></td>
+						<td><span>用户名称</span></td>
+						<td><span>登录名</span></td>
+						<td><span>用户状态</span></td>
+						<td><span>所属部门</span></td>
+						<td><span>用户邮箱</span></td>
+						<td><span>用户等级</span></td>
+					</tr>
+					<tr>
+						<td><span>0</span></td>
+						<td><span>admin</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>1</span></td>
+						<td><span>admin@126.com</span></td>
+						<td><span>01</span></td>
+					</tr>
+					<tr>
+						<td><span>1</span></td>
+						<td><span>张三</span></td>
+						<td><span>zhangs</span></td>
+						<td><span>启用</span></td>
+						<td><span>1</span></td>
+						<td><span>zhangs@126.com</span></td>
+						<td><span>02</span></td>
+					</tr>
+					<tr>
+						<td><span>2</span></td>
+						<td><span>李四</span></td>
+						<td><span>lis</span></td>
+						<td><span>启用</span></td>
+						<td><span>1</span></td>
+						<td><span>lisi@126.com</span></td>
+						<td><span>01</span></td>
+					</tr>
+					<tr>
+						<td><span>3</span></td>
+						<td><span>王五</span></td>
+						<td><span>wangw</span></td>
+						<td><span>启用</span></td>
+						<td><span>1</span></td>
+						<td><span>wangw@126.com</span></td>
+						<td><span>01</span></td>
+					</tr>
+					<tr>
+						<td><span>4</span></td>
+						<td><span>赵六</span></td>
+						<td><span>zhaol</span></td>
+						<td><span>启用</span></td>
+						<td><span>1</span></td>
+						<td><span>zhaol@126.com</span></td>
+						<td><span>02</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div style="font-size:13px">
+		<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+			<span class="pagination-info">每页显示5条   共5条</span>
+		</div>
+	    <div class="pull-right pagination  text-right" style="padding:0px 10px 0 10px">
+			<ul class="pagination">
+				<li class="page-first disabled">
+					<a href="javascript:void(0)">首页</a>
+				</li>
+				<li class="page-pre disabled">
+					<a href="javascript:void(0)">上一页</a>
+				</li>
+				<li class="page-next">
+					<a href="javascript:void(0)">下一页</a>
+				</li>
+				<li class="page-last">
+					<a href="javascript:void(0)">末页</a>
+				</li>
+				<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+	    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	
+	<div class="modal-footer">
+	</div>
+</div>
+	</div>
+		
+		
+<script>
+	//模态框展示
+	$("#org_manager_name").click(function(){
+		$("#myModal_user").modal("show");
+	})	
+	
+	$('#close').bind('click', function(e) {
+		$("#myModal_user").modal("hide");
+	})	
+	
+	
+	
+	
+	
+	$("#addOrg").click(function() {
+		$("input[name^='O.'][name!='O.old_org_code']").val("");
+		$("textarea[name^='O.']").val("");
+		var treeObj = $.fn.zTree.getZTreeObj("treeOrg");
+		var selectsed = treeObj.getSelectedNodes();
+		if(selectsed!=undefined&&selectsed.length>0){
+			var selected=selectsed[0];
+			$("input[name='O.suporg_code']").val(selected.id);
+			$("input[name='O.suporg_name']").val(selected.name);
+		}
+		$("#old_org_code").val("");
+	});
+	
+	var setting = {
+		view : {
+			showIcon : true
+		},
+		check : {
+			enable : false,
+			chkStyle : "checkbox",
+			radioType : "level"
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
+		callback : {
+			//				beforeCheck: beforeCheck,
+			onCheck : onCheck
+		}
+	};
+	var zNodes = [ {
+		id : 1,
+		pId : 0,
+		name : "乌鲁木齐银行",
+		open : true
+	}, {
+		id : 11,
+		pId : 1,
+		name : "一类支行",
+		open : true
+	}, {
+		id : 111,
+		pId : 11,
+		name : "新合支行",
+		open : true
+	},{
+		id : 112,
+		pId : 11,
+		name : "恒丰支行",
+		open : true
+	} ,{
+		id : 22,
+		pId : 1,
+		name : "异地分行",
+		open:true
+	}, {
+		id : 221,
+		pId : 22,
+		name : "昌吉分行",
+		open:true
+	}, {
+		id : 1111,
+		pId : 111,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 1112,
+		pId : 111,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 1113,
+		pId : 111,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 1114,
+		pId : 111,
+		name : "小企业业务部",
+		open:true
+	},{
+		id : 1121,
+		pId : 112,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 1122,
+		pId : 112,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 1123,
+		pId : 112,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 1124,
+		pId : 112,
+		name : "小企业业务部",
+		open:true
+	},{
+		id : 2211,
+		pId : 221,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 2212,
+		pId : 221,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 2213,
+		pId : 221,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 2214,
+		pId : 221,
+		name : "小企业业务部",
+		open:true
+	}];
+
+	var code;
+	function setCheck() {
+		var type = $("#level").attr(
+				"checked") ? "level"
+				: "all";
+		setting.check.radioType = type;
+		showCode('setting.check.radioType = "'
+				+ type + '";');
+		$.fn.zTree.init($("#treeDemo"),
+				setting, zNodes);
+	}
+	function showCode(str) {
+		if (!code)
+			code = $("#code");
+		code.empty();
+		code.append("<li>" + str + "</li>");
+	}
+	function onCheck(e, treeId, treeNode) {
+		var pNode = treeNode
+				.getParentNode();
+		var reValue = treeNode.name;
+		if (pNode != null && pNode.id != 1) {
+			reValue = pNode.name + "/"
+					+ treeNode.name;
+		}
+		window.parent
+				.$("#institutionsname")
+				.val(reValue);
+	}
+	$(document).ready(
+			function() {
+				$("div [id=dep]").hide();
+				setCheck();
+				$("#level").bind("change",
+						setCheck);
+				$("#all").bind("change",
+						setCheck);
+			});
+	function check(value){
+		if(value=="已撤销"){
+			$("#timetoSee").show();
+			$(".name").html("撤销时间");
+		}else if(value=="已合并"){
+			$("#timetoSee").show();
+			$(".name").html("合并时间");
+		}else{
+			$("#timetoSee").hide();
+		}
+	}
+
+	$("#treeDemo_10_ico").click(function(){
+		$("input[name ^='EEC.']").val("1111");
+		$("textarea").val("");
+	});
+	
+	$("#updateOrg").click(function() {
+		var old_org_no = $("#old_org_code").val();
+		if(""==$.trim(old_org_no)){
+			updateOrg("SOrg/createsorg.asp","添加");
+		}else{
+			updateOrg("SOrg/updatesorg.asp","修改");
+		}
+	});
+	
+	//保存方法
+	function updateOrg(url,msg){
+		if(vlidate($("#org_from"))){
+			var inputs = $("input[name^='O.']");
+			var texts = $("textarea[name^='O.']");
+			var select = $("select[name^='O.']");
+			var params = {};
+			for (var i = 0; i < inputs.length; i++) {
+				var obj = $(inputs[i]);
+				params[obj.attr("name").substr(2)] = obj.val();
+			}
+			for (var i = 0; i < texts.length; i++) {
+				var obj = $(texts[i]);
+				params[obj.attr("name").substr(2)] = obj.val();
+			}
+			for(var i = 0; i < select.length; i++){
+				var obj = $(select[i]);
+				params[obj.attr("name").substr(2)] = obj.val();
+			}
+			/* baseAjax(url,params,function(data){
+				if(data != undefined && data != null && data.result == "true"){
+					//$("input[name='O.old_org_code']").val($("input[name='O.org_code']").val());
+					initOrgTree();
+					alert(msg+"成功");
+				}else{
+					alert(msg+"失败");
+				}
+			}); */
+			alert("保存成功");
+		}
+	}
+</script>
+
+</body>
+</html>

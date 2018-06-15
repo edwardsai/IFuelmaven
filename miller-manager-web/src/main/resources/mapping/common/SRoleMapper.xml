@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SRoleDao">
+	<!-- 查询单条角色数据 -->
+	<select id="querySRoleListByActorNo"
+	parameterType="java.lang.String"
+	resultType="com.yusys.common.SRole">
+        select r.* from s_role r
+        left join s_roleuser ru on r.roleno=ru.roleno
+        left join s_user u on ru.actorno=u.actorno
+        where 1=1
+		<if test="_parameter!=null and _parameter!=''">
+				and u.actorno = #{actorno}
+		</if>
+	</select>
+	<select id="findSRoleById" parameterType="java.lang.String" resultType="com.yusys.common.SRole">
+        select r.* from s_role r where r.role_no=#{role_no}        
+	</select>
+	<!--查询全部角色数据 -->
+	<select id="findSRoleInfoAll" resultType="java.util.Map" parameterType="java.util.Map">
+	   
+    select rownum rn,s.role_no role_no,
+	 	s.role_name role_name,sd.item_name flag,
+	 	s.create_no create_no,s.create_time create_time 
+	 	from s_role s 
+	 	left join s_dic_item sd on sd.item_code=s.flag and sd.dic_code='S_DIC_OC'
+	 	where 1=1 
+	 	<if test="role_no!=null and role_no!=''">
+				  and s.role_no like #{role_no}
+		</if>
+		<if test="role_name!=null and role_name!=''">
+				 and s.role_name like #{role_name}
+		</if>
+	 	order by role_no
+	</select>
+	<!-- 增加 增加一条角色信息-->
+	<insert id="saveSRole" parameterType="java.util.Map">
+		insert into s_role(role_no,role_name,flag,order_no,memo,
+		create_no,create_time,safe_level) values( 
+		#{role_no},#{role_name},
+		#{flag},#{order_no},
+		#{memo},#{create_no},
+		#{create_time},#{safe_level}
+		)	
+	</insert>
+	<!-- 删除一条角色记录 -->
+	<update id="deleteSRole" parameterType="java.util.Map">
+		update s_role set  flag='01',
+		update_no=#{update_no},
+		update_time=#{update_time} 
+		where role_no=#{role_no}
+	</update>
+	<!--修改一条记录 -->
+	<update id="updateSRole" parameterType="java.util.Map">
+		update s_role set 
+       role_no=#{role_no},
+       role_name=#{role_name},
+       order_no=#{order_no},
+       flag=#{flag},
+       memo=#{memo},
+       update_no=#{update_no},
+       update_time=#{update_time}
+    where role_no=#{role_no}			
+	</update>
+	<!-- 角色菜单配置sRoleMenuDis -->
+	<insert id="sRoleMenuDis" parameterType="java.util.Map">
+		insert into s_rolemenu(role_no,menu_no,state,opt_no,opt_time) 
+		 values( 
+		#{role_no},
+		#{menu_no},
+		#{state},
+		#{opt_no},
+		#{opt_time})
+	</insert>
+	<!-- 查询菜单树是否被选中  -->
+	<select id="queryTreeMenu" parameterType="java.lang.String" resultType="java.util.Map">
+		select menu_no from s_rolemenu where role_no=#{roleno}
+	</select>
+	<!--再一次保存时 删除已存在的 菜单配置 -->
+	<delete id="deleteMenuDis" parameterType="java.lang.String">
+		delete from s_rolemenu where role_no=#{role_no}
+	</delete>
+	<!-- 查询数据权限是否被选中   -->
+	<select id="queryDataAuth" parameterType="java.util.Map" resultType="java.util.Map">
+		select data_no from s_roledata where menu_no=#{menu_no} and role_no=#{role_no}
+	</select>
+	<!-- 删除已存在的数据权限 -->
+	<delete id="deletDataAuth" parameterType="java.util.Map">
+		delete from s_roledata where role_no=#{role_no} and menu_no=#{menu_no}
+	</delete>
+	<!-- 查询字段权限是否被选中   -->
+	<select id="queryFiledAuth" parameterType="java.util.Map" resultType="java.util.Map">
+		select property_no from s_rolefield  where menu_no=#{menu_no} and role_no=#{role_no}
+	</select>
+	<!-- 再次保存时 删除已存在的字段权限配置 -->
+	<delete id="deleteFiledAuth" parameterType="java.util.Map">
+		delete from s_rolefield where role_no=#{role_no} and menu_no=#{menu_no}
+	</delete>
+	<!-- 查询操作权限是否已经被配置 -->
+	<select id="queryOperDis" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from s_roleaction s where s.role_no=#{role_no} and s.menu_no=#{menu_no}
+	</select>
+	<!-- 移除已存在的操作权限 -->
+	<delete id="deletOprDis" parameterType="java.util.Map">
+		delete from s_roleaction where role_no=#{role_no} and menu_no=#{menu_no} 
+	</delete>
+	<!-- 角色操作配置-->
+	<insert id="sRoleOperDis" parameterType="java.util.Map">
+		insert into s_roleaction(role_no,menu_no,action_no,state,opt_no,opt_time) 
+		 values( 
+		#{role_no},
+		#{menu_no},
+		#{action_no},
+		#{state},
+		#{opt_no},
+		#{opt_time})
+	</insert>
+	<!-- 角色数据权限-->
+	<insert id="sRoleDataAuth" parameterType="java.util.Map">
+		insert into s_roledata(role_no,menu_no,data_no,state,opt_no,opt_time) 
+		 values( 
+		#{role_no},
+		#{menu_no},
+		#{data_no},
+		#{state},
+		#{opt_no},
+		#{opt_time})
+	</insert>
+	<!-- 角色字段权限-->
+	<insert id="sRoleFieldAuth" parameterType="java.util.Map">
+		insert into s_rolefield(role_no,menu_no,property_no,state,opt_no,opt_time,safe_level) 
+		 values( 
+		#{role_no},
+		#{menu_no},
+		#{property_no},
+		#{state},
+		#{opt_no},
+		#{opt_time},
+		#{safe_level})
+	</insert>
+	<!-- 查询用户当前的角色 -->
+	<select id="queryUserRole"
+	parameterType="java.util.Map"
+		resultType="com.yusys.common.SRole">
+		select role_no,role_name from s_role where flag='00' and role_no  in(
+			select distinct role_no from s_roleuser where user_no=#{actorno} and org_code=#{org_code})
+	</select>
+	<!-- 查询用户当前没有的角色 -->
+	<select id="queryUserNoRole"
+	parameterType="java.util.Map"
+		resultType="com.yusys.common.SRole">
+		select role_no,role_name from s_role where flag='00' and role_no not in(
+			select distinct role_no from s_roleuser where user_no=#{actorno} and org_code=#{org_code})
+	</select>
+	
+	<!-- 增加用户角色-->
+	<insert id="addUserRole" parameterType="java.util.Map">
+		insert into s_roleuser(user_no,role_no,org_code,state,opt_no,opt_time)
+		values(#{user_no},#{role_no},#{org_code},#{state},#{opt_no},#{opt_time})
+	</insert>
+	
+	<!-- 移除用户角色-->
+	<delete id="rmUserRole" parameterType="java.util.Map"> 
+		delete from s_roleuser where  user_no=#{user_no} and org_code=#{org_code}
+	</delete>
+	
+	
+	<!--  根据用户ID ，查询该用户的所有角色-->
+	<select id="findAllRoleById"    parameterType="java.util.Map"	resultType="java.util.Map">
+		select s.*,r.role_no,r.role_name from s_user  s
+		left join s_roleuser rs on s.user_no = rs.user_no
+		left join s_role r on r.role_no = rs.role_no
+		where s.user_no = #{user_no}
+	</select>			
+	
+		<!--  根查询所有角色-->
+	<select id="findAllRole"    parameterType="java.util.Map"	resultType="java.util.Map">
+		select * from s_role s  where 1= 1
+		<if test="role_name !=null and role_name !=''">
+				  and s.role_name like #{role_name}
+		</if>
+		<if test="role_no !=null and role_no !=''">
+				  and  s.role_no = #{role_no}
+		</if>
+		<if test="state !=null and state !=''">
+				  and s.flag = #{state}
+		</if>
+	</select>		
+</mapper>

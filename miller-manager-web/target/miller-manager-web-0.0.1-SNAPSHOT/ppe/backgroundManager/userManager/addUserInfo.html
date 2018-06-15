@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>增加用户</title>
+<link rel="stylesheet" href="../../../ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/public.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/jquery.datetimepicker.css" />
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+
+<style type="text/css">
+	#head{
+		font-weight:bolder;
+	}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" id="adduser_from">
+		<div class="row">
+			<div class="span6 h50">
+				<label class="pl60">用户编号：</label>
+				<input type="text" name="U.user_no" id="Auser_no" value="11"/><i class="red">*</i>
+			</div>
+			<div class="span6 h50">
+				<label class="pl60">用户名称：</label>
+				<input type="text" name="U.user_name" id="Auser_name" value="admin"/><i class="red">*</i>
+			</div>
+		</div>
+		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">登陆名：</label>
+ 				<input type="text" name="U.login_name" id="Alogin_name" value="admin"/><i class="red">*</i>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">密码：</label>
+				<input type="text" name="U.password" id="Apassword" value="***"/><i class="red">*</i>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">昵称：</label>
+ 				<input type="text" name="U.nick_name" id="Anick_name" value="demo"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60" style="float:left;">状态：</label>&nbsp;
+				<select id="Astate" name="U.state"  style="width:237px;" >
+					<option>请选择</option>
+					<option>在职</option>
+					<option>离职</option>
+				</select><i class="red">*</i>
+			</div>
+ 		</div>
+ 		
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60" style="float:left;">用户岗位：</label>&nbsp;
+ 				<select id="Auser_post" name="U.user_post"  validate="v.required" style="width:237px;" >
+ 					<option>请选择</option>
+					<option>科员</option>
+					<option>业务主管</option>
+					<option>业务经理</option>
+					<option>部门经理</option>
+					<option>出纳</option>
+					<option>助理</option>
+				</select><i class="red">*</i>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60" style="float:left;">用户等级：</label>&nbsp;
+				<select name="U.user_level" id="Auser_level" validate="v.required" style="width:237px;" >
+					<option>一级</option>
+					<option>二级</option>
+					<option>三级</option>
+					<option>四级</option>
+					<option>五级</option>
+					<option>六级</option>
+				</select><i class="red">*</i>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">所属部门：</label>
+ 				<input type="text" name="U.org_no_name" id="Aorg_no_name" placeholder="请选择"  /><i class="red">*</i>
+ 				<input type="hidden" name="U.org_no_code" id="Aorg_no_code"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">邮箱：</label>
+				<input type="text" name="U.user_mail" id="Auser_mail" validate="v.email" value="pla@yusys.com.cn"/><i class="red">*</i>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">电话：</label>
+ 				<input type="text" name="U.user_mobile" id="Auser_mobile" validate="v.mobile" value="1312222222"/><i class="red">*</i>
+ 			</div>
+ 		</div>
+ 		<div class="row">
+			<div class="span12 h50">
+				<label class="pl60">备注：</label>
+				<textarea  class="span6" name="U.memo" placeholder="备注" id="Amemo" rows="3" cols="3" ></textarea>
+			</div>
+		</div>
+	</form>
+   	<div class="row" align="center" style="margin-top:40px;width:752px;">
+		<div class="span10">
+			<button class="btns" id="save">保存</button>
+			<button class="btns" id="back">返回</button>
+		</div>
+	</div>
+	
+	<!-- 用户模态框 -->
+<div id="myModal_user" class="modal hide fade" tabindex="-1"  style="width:850px;left:50%;margin-left:-425px;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+		<h5 id="myModalLabel">机构查询页面</h5>
+	</div>
+	<div class="modal-body">
+		<div class="popModal">
+			&nbsp;&nbsp;&nbsp;<label style="margin-left:60px;display:inline">机构名称 :</label>
+			<input type="text" id="pop_userCode"   name="user" class="span2" placeholder="机构名称" style="width:170px;">
+			<label  style="margin-left:150px;display:inline">机构编号 :</label>
+			<input type="text" id="pop_username"  name="user"  class="span2"  placeholder="机构编号 " style="width:170px;">
+		</div>
+		<div class="popModal">
+			<label style="margin-left:74px;display:inline">部门经理 :</label>
+			<input type="text" id="pop_userLoginName"   name="user" class="span2" placeholder="部门经理" style="width:170px;">			
+			<label style="margin-left:150px;display:inline;padding:0 0 0 31px;">状态 :</label>
+			<select id="pop_userState"   style="width:185px;z-index:999999;">
+				<option>请选择</option>
+				<option>启用</option>
+				<option>停用</option>
+			</select>
+		</div>
+			<button class="btns" id="pop_userSearch"  style="margin-left:250px;">查询</button>
+			<button class="btns" id="pop_userReset"  style="margin-left:150px;">重置</button>
+			<br>	<br>
+			<table id="pop_userTable" class="table-list table-striped table-hover table-border">
+				<tbody>
+					<tr>
+						<td><span>部门编号</span></td>
+						<td><span>部门名称</span></td>
+						<td><span>部门经理</span></td>
+						<td><span>业务类型</span></td>
+						<td><span>状态</span></td>
+						<td><span>修改时间</span></td>
+					</tr>
+					<tr>
+						<td><span>11</span></td>
+						<td><span>乌鲁木齐银行</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>--</span></td>
+						<td><span>--</span></td>
+					</tr>
+					<tr>
+						<td><span>11</span></td>
+						<td><span>乌鲁木齐银行</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>--</span></td>
+						<td><span>--</span></td>
+					</tr>
+					<tr>
+						<td><span>11</span></td>
+						<td><span>乌鲁木齐银行</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>--</span></td>
+						<td><span>--</span></td>
+					</tr>
+					<tr>
+						<td><span>11</span></td>
+						<td><span>乌鲁木齐银行</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>--</span></td>
+						<td><span>--</span></td>
+					</tr>
+					<tr>
+						<td><span>11</span></td>
+						<td><span>乌鲁木齐银行</span></td>
+						<td><span>admin</span></td>
+						<td><span>启用</span></td>
+						<td><span>--</span></td>
+						<td><span>--</span></td>
+					</tr>
+				</tbody>
+			</table>
+			<div style="font-size:13px">
+		<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+			<span class="pagination-info">每页显示5条   共5条</span>
+		</div>
+	    <div class="pull-right pagination  text-right" style="padding:0px 10px 0 10px">
+			<ul class="pagination">
+				<li class="page-first disabled">
+					<a href="javascript:void(0)">首页</a>
+				</li>
+				<li class="page-pre disabled">
+					<a href="javascript:void(0)">上一页</a>
+				</li>
+				<li class="page-next">
+					<a href="javascript:void(0)">下一页</a>
+				</li>
+				<li class="page-last">
+					<a href="javascript:void(0)">末页</a>
+				</li>
+				<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+	    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+			</ul>
+		</div>
+	</div>
+	</div>
+	
+	<div class="modal-footer">
+	</div>
+</div>
+
+<script>
+	//模态框展示
+	$("#Aorg_no_name").click(function(){
+		$("#myModal_user").modal("show");
+	})	
+	$('#close').bind('click', function(e) {
+		$("#myModal_user").modal("hide");
+	})	
+</script>
+<script type="text/javascript">
+		$("#back").click(function(){
+			window.location.assign("userManageList.html");
+		});
+		
+		$("#save").click(function(){
+			window.location.assign("userManageList.html");
+		});
+	</script>
+</body>
+<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+
+</html>

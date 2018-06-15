@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产调拨分配-详情</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe/propertyManager/propertyTransformation/propertyTransf_Assign/viewpropertyTransf_Assign.js"></script>
+<style>
+	/*表格样式*/
+	.table-info tr{
+		height:40px;
+	} 
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">转移资产列表</h3>
+<div>
+	<!-- table开始 -->
+	<table  class="table table-striped" style="width: 99.5%">
+			<tr>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;width:230px;">资产转移流水号：</td>
+				<td  style="width:330px">
+					<span name="VTA.transfer_id"></span>
+				</td>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;width:230px;">资产转移名称：</td>
+				<td style="width:330px">
+					<span name="VTA.transferasset_name"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">转移负责人名字：</td>
+				<td>
+					<span name="VTA.transfer_emp_name"></span>
+				</td>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">转移部门：</td>
+				<td>
+					<span name="VTA.transfer_dept_name"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">接收负责人人名字：</td>
+				<td>
+					<span name="VTA.accept_emp_name"></span>
+				</td>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">接收部门：</td>
+				<td>
+					<span name="VTA.accept_dept_name"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">转移发起日期：</td>
+				<td>
+					<span name="VTA.transfer_date"></span>
+				</td>
+				<td ></td>
+				<td >
+				</td>
+			</tr> 
+			<tr>
+				<td class="rightTitle tableColumnName" style="font-weight: bolder;">备注：</td>
+				<td colspan="3"><textarea id="PTDapprove_remark" name="VTA.approve_remark" 
+					style="width:90.8%;box-shadow:none;resize:none;padding:10px"  disabled="disabled"></textarea></td>
+			</tr>
+	</table>
+</div>
+
+<div class="row-fluid" id="Table_TransfAssign">
+	<h3 class="header-h3">转移信息</h3>
+		<div>
+			<table id="Table_propertyTransfAssignInfo"></table>
+		</div>
+</div>
+<div align="center" style="margin-top:30px;">
+	<button class="btns ilsh_left" id="back_propertyTransfAssignInfo" >返回</button>
+</div>
+</body>
+</html>

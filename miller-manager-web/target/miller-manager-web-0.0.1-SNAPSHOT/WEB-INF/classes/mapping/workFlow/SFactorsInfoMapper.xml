@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.FactorsInfoDao">
+    <!-- 查询业务要素表所有信息 -->
+	<select id="queryAllFactorsInfo" parameterType="java.util.Map" resultType="java.util.Map">
+      select wf.*,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_STATE' and sdi.item_code=wf.B_STATE) as W_STATE,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_SYSTEM' and sdi.item_code=wf.SYSTEM_CODE) as W_SYS_NAME,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_RULE_TYPE' and sdi.item_code=wf.RULE_TYPE) as RULE_TYPE_V,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_FAC_TYPE' and sdi.item_code=wf.FACTOR_TYPE) as FACTOR_TYPE_V
+	 from WF_FACTORS wf where   1=1  
+		<if test="b_state!=null and b_state!=''">
+ 			and b_state like #{b_state}
+ 		</if>
+ 		<if test="system_code!=null and system_code!=''">
+ 			and system_code like #{system_code}
+ 		</if>
+ 		<if test="rule_type!=null and rule_type!=''">
+ 			and rule_type like #{rule_type}
+ 		</if>
+ 		<if test="factor_name!=null and factor_name!=''">
+ 			and factor_name like #{factor_name}
+ 		</if>
+		order by to_number(b_id) asc
+	</select>
+    <!-- 向业务要素表中插入一条信息 -->
+    <insert id="addOneFactorsInfo" parameterType="java.util.Map">
+		insert into wf_factors (b_id,rule_type,b_state,system_code,factor_code,factor_name,factor_type,opt_time,opt_person,memo)  
+		values(#{b_id},#{rule_type},#{b_state},#{system_code},#{factor_code},#{factor_name},#{factor_type},#{opt_time},#{opt_person},#{memo})
+	</insert>
+	<!-- 根据选择的id删除要素表中该信息 -->
+	<delete id="deleteOneFactorsInfo" parameterType="java.util.Map">
+		delete from wf_factors where b_id=#{b_id}
+	</delete>
+	<!--修改一条业务要素表信息 -->
+	<update id="updateOneFactorsInfo" parameterType="java.util.Map">
+		update wf_factors set b_id=#{b_id},rule_type=#{rule_type},
+		 b_state=#{b_state},system_code=#{system_code},
+		 factor_code=#{factor_code},factor_name=#{factor_name},
+		 factor_type=#{factor_type},opt_time=#{opt_time},opt_person=#{opt_person},memo=#{memo}
+		where b_id=#{b_id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WFEmpEvaDao">
+
+    <!-- 查询业务数据 -->
+	<select id="queryWFEmpData" parameterType="java.lang.String" resultType="java.util.Map">
+		select 
+			p.eva_start_date eva_start_date,p.eva_end_date eva_end_date,i.*
+			 
+		from  
+			est_emp_eva_report i left join est_emp_eva_mgr_plan p on p.plan_id = i.plan_id
+		where i.plan_id=#{plan_id}
+	</select>
+	<!-- 根据id修改人员对应信息审批状态 -->
+	<update id="updateEmpById" parameterType="java.util.Map">
+		UPDATE EST_EMP_EVA_REPORT SET 
+			audit_status=#{audit_status}
+		WHERE plan_id=#{plan_id}
+	</update>
+	<!-- 根据id修改人员信息的当前审批人 -->
+	<update id="updateEmpPersonById" parameterType="java.util.Map">
+		UPDATE EST_EMP_EVA_REPORT SET 
+			curr_user_no=#{curr_user_no}
+		WHERE plan_id=#{plan_id}
+	</update>
+	<!-- 通过流程实例id获取审批过程信息 -->
+	<select id="queryAppIdByInstId" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from WF_APP_PROCESS where instance_id=#{instance_id}
+	</select>
+</mapper>

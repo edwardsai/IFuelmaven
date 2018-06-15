@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<script src="pages/sorg/sorgPop.js"></script>
+</head>
+<style>
+<!--
+.select2-container{
+margin-left:4px;
+margin-right:1px;
+}
+-->
+</style>
+<body>
+	<div >
+		<h3 class="header-h3">
+			用户信息
+		</h3>
+		
+		<div action="" class="form-inline" >
+		<div class="row">
+			<div class="span6 h50">
+				<label class="pl60">用户编号：</label>
+				<input type="text" validate="v.required" valititle="该项为必填项"/>
+			</div>
+			<div class="span6 h50">
+				<label class="pl60">用户名称：</label>
+				<input type="text" validate="v.required" valititle="该项为必填项"/>
+			</div>
+		</div>
+		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">登陆名：</label>
+ 				<input type="text" validate="v.required" valititle="该项为必填项"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">密码：</label>
+				<input type="text"  validate="v.password" valititle="该项为必填项"/>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">昵称：</label>
+ 				<input type="text"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60" style="float:left;">状态：</label>
+				<select  validate="v.required"  style="width:53%;" valititle="该项为必填项">
+				</select>
+			</div>
+ 		</div>
+ 		
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60" style="float:left;">用户岗位：</label>
+ 				<select name="USAD.user_post"  validate="v.required" style="width:53%;"  valititle="该项为必填项">
+				</select>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60" style="float:left;">用户等级：</label>
+				<select name="USAD.user_level" validate="v.required" style="width:53%;" valititle="该项为必填项">
+				</select>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">所属部门：</label>
+ 				<input type="text" placeholder="请选择" validate="v.required" valititle="该项为必填项"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">邮箱：</label>
+				<input type="text" validate="v.email"/>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">电话：</label>
+ 				<input type="text" validate="v.mobile" valititle="该项为必填项"/>
+ 			</div>
+ 		</div>
+ 		<div class="row">
+			<div class="span12 h50">
+				<label class="pl60">备注：</label>
+				<textarea  class="span6" placeholder="备注" rows="3" cols="3" ></textarea>
+			</div>
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+	<div style="width:200px;margin:30px auto;" >
+    		<button type="button" class="btns ml240" >保存</button>     
+    		<button type="button" class="btns">返回</button> 				
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="css/form.css" /> -->
+<script src="js/commons/commons.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="pages/slog/slog_config.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css">
+.tableColumnName{font-weight:bold;}
+table{width:99.5%!important;}
+</style>
+</head>
+<body>
+	<div class="main_iframe_con">
+		<!-- <div class="ecitic-title">
+			<span>日志配置<em></em></span>
+	    </div> -->
+	        <h3 class="header-h3">日志配置</h3>
+		<form action="" class="form-inline" id="logConfigForm">
+			<table border="0" cellspacing="0" cellpadding="0" class="table table-bordered table-bor-pad table-border">
+				<tr>
+					<td class="rightTitle tableColumnName">是否生成登录日志：</td>
+					<td><select style="width:85%;" id="loginlog_state" name="loginlog_state" dic_code="S_DIC_YN"></select></td>
+					<td class="rightTitle tableColumnName">登陆日志清理期限（天）：</td>
+					<td><input type="text" id="loginlog_timelimit" name="loginlog_timelimit"/></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName">是否生成操作日志：</td>
+					<td><select  style="width:85%;" id="optlog_state" name="optlog_state" dic_code="S_DIC_YN"></select></td>
+					<td class="rightTitle tableColumnName">操作日志清理期限（天）：</td>
+					<td><input type="text" id="optlog_timelimit" name="optlog_timelimit"/></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName">是否生成异常日志：</td>
+					<td><select  style="width:85%;" id="errorlog_state" name="errorlog_state" dic_code="S_DIC_YN"></select></td>
+					<td class="rightTitle tableColumnName">异常日志清理期限（天）：</td>
+					<td><input type="text" id="errorlog_timelimit" name="errorlog_timelimit"/></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName">最后修改人：</td>
+					<td><input type="text" id="last_opt_person" name="last_opt_person" readonly="readonly"/></td>
+					<td class="rightTitle tableColumnName">最后修改时间：</td>
+					<td><input type="text" id="last_opt_time" name="last_opt_time" readonly="readonly"  onClick="WdatePicker({})"/></td>
+				</tr>
+			</table>
+	    </form>
+    	<div class="ecitic-save" style="width:200px;margin:30px auto;">
+			<input type="button" class="ilsh_left btns" value="保存" id="saveConfig" />
+			<input type="button" class="ilsh_left btns" name="closePageTabConfirm"  value="关闭"/>
+		</div>
+    </div>
+</body>
+</html>

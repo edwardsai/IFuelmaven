@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>权证入库查看</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe/warrantManager/warrantStorage/warrantStorage_view.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+</style>
+</head>
+<body class="left_bor">
+	<div id="warrantStorage_view">
+  		<h3 class="header-h3">入库申请信息</h3>
+			<!-- 入库申请信息部分 -->
+			<div class="row-fluid">
+				<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">入库类型： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.STORAGE_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">入库申请人： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.APPLY_USER_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">审批通过日期：</span>
+							</td>
+							<td>
+								<span name="VS.APPROVE_DATE"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">担保合同编号：</span>
+							</td>
+							<td>
+								<span name="VS.CONTRACT_NO"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">押品编号：</span>
+							</td>
+							<td>
+								<span name="VS.GUARANTEE_ID"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">押品名称：</span>
+							</td>
+							<td>
+								<span name="VS.GUARANTEE_NAME"></span>
+							</td>
+						</tr>
+			        </tbody>
+		        </table>
+	        </div>
+			<!-- 权证基本信息部分 -->
+			<div class="row-fluid">
+				<h3 class="header-h3">权证基本信息</h3>
+				<div>
+				 	<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">权证编号： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.WARRANT_NO"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;" >权证分类： </span>
+							</td>
+							<td>
+								<span name="VS.WARR_CLASSIFY_NAME"></span>
+							</td>
+							</tr>
+						
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权证类型一：</span>
+							</td>
+							<td>
+								<span name="VS.WARR_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权证类型二：</span>
+							</td>
+							<td>
+								<span name="VS.WARR_TYPE2_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人客户号：</span>
+							</td>
+							<td>
+								<span name="VS.OWNER_ID"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人名称：</span>
+							</td>
+							<td>
+								<span name="VS.PROPERTY_OWNER_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人证件类型：</span>
+							</td>
+							<td>
+								<span name="VS.ID_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人证件号码：</span>
+							</td>
+							<td>
+								<span name="VS.ID_NUMBER"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">标签ID(TID)：</span>
+							</td>
+							<td>
+								<span name="VS.TAG_ID"></span>
+							</td>
+							<td class="tableColumnName" id="tag_id">
+								<span style="font-weight: bolder;">旧权证编号：</span>
+							</td>
+							<td id="t_tag_id">
+								<span name="VS.OLD_WARRANT_NO"></span>
+							</td>
+							<td id="notag_id"></td><td id="ntag_id"></td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;" >权证影像： </span>
+							</td>
+							<td colspan="3">
+								<div>
+				   					<img style="height: 40px;width: 60px;" alt="" src="" name="PHOTO_ID">
+								</div>
+							</td>
+						
+							
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<!-- 权证入库操作信息 -->
+			<div class="row-fluid" id="in_get">
+				<h3 class="header-h3">入库操作信息</h3>
+				<div>
+				 	<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">处理标识： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.ENTER_FLAG_NAME"></span>
+							</td>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;" >标签编码(TID)： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.TAG_NO"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">入库交接人：</span>
+							</td>
+							<td>
+								<span name="VS.EXCHANGE_USER"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">存放区域：</span>
+							</td>
+							<td>
+								<span name="VS.AREA_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">存放楼层：</span>
+							</td>
+							<td>
+								<span name="VS.FLOOR_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">存放区域（房号）：</span>
+							</td>
+							<td>
+								<span name="VS.MACHINE_ROOM_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">文件柜名称：</span>
+							</td>
+							<td>
+								<span name="VS.CAB_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">文件柜位：</span>
+							</td>
+							<td>
+								<span name="VS.LAYER"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			
+			<div class="row-fluid" id="in_reason">
+				<h3 class="header-h3">入库操作信息</h3>
+				<div>
+				 	<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">处理标识： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.ENTER_FLAG_NAME"></span>
+							</td>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">打回原因：</span>
+							</td>
+							<td style="width:310px;">
+								<span name="VS.RETURN_REASON"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			<div class="row-fluid" id="in_no">
+				<h3 class="header-h3">入库操作信息</h3>
+				<div>
+				 	<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:270px;">
+								<span style="font-weight: bolder;">处理标识： </span>
+							</td>
+							<td >
+								<span name="VS.ENTER_FLAG_NAME"></span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			
+			<div class="row-fluid" align="center"
+				style="margin: 20px 0px;">
+				<button class="btns ilsh_left" type="button" name="warrantView_back_list">返回</button>
+			</div>
+		</div>
+</body>
+</html>

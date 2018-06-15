@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>增加用户</title>
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/public.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/index.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/jquery.datetimepicker.css" />
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/select2.js"></script>
+<script src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+
+
+</head>
+<body style="line-height:24px;">
+	<div>
+		<h3 class="header-h3"></h3>
+		<form id="sRole_from" class="form-inline">
+			<div class="row">
+				<div class="span6 h50">
+					<label for="role_no" class="pl60">角色编号：</label> <input type="text"
+						name="S.role_no" id="role_no" validate="v.required" value="1111"/><i class="red">*</i>
+				</div>
+				<div class="span6 h50">
+					<label for="role_name" class="pl60">角色名称：</label>
+					<input type="text" name="S.role_name" id="role_name" validate="v.required" value="部门经理"/><i class="red">*</i>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6 h50">
+					<label for="flag" class="pl60" style="float: left;">角色标记：</label>&nbsp;
+					<select id="Aflag" name="S.flag" validate="v.required" style="width: 240px;">
+						<option>请选择</option>
+						<option>启用</option>
+						<option>停用</option>
+					</select><i class="red">*</i>
+				</div>
+				<div class="span6 h50">
+					<label for="order_no" class="pl60">角色序号：</label> 
+					<input type="text" name="order_no" id="order_no" validate="v.required" value="1"/><i class="red">*</i>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12 h50">
+					<label for="memo" class="pl60">角色备注：</label>
+					<textarea name="memo" id="memo">备注</textarea>
+				</div>
+			</div>
+		</form>
+		<div class="row" style="margin-top:40px;margin-left: 350px;">
+			<div class="span6">
+				<button class="btns" id="save">保存</button>
+				<button class="btns" id="back">返回</button>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#back").click(function(){
+			window.location.assign("roleManageList.html");
+		});
+		
+		$("#save").click(function(){
+			window.location.assign("roleManageList.html");
+		});
+	</script>
+</body>
+<script src="../../../js/commons/commons.js"></script>
+</html>

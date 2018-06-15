@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+</head>
+<style>
+
+</style>
+<body>
+	<div >
+		<h3 class="header-h3">不合格配置</h3>
+		
+		<form action="" class="form-inline" id="add_uncompliance">
+		<div class="row">
+			<!-- 增加的隐藏框 -->
+          	<input type="hidden"  id="Kid" name="PK.id">
+          		<div class="span6 h50">
+ 				<label class="pl60" >人员岗位：</label>
+ 					<select id="Kemp_post" name="PK.emp_post"  validate="v.required" style="width:244px;"  valititle="该项为必填项">
+				</select>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+				<select id="Kuse_grade" name="PK.use_grade"  validate="v.required" style="width:244px;"  valititle="该项为必填项">
+				</select>
+				
+			</div>
+			
+		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">最小工作年限：</label>
+ 				<input type="text" name="PK.min_years" id="Kmin_years" validate="v.number" valititle="该项为必填项"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60" >最大工作年限：</label>
+				<input type="text" name="PK.max_years" id="Kmax_years"  validate="v.number" valititle="该项为必填项"/>
+			</div>
+ 		</div>
+ 		
+ 		<div class="row">
+ 		<div class="span6 h50">
+				<label class="pl60">学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历：</label>
+				<select id="Kqualification" name="PK.qualification"  validate="v.required"  style="width:244px;" valititle="该项为必填项">
+				</select>
+				
+			</div>
+			<div class="span6 h50">
+				<label class="pl60" >启用标识：</label>
+				<select name="PK.flag" id="Kflag" validate="v.required" style="width:244px;" valititle="该项为必填项">
+				</select>
+			</div>
+ 		</div>
+ 		
+	</form>
+	<div style="clear:both;"></div>
+	<div style="width:200px;margin:30px auto;" >
+    		<button type="button" class="btns ml240"  id="insert_uncompliance" >保存</button>     
+    		<button type="button" id="reset_uncompliance" class="btns">重置</button> 	
+    		<button type="button" id="back_uncompliance" class="btns">返回</button> 				
+		</div>
+	</div>
+<div id="insertuncompliance"></div>
+<script src="pages/susermanage/suncompliance/uncompliance_add.js"></script>
+<script type="text/javascript" src="supplier/supplierManager/supplierPop.js"></script>
+<script type="text/javascript">
+	initVlidate($("#add_uncompliance"));
+</script>
+</body>
+</html>

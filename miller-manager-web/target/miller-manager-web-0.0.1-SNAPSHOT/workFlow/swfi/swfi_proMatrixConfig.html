@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>流程矩阵配置</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<style type="text/css">
+	td{
+		height:40px;
+	}
+	.tz_btn1{margin:10px 0px 0px 0px; height: 20px;line-height: 25px; background-color: #e2edf5;width: 100%;}
+</style>
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<input name="Ma.WF_ID" id="Mwf_id" type="hidden" value="存放记录ID"/>
+		<div class="row" align="center">
+			<div class="span5 h50">
+				流程名称：<input type="text" readOnly="readonly" class="span3" name="Ma.wf_name" id="Mwf_name" />
+			</div>
+			<div class="span5 h50">
+			           业务系统：<select id="Mwf_sys_name" class="span3" diccode="WF_DIC_SYSTEM" disabled="disabled" name="Ma.wf_sys_name" style="width:201px">
+			          </select>	
+			</div>
+			<div class="span5 h50">
+				流程状态：<select id="Mwf_state" class="span3" diccode="WF_DIC_STATE" disabled="disabled" name="Ma.wf_state" style="width:201px">
+				       </select>
+			</div>
+		</div>
+	</form>
+	<div class="tz_btn">
+		<button type="button" id="addMatix" class="btns">增加矩阵</button>
+		<button type="button" id="backToSwfiList" class="btns">返回</button>
+	</div>
+	<!-- table开始 -->
+	<table id="matixTableInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px"></table>
+	<!-- table结束 -->
+	<!-- 修改流程矩阵模态框开始 -->
+	<div id="updateMatrixModal" class="modal hide fade" tabindex="-1" role="dialog" 
+	  aria-labelledby="myModalLabel" aria-hidden="true" style="width:750px; left:43%; ">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h4 id="up_myModalLabel" style=" text-align:center;">编辑矩阵</h4>
+	  </div>
+	  <div class="modal-body" >
+	  	<div style="text-align:center;margin: 0 100px;" id="update_modl">
+		  <div>
+	  		&nbsp;&nbsp;&nbsp;&nbsp;矩阵规则名称：<input type="text" id="up_modl_r_name" style="width:70%;" validate="v.required" valititle="该项为必填项">
+		  </div>
+		  <div>
+		  	矩阵规则表达式：<textarea id="up_modl_r_exp" style="width:72%;" validate="v.required" valititle="该项为必填项"></textarea>
+		  </div>
+		  <div style="margin: 10px;">
+		  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;矩阵状态：<select id="up_modl_m_state" diccode="WF_DIC_STATE"  style="width:75%;" validate="v.required" valititle="该项为必填项">
+				                                                </select>
+		    </div>
+	  	</div>
+		  <div class="tz_btn1">
+			<div>矩阵值选择：</div>
+		 </div>
+		  <table id="up_MatrixModalTab"></table>
+		  <div style="text-align:center;margin:15px auto;">
+			<!-- 修改的保存 -->
+			<button type="button" id="up_submitModlMatrix" class="btns">保存</button>
+			<!-- 新增的保存 -->
+			<button type="button" id="submitModlMatrix" class="btns">保存</button>
+			<button type="button" id="up_closeModl" class="btns">关闭</button>
+		  </div>
+	    </div>
+	    <div class="modal-footer"></div>
+	  </div>
+	<!-- 修改流程矩阵模态框结束 -->
+<script src="workFlow/swfi/swfi_proMatrixConfig.js"></script>
+<script src="js/commons/Math.uuid.js"></script>
+</body>
+</html>

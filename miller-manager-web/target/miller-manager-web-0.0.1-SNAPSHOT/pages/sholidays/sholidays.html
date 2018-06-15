@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>节假日配置</title>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="pages/sholidays/sholidays.css" />
+<script src="js/commons/commons.js"></script>
+<script src="pages/sholidays/sholidays.js"></script>
+</head>
+<body>
+	<div id="myworkcalendar"></div>
+</body>
+<script type="text/javascript">
+		$("#myworkcalendar").WorkCalendar({
+			date:new Date(),
+			onSwitch:function(ym){
+				var ymd=ym+"-01";
+				$("#myworkcalendar").WorkCalendar("data",[{id:"c",ymd:ymd,title:"工作标题"}]);
+			},onClick:function(type,data){
+				alert(type);
+				//console.info(data);
+			}
+		});
+		$("#myworkcalendar").WorkCalendar("data",[
+                {id:"a",ymd:"2016-04-21",title:"工作标题我是工作标题工作标题2016-04-121"},
+                {id:"b",ymd:"2016-04-21",title:"工作标题我是工作标题工作标题2016-04-19"},
+                {id:"c",ymd:"2016-04-20",title:"c工作标题我是工作标题工作标题2016-04-20"},
+                {id:"d",ymd:"2016-04-20",title:"d工作标题我是工作标题工作标题2016-04-20"},
+                {id:"e",ymd:"2016-04-20",title:"e工作标题我是工作标题工作标题2016-04-20"},
+                {id:"f",ymd:"2016-04-20",title:"f工作标题我是工作标题工作标题2016-04-20"},
+                {id:"e",ymd:"2016-04-20",title:"e工作标题我是工作标题工作标题2016-04-20"},
+                {id:"f",ymd:"2016-04-20",title:"f工作标题我是工作标题工作标题2016-04-20"},
+                {id:"f",ymd:"2016-04-20",title:"f工作标题我是工作标题工作标题2016-04-20"}
+		]);
+</script>
+</html>

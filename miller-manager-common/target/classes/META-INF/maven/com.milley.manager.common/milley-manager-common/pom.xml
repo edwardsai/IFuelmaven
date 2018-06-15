@@ -1,0 +1,118 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.milley.manager</groupId>
+    <artifactId>milley-manager</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>com.milley.manager.common</groupId>
+  <artifactId>milley-manager-common</artifactId>
+  <packaging>jar</packaging>
+
+  <dependencies>
+  	<dependency>
+  		<groupId>com.milley.manager.mapper</groupId>
+  		<artifactId>milley-manager-mapper</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
+  	<!-- https://mvnrepository.com/artifact/log4j/log4j -->
+	<dependency>
+	    <groupId>log4j</groupId>
+	    <artifactId>log4j</artifactId>
+	    <version>${log4j.version}</version>
+	</dependency>
+  	
+  	<!-- https://mvnrepository.com/artifact/org.springframework/spring-context -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-context</artifactId>
+	    <version>${org.springframework.version}</version>
+	</dependency>
+  	
+  	<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-tx</artifactId>
+	    <version>${org.springframework.version}</version>
+	</dependency>
+  	
+  	<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-redis</artifactId>
+	    <version>${org.springframework.data.version}</version>
+	</dependency>
+  	
+  	<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis</artifactId>
+	    <version>${org.mybatis.version}</version>
+	</dependency>
+	  	
+	<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
+	<dependency>
+	    <groupId>org.aspectj</groupId>
+	    <artifactId>aspectjrt</artifactId>
+	    <version>${org.aspectj.version}</version>
+	</dependency>
+	 
+	 <!-- https://mvnrepository.com/artifact/org.jeecg/easypoi-base -->
+	<dependency>
+	    <groupId>org.jeecg</groupId>
+	    <artifactId>easypoi-base</artifactId>
+	    <version>${org.jeecg.version}</version>
+	</dependency>
+	
+	<!-- https://mvnrepository.com/artifact/org.jeecg/easypoi-web -->
+	<dependency>
+	    <groupId>org.jeecg</groupId>
+	    <artifactId>easypoi-web</artifactId>
+	    <version>${org.jeecg.version}</version>
+	</dependency>
+	 
+	 <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+ 	<dependency>
+	    <groupId>net.sf.json-lib</groupId>
+	    <artifactId>json-lib</artifactId>
+	    <version>${net.sf.json-lib.version}</version>
+	    <classifier>jdk15</classifier>
+	</dependency>
+	 
+	 <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <version>${org.springframework.version}</version>
+	</dependency>
+	 
+	 <!-- https://mvnrepository.com/artifact/com.artofsolving/jodconverter -->
+	<dependency>
+	    <groupId>com.artofsolving</groupId>
+	    <artifactId>jodconverter</artifactId>
+	    <version>2.2.2</version>
+	</dependency>
+	 
+  </dependencies>
+	<build>
+		<plugins>
+			<plugin>  
+			    <artifactId>maven-compiler-plugin</artifactId>  
+			    <configuration>  
+			        <source>1.6</source>  
+			        <target>1.6</target>  
+			        <!-- 指明编译源代码时使用的字符编码，  
+			        maven编译的时候默认使用的GBK编码，   
+			          通过encoding属性设置字符编码，  
+			          告诉maven这个项目使用UTF-8来编译 -->  
+			        <encoding>utf8</encoding>
+			        <compilerArguments>  
+                        <verbose />  
+                        <bootclasspath>${java.home}\lib\rt.jar;${java.home}\lib\jce.jar</bootclasspath>  
+                    </compilerArguments>
+			    </configuration>  
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

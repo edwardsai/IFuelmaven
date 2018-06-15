@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>权证出库</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	#search_warrantOutList .span5 {width:30% !important;}
+</style>
+
+</head>
+<body style="line-height:24px;">
+<h3 class="header-h3"></h3>
+	<div id="search_warrantOutList" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				权证编号：<input type="text" class="span3" id="WOwarrant_no"/>
+			</div>
+			<div class="span5 h50">
+				权属人名称：<input type="text" class="span3" id="WOproperty_owner_name"/>
+				<input type="hidden" sel="ENTER_FLAG" name="ENTER_FLAG" id="enter_flag"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="select_warrantOutList"  btn="query"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_warrantOutList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_warrantOutList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_warrantOutList">
+			<div class="span5 h50">
+               	  批次编号：<input type="text" class="span3" id="WObatch_id"/>
+			</div>
+			<div class="span5 h50">
+				 &nbsp;&nbsp;&nbsp;押品编号：<input type="text" class="span3" id="WOguarantee_id"/>
+			</div>
+			<div class="span5 h50">
+				 押品名称：<input type="text" class="span3" id="WOguarantee_name"/>
+			</div>
+		</div>
+	</div>
+	
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="edit_warrantOut"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>出库登记</li>
+			<li class="ilsh submenuList1" id="signIn_warrantOut"><i class="icon-pencil" style="margin:4px 3px 0 0;"></i>签收</li>
+			<li class="ilsh submenuList1" id="view_warrantOut"><i class="icon-eye-open" style="margin:4px 3px 0 0;"></i>查看</li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table id="Table_warrantOutList" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size: 14px">
+	</table>
+	<!-- table结束 -->
+</div>
+</body>
+<script src="ppe/warrantManager/warrantOut/warrantOut_queryList.js"></script>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增报废</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script src="ppe/propertyManager/propertyDealManager/propertyDiscarding/addPropertyDiscard.js"></script>
+		<style>
+			/*表格样式*/
+			.table-info tr{
+				height:40px;
+			} 
+			#table_assetScarp_add.table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+			#table_assetScarp_add.table-info tbody > tr > td:nth-child(even){text-align:left}
+		</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">报废信息</h3>
+	<div id="assetScarp_add" class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<input type="hidden" id="APSid" name="APS.ID">
+			<table id="table_assetScarp_add" class=" table table-striped table-border table-info"  style="width:99.5%;margin-bottom:5px;font-size:14px">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:15%;">报废名称：</td>
+					<td  style="width:35%">
+						<input type="text" id="APSscrap_name" name="APS.SCRAP_NAME" 
+							 validate="v.required"  valititle="该项为必填项"/>
+						<input type="hidden" id="APSscrap_id" name="APS.SCRAP_ID"/>
+					</td>
+					<td class="rightTitle tableColumnName"  style="width:15%"></td>
+					<td  style="width:35%">
+						<!-- <input type="hidden" name="APS.SCRAPASSET_TYPE" />
+						<input type="text" id="APSscrapasset_type" name="APS.SCRAPASSET_TYPE_NAME" 
+						validate="v.required"  valititle="该项为必填项" readonly="readonly" placeholder="资产类别"/> -->
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName"  style="width:15%">报废申请人：</td>
+					<td>
+						<input type="text"  id="APSscrap_apply_name" name="APS.SCRAP_APPLY_USER_NAME" 
+					    	readonly="readonly"   validate="v.required"  valititle="该项为必填项"/>
+					    	<input type="hidden" name="APS.SCRAP_APPLY_USER" />
+					</td>
+					<td class="rightTitle tableColumnName"  style="width:15%">申请时间：</td>
+					<td>
+						<input type="text" id="APSscrap_apply_date" name="APS.SCRAP_APPLY_DATE" 
+							readonly="readonly" validate="v.required"  valititle="该项为必填项"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName"  style="width:15%">备注：</td>
+					<td colspan="3"><textarea id="APDscrap_remark" name="APS.SCRAP_REMARK" 
+							style="width:91%;box-shadow:none;resize:none;height:100px;padding:10px"></textarea></td>
+				</tr>
+			</table>
+	</div>
+	<div style="margin-bottom:5px;">
+	<h3 class="header-h3" style="margin-bottom: 10px;">报废资产详情</h3>
+		<ul class="" style="margin-left:0px;">
+			<li class="ilsh submenuList1" id="add_addPropertyDiscard"><i class="icon-plus" style="margin:4px 3px 0 0"></i>新增</li>
+			<li class="ilsh submenuList1" id="delete_addPropertyDiscard"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li style="clear:both;"></li>		
+		</ul>
+	</div>
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 8px;font-size:14px" id="table_PropertyDiscard_addAsset"></table>
+	<div align="center" style="margin-top:20px;">
+		<button class="ilsh_left btns" id="save_addPropertyDiscard">保存</button>
+		<button class="ilsh_left btns" id="submit_addPropertyDiscard">保存&提交</button>
+		<button class="ilsh_left btns" id="back_addPropertyDiscard">返回</button>
+	</div>
+	<!-- 资产列表模态框 -->
+	<div id="myModal_addPropertyDiscard" class="modal hide fade" tabindex="-1"  style="width:950px;left:50%;margin-left:-475px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5 id="myModalLabel">资产列表页面</h5>
+		</div>
+		<div class="modal-body"  style="line-height:24px;min-height:200px">
+			<div  class="form-inline" style="font-size:15px" id="modal_body_addPropertyDiscard">
+				<div class="row" align="center">
+					<div class="span5 h50">
+						资产名称：<input type="text" class="span3" id="PropertyAsset_name"/>
+					</div>
+					<div class="span5 h50">
+						资产编号：<input type="text" class="span3" id="PropertyAsset_num"/>
+					</div>
+				
+					<div class="span5 h50">
+						报废时间：<input type="text" readonly="readonly" onClick="WdatePicker({})" class="span3" id="PropertyDiscard_date"/>
+					</div>
+					<div class="span5 h50">
+						资产状态：<select  class="span3"  style="width:201px"  diccode="ASS_DIC_STATUS" id="PropertyAsset_state"></select>
+					</div>
+				</div>
+			</div>
+			<div align="center" style="margin-bottom:10px;">
+				<button class="ilsh_left btns" id="addModal_addPropertyDiscard" style="float:left">选择&返回</button>
+				<button class="ilsh_left btns searchBtn" id="searchModal_addPropertyDiscard"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</button>
+				<button class="ilsh_left btns resetBtn" id="reset_addPropertyDiscard"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</button>
+				<!-- <button class="ilsh_left btns moreSearchBtn" id="seniorSearch_addPropertyDiscard"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</button> -->
+			</div>
+			<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px" id="table_addPropertyDiscard"></table>
+		</div>
+		<div class="modal-footer"></div>
+	</div>
+<div id="userDiv_PropertyDiscard"></div>
+</body>
+<script src="pages/suser/suserPop.js"></script>
+</html>

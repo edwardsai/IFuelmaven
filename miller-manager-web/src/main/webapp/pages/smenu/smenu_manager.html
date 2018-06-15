@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+
+<style type="text/css">
+.fixed-table-header{border-bottom:none;}
+
+</style>
+</head>
+<body id="content">
+<h3  class="header-h3">后台管理</h3>
+	<div class="container-fluid" style="padding:0;">
+	  <div class="row-fluid">
+			<div class="span12" style="margin-top: -7px;">
+				<div class="span6" style="border-right:0px solid gray;width: 23%;float:left;">
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify" style="background-image: url('img/glyphicons-halflings.png');"></i></span>
+							<button type="button" style="float: right;" id="addMenu" class="btns ilsh_left">创建菜单</button>
+						</div>
+						<div class="widget-content nopadding" >
+							<div class="control-group" style="height: 498px;overflow-y: auto;">
+								<div class="controls">
+									<ul id="treeMenuManager" class="ztree"></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabbable" style="width: 75%; margin-left: 10px;float:left;">
+					<ul class="nav nav-tabs">
+					    <li class="active" style="list-style-type:none;font-size:15px;"><a href="#menu_info" data-toggle="tab">菜单基本信息</a></li>
+					    <li style="list-style-type:none;font-size:15px;"><a href="#menu_opt" data-toggle="tab">菜单操作配置</a></li>
+					    <li style="list-style-type:none;font-size:15px;"><a href="#menu_property" data-toggle="tab">菜单属性配置</a></li>
+					 </ul>
+			 	    <div id="myTabContent" class="tab-content" style="height:90%;min-height:550px;">
+						<div class="tab-pane active" id="menu_info" style="height:100%">
+							<div class="tz_btn">
+								<button class="btns ilsh_left" id="saveMenu">保存</button>
+								<button class="btns ilsh_left" id="resetMenu">重置</button>
+								<button class="btns ilsh_left" id="delMenu">删除</button>
+							</div>
+							<div class="widget-content nopadding" style="height:100%;border: 1px solid #ddd;margin-top: 15px;">
+								<form id="menu_form" action="#" method="get"
+									class="form-horizontal" style="height:100%;overflow-x: hidden;">
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">菜单编号 :</label>
+										<div class="controls"  > 
+											<input type="text" validate="v.required"
+												valititle="菜单编号必填" name="M.menu_no" 
+												placeholder="菜单编号 " style="width:90%">
+											<input type="hidden"
+												id="old_menu_no" name="M.old_menu_no" style="width:90%"/>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">菜单名称 :</label>
+										<div class="controls">
+											<input type="text" name="M.menu_name" valititle="菜单名称必填"
+												validate="v.required"  placeholder="菜单名称" style="width:90%">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">菜单图标 :</label>
+										<div class="controls">
+											<input type="text" name="M.menu_icon"
+												placeholder="菜单图标" style="width:90%">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">上级菜单:</label>
+										<div class="controls">
+											<input type="hidden" name="M.supmenu_no" id="supmenu_no" 
+												placeholder="上级菜单" >
+											<input type="text" id="supmenu_name" name="M.supmenu_name" 
+												placeholder="上级菜单" readonly="true" style="cursor: pointer;width:90%">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">URL:</label>
+										<div class="controls">
+											<input type="text" name="M.menu_url" 
+												placeholder="菜单URL" style="width:90%">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">菜单类型:</label>
+										<div class="controls">
+											<select id="menu_type" diccode="S_DIC_MENUTYPE" valititle="菜单类型必填" value=""
+												validate="v.required" style="width: 92.06%;"
+												name="M.menu_type" >
+											</select>
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">排序序号:</label>
+										<div class="controls">
+											<input type="text" name="M.order_id" valititle="排序序号必填"
+												validate="v.required"  placeholder="排序序号" style="width:90%">
+										</div>
+									</div>
+									<div class="control-group">
+										<label class="control-label" style="padding-right: 10px;">备注:</label>
+										<div class="controls">
+											<textarea  name="M.memo" placeholder="备注" style="width:92%;height:50px;"></textarea>
+										</div>
+									</div> 
+								</form>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="menu_opt">
+							<div class="tz_btn" id="addButtondiv"  style="display: none;">
+								<button class="btns" id="addButton" style="padding:6px 6px;">新增菜单操作</button>
+							</div>
+							<table id="buttonTableMenu"></table>
+						</div>
+						<div class="tab-pane fade" id="menu_property">
+							<div class="tz_btn" id="addPropertydiv"  style="display: none;">
+								<button class="btns" id="addProperty"  style="padding:6px 6px;">新增菜单属性</button>
+							</div>
+							<button type="button" id="addProperty"  style="display: none;padding:6px 6px;">新增菜单属性</button>
+							<table id="propertyTableMenu"></table>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+	  </div>
+	</div>
+		<div id="myModalMenu" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示...</h3>
+		</div>
+		<div class="modal-body">
+			<p id="msmenu_context">One fine body…</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btns" data-dismiss="modal" id="cancel"
+				style="display: none" aria-hidden="true">取消</button>
+			<button class="btns" data-dismiss="modal" id="menu_sure" aria-hidden="true">确定</button>
+		</div>
+	</div>
+<script src="pages/smenu/smenu_manager.js"></script>
+</body>
+</html>

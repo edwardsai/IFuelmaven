@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WFEmpAskForLeaveDao">
+	<!-- 根据节点找到规则表达式 -->
+	<select id="queryRulerExpByNodeId" parameterType="java.lang.String" resultType="java.lang.String">
+	select R_EXP from wf_rule b
+    ,(select r_id from wf_node_info where n_id=#{nid}) a
+    where b.r_id=a.r_id
+	</select>
+    <!-- 查询人员进场业务数据 -->
+	<select id="queryWFAskForLeaveBizData" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from e_ask_leave where id=#{id}
+	</select>
+	<!-- 根据id修改人员入场申请表对应信息审批状态 -->
+	<update id="updateAskForLeaveSttById" parameterType="java.util.Map">
+		UPDATE e_ask_leave SET 
+			status=#{status}
+		WHERE id=#{id}
+	</update>
+	<!-- 查询所有用户编号 -->
+	<select id="queryAllUserNo" parameterType="java.util.Map" resultType="java.lang.String">
+		select  distinct user_no from S_ROLEUSER where ROLE_NO in
+		<foreach item="item" index="index" collection="roleNo" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</select>
+	<!-- 查询所有用户 -->
+	<select id="queryAllUser" parameterType="java.util.Map" resultType="java.util.Map">
+		select user_name,user_no 
+		 from S_USER  where user_flag='00' and user_no in
+		<foreach item="item" index="index" collection="userNo" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</select>
+	<!-- 通过流程实例id获取审批过程信息 -->
+	<select id="queryAppIdByInstId" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from WF_APP_PROCESS where instance_id=#{instance_id}
+	</select>
+	<!-- 根据id修改对应信息的当前审批人 -->
+	<update id="updateAskForLeaveAppPersonById" parameterType="java.util.Map">
+		UPDATE e_ask_leave SET 
+			curr_user_no=#{curr_user_no}
+		WHERE id=#{id}
+	</update>
+	
+	
+</mapper>
+
+
+
+
+
+
+
+
+

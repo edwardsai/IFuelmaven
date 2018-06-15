@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+</head>
+<body id="content">
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="span6" style="width:23%;">
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify" style="background-image: url('img/glyphicons-halflings.png');"></i></span>
+							<h5>机构管理</h5>
+							<button type="button" style="float: right;" id="addOrg" class="btns ilsh_left">创建机构</button>
+						</div>
+						<div class="widget-content nopadding">
+							<div class="control-group" style="height: 552px;overflow-y: auto;">
+								<div class="controls">
+									<ul id="treeOrg" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="span6" style="width:75%;margin-left:10px;
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i class="icon-align-justify"  style="background-image: url('img/glyphicons-halflings.png');"></i></span>
+							<h5>机构详情</h5>
+						</div>
+						<div class="widget-content nopadding">
+						<form action="#" method="get" class="form-horizontal" id="org_from">
+							<div class="tz_btn">
+								<button type="button" id="updateOrg"  class="btns  ilsh_left">保存</button>
+								<button type="button" id="delOrg"  class="btns  ilsh_left">删除</button>
+								<button type="button" id="resetOrg"  class="btns  ilsh_left">重置</button>
+							</div>
+							<div class="control-group"></div>
+							<div class="control-group">
+								<label class="control-label">机构编号 :</label>
+								<div class="controls">
+									<input type="text" name="ORG.org_code" style="width:88.8%;" id="org_code"
+										placeholder="机构编号 " validate="v.number10" valititle="该项为必填项" readOnly="readonly">
+									<input type="hidden" name="ORG.old_org_code" id="old_org_code" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">机构名称 :</label>
+								<div class="controls">
+									<input type="text" name="ORG.org_name"style="width:88.8%;"  id="org_name"
+										placeholder="机构名称" validate="v.required" valititle="该项为必填项" >
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">上级机构名称:</label>
+								<div class="controls">
+									<input type="text" name="ORG.suporg_name"style="width:88.8%;"  id="suporg_name"
+										placeholder="上级机构名称" >
+										<input type="hidden" name="ORG.suporg_code" id="suporg_code"/>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">设立日期:</label>
+								<div class="controls">
+									<input type="text" name="ORG.launch_date" style="width:88.8%;" id="launch_date"
+										placeholder="设立日期" validate="v.required" valititle="该项为必填项" readOnly="readonly" onClick="WdatePicker({})">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">部门经理:</label>
+								<div class="controls">
+									<input type="text" name="ORG.org_manager_name" style="width:88.8%;" id="org_manager_name"
+										placeholder="部门经理" validate="v.required" valititle="该项为必填项" readyonly />
+									<input type="hidden" name="ORG.org_manager_code"  id="org_manager_code" />
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">所属大区:</label>
+								<div class="controls">
+									<select  name="ORG.org_area" style="width:91.35%;" id="org_area"
+										 validate="v.required" valititle="该项为必填项">
+								    </select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">业务类型:</label>
+								<div class="controls">
+									<select id="business_type" name="ORG.business_type" style="width:91.35%;" validate="v.required" valititle="该项为必填项">
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">序号:</label>
+								<div class="controls">
+									<input type="text" name="ORG.order_no" style="width:88.8%;"
+										placeholder="序号" >
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">地址:</label>
+								<div class="controls">
+									<textarea  name="ORG.org_address" placeholder="地址" style="width:91.35%;max-width:667px;height:50px;resize: none;"></textarea>
+								</div>
+							</div>
+							
+						</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="userOrgDivPop"></div>
+		<script type="text/javascript">
+			initVlidate($("#org_from"));
+		</script>
+		<script src="pages/sorg/sorg_queryList.js"></script>
+		<script src="pages/suser/suserPop.js"></script>
+</body>
+</html>

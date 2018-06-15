@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>业务要素配置列表</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				业务系统：<select id="system_code" diccode="WF_DIC_SYSTEM" class="span3" name="Ele.system_code" style="width:201px">
+				       </select>
+			</div>
+			<div class="span5 h50">
+			           状态：<select id="b_state" class="span3" diccode="WF_DIC_STATE" name="Ele.b_state" style="width:201px">
+			        </select>	
+			</div>
+			<div class="span5 h50">
+				要素类别：<select id="rule_type" class="span3" diccode="WF_DIC_RULE_TYPE" name="Ele.rule_type" style="width:201px">
+				       </select>
+			</div>
+			<div class="span5 h50">
+				业务要素：<input id="factor_name" class="" name="Ele.factor_name" type="text"/>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="queryBusConfig"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="resetBusConfig"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="addBusConfig" >新增</li>
+			<li class="ilsh submenuList1" id="updateBusConfig">修改</li>
+			<li class="ilsh submenuList1" id="deleteBusConfig">删除</li>
+			<li class="ilsh submenuList1" id="viewBusConfig">查看</li>
+			<li class="ilshA" id="moreIlsh_swfiList" style="visibility: hidden;"></li>
+		</ul>
+		<div style="clear: both;"></div>
+    </div>
+	<!-- table开始 -->
+	<table id="SBsCfigTableInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px"></table>
+	<!-- table结束 -->
+
+<script type="text/javascript" src="bootstrap/js/select2.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script> 
+<script src="workFlow/sbscfig/sbscfig_queryList.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script type="text/javascript" src="pages/srole/srole_add.js"></script>
+</head>
+<style>
+
+ .select2-container{ 
+margin-left:4px;
+margin-right:1px;
+} 
+
+</style>
+<body>
+	<div>
+		<h3 class="header-h3">新增角色信息</h3>
+		<form id="sRole_from" class="form-inline">
+			<div class="row">
+				<div class="span6 h50">
+					<label for="role_no" class="pl60">角色编号：</label> <input type="text"
+						name="SROLE.role_no" id="role_no" validate="v.required"
+						valititle="该项为必填项" />
+				</div>
+				<div class="span6 h50">
+					<label for="role_name" class="pl60">角色名称：</label> <input
+						type="text" name="SROLE.role_name" id="role_name"
+						validate="v.required" valititle="该项为必填项" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6 h50">
+					<label for="flag" class="pl60" style="float: left;">角色标记：</label>
+					<select id="Aflag" name="SROLE.flag" validate="v.required"
+						style="width: 53%;" valititle="该项为必填项">
+					</select>
+				</div>
+				<div class="span6 h50">
+					<label for="order_no" class="pl60">角色序号：</label> <input type="text"
+						name="order_no" id="order_no" validate="v.required"
+						valititle="该项为必填项" />
+				</div>
+			</div>
+			<div class="row">
+				<div class="span12 h50">
+					<label for="memo" class="pl60">角色备注：</label>
+					<textarea name="memo" id="memo"></textarea>
+				</div>
+			</div>
+		</form>
+		<div style="margin-left:35%">
+			<br/><button type="button" class="ilsh_left btns" id="saveSRolePower">保存</button>
+			<button type="button" id="backToSRoleList" class="ilsh_left btns">返回</button>
+		</div>
+	</div>
+	<script type="text/javascript">
+		initVlidate($("#sRole_from"));
+		$(document).on("click","button[name='globeBack']",function(){
+			location.reload();
+		});
+	</script>
+</body>
+</html>

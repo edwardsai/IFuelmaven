@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.warrantmanager.WarrantStorageDao">
+	<!-- 查询待入库清单 -->
+	<select id="queryListWarrantStorage" parameterType="java.util.Map" resultType="java.util.Map">
+	 SELECT A.*,C.EXCHANGE_USER FROM
+		(SELECT W.*,CAT1.CATEGORY_NAME WARR_TYPE_NAME ,CAT2.CATEGORY_NAME WARR_TYPE2_NAME,U.USER_NAME APPLY_USER_NAME,SU.USER_NAME PROPERTY_OWNER_NAME,
+	        B.AREA,B.FLOOR,B.MACHINE_ROOM,B.CAB_NUM,B.LAYER,B.TAG_ID TAG_NO,B.SERNO,
+	        (SELECT S.CAB_NAME FROM AMC_CABINET S WHERE S.CAB_NUM=B.CAB_NUM) AS CAB_NAME,
+	        (SELECT S.STORE_NAME FROM AMC_STORE_HOUSE S WHERE S.STORE_ID=B.MACHINE_ROOM) AS MACHINE_ROOM_NAME,
+	        (SELECT S.STORE_NAME FROM AMC_STORE_HOUSE S WHERE S.STORE_ID=B.FLOOR) AS FLOOR_NAME,
+	        (SELECT S.STORE_NAME FROM AMC_STORE_HOUSE S WHERE S.STORE_ID=B.AREA) AS AREA_NAME,
+	        (SELECT S.ITEM_NAME FROM S_DIC_ITEM S WHERE S.DIC_CODE='WRT_DIC_ENTER_TYPE' AND S.ITEM_CODE=W.STORAGE_TYPE) AS STORAGE_TYPE_NAME,
+	        (SELECT S.ITEM_NAME FROM S_DIC_ITEM S WHERE S.DIC_CODE='WRT_DIC_WARR_CLASSIFY' AND S.ITEM_CODE=W.WARR_CLASSIFY) WARR_CLASSIFY_NAME,
+	        (SELECT S.ITEM_NAME FROM S_DIC_ITEM S WHERE S.DIC_CODE='WRT_DIC_ID_TYPE' AND S.ITEM_CODE=W.ID_TYPE) ID_TYPE_NAME,
+	        (SELECT S.ITEM_NAME FROM S_DIC_ITEM S WHERE S.DIC_CODE='WRT_DIC_ENTER_FLAG' AND S.ITEM_CODE=W.ENTER_FLAG) ENTER_FLAG_NAME
+        FROM WRT_MIDDLE_TABLE W  LEFT JOIN  CAT_CATEGORY_CONFIG CAT2 ON CAT2.CATEGORY_ID = W.WARR_TYPE
+	        LEFT JOIN  CAT_CATEGORY_CONFIG CAT1 ON CAT1.CATEGORY_ID = CAT2.PRE_CATEGORY_ID
+	        LEFT JOIN  S_USER U ON U.USER_NO = W.APPLY_USER
+	        LEFT JOIN  S_USER SU  ON SU.USER_NO = W.PROPERTY_OWNER
+	        LEFT JOIN WRT_WARRANT_STOCK B ON B.WARRANT_NO = W.WARRANT_NO AND B.WARR_STATUS!='05' 
+        WHERE W.STORAGE_TYPE IN('00','01','02'))A 
+        LEFT JOIN WRT_WARRANT_HISTORY C ON C.SERNO=A.SERNO AND C.BATCH_ID=A.BATCH_ID WHERE 1=1
+      <if test="WARRANT_NO!=null and WARRANT_NO!=''">
+      	AND WARRANT_NO LIKE #{WARRANT_NO}
+      </if>
+      <if test="PROPERTY_OWNER!=null and PROPERTY_OWNER!=''">
+      	AND PROPERTY_OWNER_NAME LIKE #{PROPERTY_OWNER}
+      </if>
+      <if test="BATCH_ID!=null and BATCH_ID!=''">
+      	and A.BATCH_ID LIKE #{BATCH_ID}
+      </if>
+      <if test="GUARANTEE_ID!=null and GUARANTEE_ID!=''">
+      	and GUARANTEE_ID LIKE #{GUARANTEE_ID}
+      </if>
+      <if test="GUARANTEE_NAME!=null and GUARANTEE_NAME!=''">
+      	and GUARANTEE_NAME LIKE #{GUARANTEE_NAME}
+      </if>
+      <if test="ENTER_FLAG !=null and ENTER_FLAG !=''">
+      	and ENTER_FLAG = #{ENTER_FLAG}
+      </if>
+	</select>
+	
+	<!-- 更新中间表 -->
+	<update id="updateMiddleTable">
+		UPDATE WRT_MIDDLE_TABLE SET ENTER_FLAG=#{ENTER_FLAG}
+		<if test="RETURN_REASON!=null and RETURN_REASON!=''">
+      	,RETURN_REASON=#{RETURN_REASON}
+      </if>
+        WHERE WARRANT_NO=#{WARRANT_NO} AND BATCH_ID=#{BATCH_ID}
+	</update>
+	
+	<!-- 新增库存 -->
+	<insert id="saveWarrantStorage" parameterType="java.util.Map">
+	    INSERT INTO WRT_WARRANT_STOCK (SERNO,CONTRACT_NO,GUARANTEE_ID,GUARANTEE_NAME,WARRANT_NO,PROPERTY_OWNER,WARR_CLASSIFY,WARR_TYPE,
+		APPLY_USER,APPROVE_DATE,TAG_ID,OWNER_ID,ID_TYPE,ID_NUMBER,PHOTO_ID,WARR_STATUS,AREA,FLOOR,MACHINE_ROOM,CAB_NUM,LAYER,TAKE_EFFECT_TIME,EXPIRE_TIME) 
+		VALUES(#{SERNO},#{CONTRACT_NO},#{GUARANTEE_ID},#{GUARANTEE_NAME},#{WARRANT_NO},#{PROPERTY_OWNER},#{WARR_CLASSIFY},
+		#{WARR_TYPE},#{APPLY_USER},#{APPROVE_DATE},#{TAG_ID},#{OWNER_ID},#{ID_TYPE},#{ID_NUMBER},#{PHOTO_ID},
+		#{WARR_STATUS},#{AREA},#{FLOOR},#{MACHINE_ROOM},#{CAB_NUM},#{LAYER},#{TAKE_EFFECT_TIME},#{EXPIRE_TIME})
+	</insert>
+	
+	<!-- 更新库存 -->
+	<update id="updateWarrantStorage" parameterType="java.util.Map">
+		UPDATE WRT_WARRANT_STOCK SET AREA=#{AREA},FLOOR=#{FLOOR},MACHINE_ROOM=#{MACHINE_ROOM},CAB_NUM=#{CAB_NUM},LAYER=#{LAYER},WARR_STATUS=#{WARR_STATUS}
+		WHERE WARRANT_NO=#{WARRANT_NO} AND WARR_STATUS != '05'
+	</update>
+	
+	<!-- 注销一条权证信息-->
+	<update id="updateWarrantStatus" parameterType="java.util.Map">
+		UPDATE WRT_WARRANT_STOCK SET WARR_STATUS='05'
+		WHERE WARRANT_NO=#{OLD_WARRANT_NO} AND WARR_STATUS != '05'
+	</update>
+	
+	<!-- 新增入库记录 -->
+	<insert id="saveWarrantRecord" parameterType="java.util.Map">
+		INSERT INTO WRT_WARRANT_HISTORY (ID,SERNO,STORAGE_TYPE,APPLY_USER,EXECUTE_DATE,EXCHANGE_USER,APPROVE_USER,BATCH_ID)
+		VALUES(#{ID},#{SERNO},#{STORAGE_TYPE},#{APPLY_USER},#{EXECUTE_DATE},#{EXCHANGE_USER},#{APPROVE_USER},#{BATCH_ID})
+	</insert>
+	
+	<!-- 新增权证价值 -->
+	<insert id="saveWarrantValue" parameterType="java.util.Map">
+		INSERT INTO WRT_WARRANT_VALUE(SERNO,EVA_METHOD,CURRENCY,INNER_ASSESS_VALUE,ASSESS_VALUE,ASSESS_DATE,ASSESS_COST,
+		HIGH_PLEDGE_RATE,CAN_PLEDGE_RATE,INNER_SET_PLEDGE_RATE,INNER_SET_VALUE,NOMINAL_RATE,NOMINAL_VALUE) 
+		VALUES(#{SERNO},#{EVA_METHOD},#{CURRENCY},#{INNER_ASSESS_VALUE},#{ASSESS_VALUE},#{ASSESS_DATE},#{ASSESS_COST},
+		#{HIGH_PLEDGE_RATE},#{CAN_PLEDGE_RATE},#{INNER_SET_PLEDGE_RATE},#{INNER_SET_VALUE},#{NOMINAL_RATE},#{NOMINAL_VALUE})
+	</insert>
+	<!-- 查询库存表里是否有此物品的信息 -->
+	<select id="queryTagId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT *
+        FROM  WRT_WARRANT_STOCK  
+        WHERE WARRANT_NO=#{WARRANT_NO} AND WARR_STATUS != '05'
+	</select>
+	<select id="querywarrant" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT *
+        FROM  WRT_WARRANT_STOCK  
+        WHERE WARRANT_NO=#{OLD_WARRANT_NO} AND WARR_STATUS != '05'
+	</select>
+	<!-- 更新仓库信息 -->
+	<update id="updateTodeleteOwn" parameterType="java.util.Map">
+		update
+			AMC_CABINET_UFLOOR t
+		set 
+			t.asset_num=null
+		where 
+			t.cab_num=#{cabinetNum} and 
+			t.asset_num=#{assetNum}
+	</update>
+	<update id="updateCabinetFloor" parameterType="java.util.Map">
+		update 
+			AMC_CABINET_UFLOOR t
+		set 
+			t.asset_num=#{assetNum}
+		where 
+			t.cab_num=#{cabinetNum}
+			and t.ufloor_num in (${floorNum})
+	</update>
+	
+	<select id="queryCabinetUse" parameterType="java.lang.String" resultType="java.util.Map">
+		select 
+			c.cab_num, to_char(c.total_content) total_content, to_char((select count(*) from amc_cabinet_ufloor where cab_num=c.cab_num and asset_num is not null)) use_num 
+		from 
+			amc_cabinet c
+		where
+			c.cab_num=#{id}
+	</select>
+	<update id="updateCabinetUse" parameterType="java.util.Map">
+		update amc_cabinet t
+		set t.cab_use_ratio=#{cab_use_ratio}
+		where t.cab_num=#{CAB_NUM}
+	</update>
+	<!-- 查询楼层信息和区域信息的下拉数据  -->
+	<select id="findCabinetsMapSelectInfo" parameterType="java.util.Map" resultType="java.util.Map">
+		select (ashh.store_name||ash.store_name||(select s.item_name from s_dic_item s where s.dic_code='AMC_DIC_AREA_TYPE' and s.item_code=ash.area_type)) item_name,
+		ash.store_id item_code,ash.store_x,ash.store_y,ash.store_filed,ash.area_type
+      	 from amc_store_house ash left join amc_store_house ashh on ash.store_p_id=ashh.store_id
+	 		where 1=1
+	 		<!-- 大厦下拉数据 -->
+	 		<if test="type!=null and type.indexOf('edifice') != -1">
+				and ash.store_id in(
+					select store_p_id from amc_store_house where store_id in(
+					select store_p_id from amc_store_house where area_type='03')
+				)
+			</if>
+	 		<!-- 楼层下拉数据 -->
+	 		<if test="type!=null and type.indexOf('floor') != -1">
+				and ash.store_id in(select store_p_id from amc_store_house where area_type='03')
+			</if>
+			<!-- 区域下拉数据 -->
+	 		<if test="type!=null and type.indexOf('area') != -1">
+				and ash.area_type='03'
+			</if>
+			<!-- 区域父ID -->
+	 		<if test="store_p_id!=null and store_p_id != ''">
+				and ash.store_p_id=#{store_p_id}
+			</if>
+			order by ash.store_order
+	</select>
+</mapper>

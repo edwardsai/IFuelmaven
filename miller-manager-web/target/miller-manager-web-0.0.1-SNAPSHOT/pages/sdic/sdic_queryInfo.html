@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html> 
+	<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+	<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+	<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+	<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-table.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+	<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+	
+		
+
+	</head>
+<body id="sdic_queryInfo_body">
+	<h3  class="header-h3"></h3>
+	<form id="contractInfoList" action=""  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				类  别  编  码：<input type="text" class="span3" id="dic_code"/>
+			</div>
+			<div class="span5 h50">
+				类  别  名  称：<input type="text" class="span3" id="dic_name" />
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" style="display:none;"  id="moreSearch_sdic">
+			<div class="span5 h50">
+				类  别  状  态：<select id="dic_state" class="span3" name="" style="width:201px">
+					</select>
+			</div>
+			<div class="span5 h50">
+				所  属  菜  单：<input type="text" name="" id="dic_query_menuname"  validate="v.required" valititle="该项为必填项"  style="cursor: pointer;background:#fff;" readonly/>
+							<input type="hidden" id="dic_query_menucode">
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" id="submenuList_sdicList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="dic_search"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="dic_reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="showMore_sdic"><i class="icon-plus" style="margin:4px 3px 0 0"></i>高级查询</li>
+			<li class="ilsh submenuList1"  id="add_sdic_info">新增</li>
+			<li class="ilsh submenuList1" id="update_sdic_info">修改</li>
+			<li class="ilsh submenuList1" id="del_sdic">删除</li>
+			<li class="ilsh submenuList" id="sdic_info_config">字典项配置</li>
+			<li class="ilshA" id="moreIlsh_sdicList"></li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<!-- table开始 -->
+	<table id="table_sdic"></table>
+	<!-- table结束 -->
+</body>
+	<script src="pages/sdic/sdic_queryInfo.js"></script>
+	<!-- <script src="pages/sdic/sdic_add.js"></script>
+	<script src="pages/sdic/sdic_update.js"></script>
+	<script src="pages/sdic/sdicItem_queryInfo.js"></script> -->
+</html>

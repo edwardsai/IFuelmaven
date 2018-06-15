@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增处置</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	#head{
+		font-weight:bolder;
+	}
+	input:disabled{
+		border:1px solid #ccc;
+	}
+	table tr:hover{
+	 background-color:#fff;
+	}
+	.rightTitle{
+		padding-bottom:8px;font-weight:bolder;text-align:right;
+	}
+	td{height: 35px;}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">处置基本信息 :</h3>
+	<div class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<div>
+			<table  class="table table-striped" style="width: 99.5%">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:230px;">处置名称：</td>
+					<td style="width:330px;"><span name="VPD.DEAL_NAME"></span></td>
+					<td class="rightTitle tableColumnName" style="width:230px;">处置方式：</td>
+					<td style="width:330px;"><span name="VPD.DEAL_METHOD_NAME"></span>
+					</td>
+				</tr>
+				<tr >
+					<td class="rightTitle tableColumnName Akasset_type1" >买断人：</td>
+					<td class="rightTitle tableColumnName Akasset_type2" >赠与人：</td>
+					<td><span name="VPD.GET_USER_NAME"></span></td>
+					
+					<td class="rightTitle tableColumnName  Akasset_type1" >买断人部门：</td>
+					<td class="rightTitle tableColumnName Akasset_type2" >赠与人部门：</td>
+					<td ><span name="VPD.GET_BELONG_NAME"></span></td>
+					
+				</tr>
+				<tr class="hide Akasset_type1">
+					<td class="rightTitle tableColumnName" >买断金额：</td>
+					<td colspan="3"><span name="VPD.DEAL_PRICE"></span></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >处置说明：</td>
+					<td colspan="3"><span name="VPD.DEAL_REMARK"></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+   <h3 class="header-h3">处置资产信息 : </h3>
+	<table id="Table_viewpropertyDealInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 8px;font-size:14px">
+	</table>
+	<div align="center" style="margin-top:50px;margin-bottom:50px;">
+		<button class="ilsh_left btns" id="view_back_addPropertyDeal">返回</button>
+	</div>
+</body>
+<script src="ppe/propertyManager/propertyDealManager/propertyDeal/viewPropertyDeal.js"></script>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>添加出库信息</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	.rightTitle{
+		padding-bottom:8px;font-weight:bolder;text-align:right;
+	}
+td {
+    height: 45px;
+}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">领用基本信息</h3>
+	<div  class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<div>
+			<table  class="table table-striped" style="width: 99.5%">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:230px;">出库单号：</td>
+					<td  style="width:330px"><span name="VCR.OUT_ID"></span></td>
+					<td class="rightTitle tableColumnName" style="width:230px;">出库日期：</td>
+					<td style="width:330px"><span name="VCR.OUT_DATE"></span></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >领用人：</td>
+					<td><span name="VCR.GETUSER_NAME"></span></td>
+					    <td class="rightTitle tableColumnName" >领用人部门：</td>
+					<td><span name="VCR.GETUSER_ORG_NAME"></span></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >登记人：</td>
+					<td><span name="VCR.CREATE_USER_NAME"></span></td>
+					<td class="rightTitle tableColumnName" >登记时间：</td>
+					<td><span name="VCR.CREATE_DATE"></span></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >出库仓库：</td>
+					<td colspan="3"><span name="VCR.ROOM_NAME"></span> </td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >备注：</td>
+					<td colspan="3"><span name="VCR.DESCR"></span></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!-- 选择物品 -->
+<h3 class="header-h3">领用物品信息</h3>
+<div class="row-fluid" style="margin-bottom:10px;">
+	<div>	
+	    <table id="view_table_selectInfo" class="table_input table table-striped table-hover table-border qgy" style="margin-top:-10px;width:99.5%;font-size: 14px">
+		</table>
+	</div>
+</div>	
+	<div align="center" style="margin-top:20px;margin-bottom:100px;">
+		<button class="ilsh_left btns" id="view_back_addConsumablesRecipients">返回</button>
+	</div>
+</body>
+<script src="ppe/consumablesManagement/consumablesRecipients/viewConsumablesRecipients.js"></script>
+</html>

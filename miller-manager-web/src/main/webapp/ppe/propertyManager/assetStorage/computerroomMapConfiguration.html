@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="css/css_ppe/computerroomMapConfiguration.css"/>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<!-- <script src="css/css_ppe/input_radio/icheck.js"></script> -->
+<!-- <script type="text/javascript" src="js/commons/js_ppe/commons_ppe.js"></script> -->
+<!-- <script type="text/javascript" src="js/turnBox.js"></script> -->
+<style type="text/css">
+.tableColumnName{text-align:right;}
+.table-border td{text-align:left;}
+</style>
+</head>
+
+<body class="left_bor" style="line-height:24px;">
+	<div class="form-inline" style="font-size:15px;margin-top: 35px;margin-left: 50px;">
+		<div class="row" align="center">
+			<div class="span4 h30">
+				办公楼：<select sel="workplace_edifice"  style="width: 200px;">
+				</select>
+			</div>
+			<div class="span4 h30">
+				楼层：<select	sel="workplace_floor" style="width: 200px;">
+				</select>
+			</div>
+			<div class="span4 h30">
+				区域：<select	sel="workplace_area" style="width: 200px;"></select>
+			</div>
+		</div>
+		<div class="row" align="center" style="    margin-top: 30px;text-align: center;">
+				<button class="btns ilsh_left" sel="sureAddress">确定</button>
+		</div>
+	</div>	
+	<!--主体区域-->
+	<!-- tab -->
+	<div class="tabWrap">
+		<ul class="tabD" style="width: 98%;">
+			<li style="font-size: 16px;padding: 10px;">当前选择位置：</li>
+			<div style="clear: both;"></div>
+		</ul>
+		<!--内容区域-->
+			<!--tab2-->
+		<div class="tabContListD" style="display: none;height:200px;">
+			<div class="areaAndPS" style="margin-left: 25px;">
+				<div class="form-inline" style="font-size:15px">
+					<div class="row" align="center">
+						<div style="margin-top: 10px;float:left;">
+							<!-- 区域：<select	sel="workplace_area" style="width: 201px;">
+							</select> -->
+						</div>
+						<div class="psArea">
+							全新机柜：<i class="UNusedICON"></i>
+							余量机柜：<i class="marginusedICON"></i>
+							已满机柜：<i class="usedICON"></i>
+						</div>
+					</div>
+				</div>
+				<div class="mainArea_station"></div>
+				<div style="clear: both;"></div>
+			</div>
+			<div class="coordinate" style="width:99%; height:100%;overflow-y: auto;border-botom:1px solid #ddd;">
+				<ul class="Xcoordinate">
+					<li>1</li>
+				</ul>
+				<ul class="Ycoordinate">
+					<li>1</li>
+				</ul>
+				<div class="stationDet" style="border-bottom:2px solid #eee;">
+					<ul class="seatArea">
+						<li>
+							<div class="sta-layer"><i></i><span class="sta1"></span></div> 
+						</li>
+						<li class="hasStation glyphicon glyphicon-shopping-cart" id="computerroomMapConfiguration_typeModel">
+							<div class="sta-layer"><i></i><span class="sta1"></span></div>
+						</li>
+						<li class="hasStation hasStationed marginStation">
+							<div class="sta-layer"><i></i><span class="sta1"></span></div>
+						</li>
+						<li class="hasStation hasStationed">
+							<div class="sta-layer"><i></i><span class="sta1"></span></div>
+						</li>
+					</ul>	
+				</div>
+			</div>	
+		</div>
+		<!--机柜相关信息弹出-->
+		<div sel="wp_info_detail" class="popLayer-all" style="display:none;"><!--  popLayer-bottom -->
+			<i class="pop-i01"></i>
+			<i class="pop-i02"></i>
+			<div class="popLayer">
+				<table sel="person_socket" width="100%" border="0" cellspacing="0" cellpadding="0" class="pop-table">
+					<tr>
+						<td class="pop-title">机柜编号：</td>
+						<td name="CPTRMPCFGG.cab_num">demo</td>
+						<td class="pop-title">机柜区域：</td>
+						<td id="cabinetArea_computerroomMapConfiguration">demo</td>
+					</tr>
+					<tr>
+						<td class="pop-title">机柜名称：</td>
+						<td  name="CPTRMPCFGG.cab_name">demo服务器机柜</td>
+						<td class="pop-title">使用率：</td>
+						<td name="CPTRMPCFGG.cab_use_ratio">demo</td>
+					</tr>
+					<tr>
+						<td class="pop-title">总U值：</td>
+						<td  name="CPTRMPCFGG.total_content">demo12</td>
+						<td class="pop-title">剩余U值：</td>
+						<td  name="CPTRMPCFGG.remain_content">demo8</td>
+					</tr>
+				</table>
+				<table width="100%" sel="assetList_computerroomMapConfiguration"  class="pop-table">
+					<tr>
+						<td class="pop-title">序号</td>
+						<td class="pop-title">资产条形码编码</td>
+						<td class="pop-title">物品名称</td>
+						<td class="pop-title">状态</td>
+					</tr>
+				</table>
+			</div>
+		</div>		
+	</div>
+	</body>
+	<script type="text/javascript" src="js/commons/ajaxfileupload.js"></script>
+	<script src="ppe/propertyManager/assetStorage/computerroomMapConfiguration.js"></script>
+</html>

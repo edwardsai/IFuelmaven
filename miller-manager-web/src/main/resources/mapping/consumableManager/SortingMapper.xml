@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.consumableManager.SortingDao">
+	<!--查询资产类别  -->
+	<select id="queryAllSorting" parameterType="java.lang.String" resultType="java.util.Map">
+		select category_id id,category_name name,pre_category_id pId from CG_SUPPLIES_CONFIG where flag='00' order by order_id
+	</select>
+	<!--根据类型编号，查询一条类别  -->
+	<select id="findOneSortingInfo" parameterType="java.lang.String" resultType="com.yusys.consumableManager.Sorting">
+		select * from CG_SUPPLIES_CONFIG where category_id = #{category_id} and flag='00'
+	</select>
+	<!--添加类别配置  -->
+	<insert id="addSortingConfig" parameterType="java.util.Map">
+    	insert into CG_SUPPLIES_CONFIG (
+			category_id, category_name, pre_category_id, create_id, create_org,
+			create_date, menu_level, order_id, description, flag)
+		values (
+			#{category_id}, #{category_name}, #{pre_category_id}, #{create_id}, #{create_org}, 
+			#{create_date}, #{menu_level}, #{order_id}, #{description}, #{flag})
+    </insert>
+    <!--修改类别配置  -->
+    <update id="updateSortingConfig" parameterType="java.util.Map">
+    	update CG_SUPPLIES_CONFIG 
+		set 
+			category_id = #{category_id}, category_name = #{category_name}, pre_category_id = #{pre_category_id},
+			menu_level = #{menu_level}, order_id = #{order_id}, description = #{description}
+		where 
+			category_id = #{old_category_id} and flag = '00'
+    </update>
+    <!--修改子类别的父级类别编号  -->
+     <update id="updateChildConfigSupNo" parameterType="java.util.Map">
+		update CG_SUPPLIES_CONFIG 
+		set pre_category_id = #{category_id}
+		where pre_category_id = #{old_category_id} and pre_category_id != #{category_id}
+	</update>
+	<!--修改子类别的类别级别  -->
+	 <update id="updateChildConfigLevel" parameterType="java.util.Map">
+		update CG_SUPPLIES_CONFIG 
+		set 
+			menu_level = to_number(menu_level)+to_number(#{gap}) where category_id in(
+				select category_id from CG_SUPPLIES_CONFIG t start with t.category_id = #{category_id}
+				connect by prior t.category_id = t.pre_category_id and t.flag = '00'		
+		)
+	</update>
+	<!--清空父节点  -->
+	  <update id="clearConfigSupNoInfo" parameterType="java.lang.String">
+		update CG_SUPPLIES_CONFIG set pre_category_id = ''  where category_id = #{haveId}
+	</update>
+	<!--删除类别配置  -->
+	<update id="delSortingConfig" parameterType="java.util.Map">
+		update CG_SUPPLIES_CONFIG set flag='01' where category_id in
+		<foreach item="item" index="index" collection="category_ids" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</update>
+	<!-- 新增物品信息 -->
+    <insert id="addField" parameterType="java.util.Map">
+    	insert into CG_GOODS_TYPE(col_id,goods_name,brand,standard,quantity,
+    	status,descr,category_id,flag,goods_id)
+    	values(#{col_id},#{goods_name},#{brand},#{standard},#{quantity},
+    	#{status},#{descr},#{category_id},#{flag},#{goods_id})
+    </insert>
+    <update id="editField" parameterType="java.util.Map">
+    	update CG_GOODS_TYPE 
+		set	goods_name= #{goods_name},brand= #{brand},standard= #{standard},quantity= #{quantity},status= #{status},
+		 descr= #{descr},category_id= #{category_id},col_id = #{col_id}, flag=#{flag}  where goods_id = #{goods_id}
+    </update>
+    <!-- 修改一条物品信息 -->   	
+    <update id="updateField" parameterType="java.util.Map">
+    	update CG_GOODS_TYPE 
+		set	
+			goods_id = #{goods_id}, goods_name= #{goods_name}, brand= #{brand}, standard= #{standard},
+			quantity= #{quantity}, status= #{status}, descr= #{descr},category_id= #{category_id}
+		where col_id = #{col_id}
+    </update>
+    <!-- 删除一条字段信息 -->
+	<update id="deleteField" parameterType="java.util.Map">
+		delete from CG_GOODS_TYPE where goods_id = #{goods_id}
+	</update>   
+		
+<!-- 查询类别对应的所有字段 -->
+	<select id="queryAllPrivateField" parameterType="java.util.Map" resultType="java.util.Map">
+		select col_id, goods_id, goods_name,brand, standard,quantity,status,descr,category_id,pic,
+			(select item_name from s_dic_item where dic_code = 'S_DIC_OC' and item_code = t1.status )status_name,
+			(select t2.category_name from CG_SUPPLIES_CONFIG t2 where t1.category_id = t2.category_id) category_name
+		from CG_GOODS_TYPE t1 where t1.category_id = #{category_id} and flag ='00'
+    </select>
+    <!-- 查询一条字段信息 -->
+    <select id="queryOneFieldInfo" parameterType="java.lang.String" resultType="com.yusys.consumableManager.Sorting">
+    	select t1.*, 
+    		(select t2.category_name from CG_SUPPLIES_CONFIG t2 where t1.category_id = t2.category_id) category_name
+    	from CG_GOODS_TYPE t1 where col_id = #{col_id}
+    </select>
+    <!-- 查询是否已存在相同的GOODS_ID -->
+    <select id="queryGoodsID" parameterType="java.util.Map" resultType="java.util.Map">
+    	select * from  CG_GOODS_TYPE where goods_id=#{goods_id} and flag='00'
+    </select>
+    <select id="queryBygoodsId" parameterType="java.util.Map" resultType="java.util.Map">
+    	select * from  CG_GOODS_TYPE where goods_id=#{goods_id}
+    </select>
+    <!--添加图片附加  -->
+   <insert id="uploadImg" parameterType="java.util.Map">
+   		insert into CG_GOODS_TYPE (goods_id,pic) values(#{goods_id},#{file_id})
+   </insert>
+   <!-- 修改 -->
+   <update id="uploadImgage" parameterType="java.util.Map">
+   		update CG_GOODS_TYPE set pic=#{file_id},create_user=#{create_user},create_date=#{create_date} where goods_id=#{goods_id}
+   </update>
+   <!--删除图片附件  -->
+   <update id="deleteImage" parameterType="java.util.Map">
+   		delete from CG_GOODS_TYPE
+   		where goods_id=#{goods_id}
+   </update>
+   <!--查找单条  -->
+   <select id="findOneGoodById" parameterType="java.lang.String" resultType="com.yusys.consumableManager.Sorting">
+		select * from CG_GOODS_TYPE where goods_id=#{goods_id}
+	</select>
+</mapper>

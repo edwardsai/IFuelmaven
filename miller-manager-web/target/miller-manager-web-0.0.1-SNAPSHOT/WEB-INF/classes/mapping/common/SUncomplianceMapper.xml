@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SUncomplianceDao">
+
+ <!-- 查询不合格配置 -->
+<select id="queryAllUncompliance" parameterType="java.util.Map" resultType="java.util.Map">
+  	 select id,min_years,max_years,
+  	        (select item_name from s_dic_item  where dic_code='E_DIC_EMP_POST' and item_code=emp_post) as emp_post,
+			(select item_name from s_dic_item  where dic_code='E_DIC_QUALIFICATION' and item_code=qualification) as qualification,
+			(select item_name from s_dic_item  where dic_code='EST_USE_GRADE' and item_code=use_grade) as use_grade,
+			(select item_name from s_dic_item  where dic_code='E_FLAG' and item_code=flag) as flag
+		from s_non_compliance_config  where 1=1 
+
+ 	 <if test="qualification!=null and qualification!=''">
+ 			and qualification like #{qualification}
+ 		</if> 
+ 		<if test="use_grade!=null and use_grade!=''">
+ 			and use_grade like #{use_grade}
+ 		</if>
+ 		<if test="emp_post!=null and emp_post!=''">
+ 			and emp_post like #{emp_post}
+ 		</if>
+ 		order by id desc
+	</select>
+<!-- 新增不合格配置 -->
+	<insert id="UncomplianceAdd" 		parameterType="java.util.Map">
+	insert into s_non_compliance_config(id,min_years,max_years,qualification,use_grade,
+	flag,emp_post,create_user,create_org,create_date,last_update_user,last_update_date)
+	
+    values(#{id},#{min_years},#{max_years},#{qualification},#{use_grade},
+    #{flag},#{emp_post},#{create_user},#{create_org},#{create_date},#{last_update_user},#{last_update_date})
+	
+	</insert>
+<!-- 删除不合格配置 -->
+	<delete id="UncomplianceDelete" parameterType="java.util.Map">
+		  delete  s_non_compliance_config  where id = #{id} 
+	</delete>
+	<!-- 修改不合格配置 -->
+	<update id="UncomplianceUpdate" parameterType="java.util.Map">
+	   update s_non_compliance_config set
+		 	min_years=#{min_years},max_years=#{max_years},
+		 	qualification=#{qualification},	use_grade=#{use_grade},	flag=#{flag}, emp_post=#{emp_post},
+		 	last_update_user=#{last_update_user},	last_update_date=#{last_update_date}					
+		where id=#{id}
+	</update>	
+ <!-- 查询单个不合格配置 --> 
+	<select id="queryoneUncompliance" parameterType="java.lang.String" resultType="com.yusys.entity.SUncompliance">
+	   select * from s_non_compliance_config where id = #{id}
+	</select>
+	<!-- 查询单个不合格配置 根据人员岗位和级别--> 
+	<select id="queryoneUncomplianceBySL" parameterType="java.util.Map" resultType="com.yusys.entity.SUncompliance">
+	   select * from s_non_compliance_config where emp_post=#{emp_post} and use_grade=#{use_grade}
+	</select>	
+</mapper>

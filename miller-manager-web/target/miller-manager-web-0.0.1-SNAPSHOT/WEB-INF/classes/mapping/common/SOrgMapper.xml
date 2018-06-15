@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SOrgDao">
+	<!-- 创建机构 -->
+	<insert id="insertNewOrg" parameterType="java.util.Map">
+		insert into s_org(org_code,suporg_code,org_name,launch_date,org_manager,org_area,
+		business_type,order_no,org_address,create_no,create_time,state)
+		values(#{org_code},#{suporg_code},#{org_name},#{launch_date},#{org_manager_code},#{org_area},
+		#{business_type},#{order_no},#{org_address},#{create_no},#{create_time},#{state})
+	</insert>
+	<!-- 树形列表查询语句  -->
+	<select id="queryOrgTreeList" parameterType="java.lang.String" resultType="java.util.Map">
+        select org_code id,suporg_code pId,org_name name from s_org where state='00'
+        <if test="null != area_id and area_id != ''">
+			and org_area =  #{area_id}
+		</if>
+         order by order_no asc
+	</select>
+	
+	<!-- 单条查询语句  -->
+	<select id="findOrgByOrgNo" parameterType="java.lang.String" resultType="com.yusys.entity.SOrg">
+		select so.org_code,
+		(select o.org_code from  s_org o where so.suporg_code = o.org_code) as suporg_code,
+		(select o.org_name from  s_org o where so.suporg_code = o.org_code) as suporg_name,
+		so.org_name,so.launch_date,su.user_name as org_manager_name,
+		su.user_no as org_manager_code,so.org_area,so.business_type,so.order_no,so.org_address
+		from s_org so, s_user su  where  so.org_manager = su.user_no and  
+		so.org_code = #{org_code} and so.state='00'
+	</select>
+	
+	<!-- 修改数据  -->
+	<update id="updateOrg" parameterType="java.util.Map">
+		update s_org set  
+		org_code=#{org_code},org_name=#{org_name},suporg_code=#{suporg_code},
+		launch_date=#{launch_date},org_manager=#{org_manager_code},org_area=#{org_area},business_type=#{business_type},
+		order_no=#{order_no},org_address=#{org_address},update_no=#{update_no},update_time=#{update_time}
+		where org_code=#{old_org_code} and state='00'
+	</update>
+	
+	<!-- 删除(修改标记位) -->
+	<update id="deleteOrgInfo" parameterType="java.util.Map">
+		update s_org set state=#{state},update_no=#{update_no},update_time=#{update_time} where org_code=#{org_code} and state='00'
+	</update>
+	
+	<select id="findAllOrgById"    parameterType="java.util.Map"	resultType="java.util.Map">
+		select s.*,o.org_name,o.org_manager,o.org_code from s_user s
+		left join s_org o on s.user_no = o.org_manager
+		where 1=1
+			<if test="null != user_no and user_no != ''">
+					and s.user_no =  #{user_no}
+			</if>
+	</select>			
+	
+	<select id="findAllOrg"    parameterType="java.util.Map"	resultType="java.util.Map">
+			  select o.ORG_CODE,o.ORG_NAME,u.user_name  ORG_MANAGER,o.BUSINESS_TYPE,o.STATE,o.UPDATE_TIME from  s_org	o 
+		   		   left join s_user u  on   u.user_no = o.org_manager
+		      where 1=1
+			<if test="null != org_name and org_name != ''">
+					and o.org_name  like  #{org_name}
+			</if>
+			<if test="null != org_manager and org_manager != ''">
+					and u.user_name  like  #{org_manager}
+			</if>
+			<if test="null != org_code and org_code != ''">
+					and o.org_code  =  #{org_code}
+			</if>
+			<if test="null != state and state != ''">
+					and o.state = #{state}
+			</if>
+	</select>	
+</mapper>

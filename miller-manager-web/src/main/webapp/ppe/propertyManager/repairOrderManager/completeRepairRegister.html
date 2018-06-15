@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>资产维修完成登记</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="upload/uploadify/uploadify.css"/>
+<script type="text/javascript" src="upload/uploadFileInfo.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style>
+.table_input td {height: 45px;} 
+#head{font-weight:bolder;}
+td{height: 40px;}
+</style>		
+</head>
+<body class="left_bor" >
+<h3 class="header-h3"> 申请信息</h3>
+<!-- 申请信息部分 -->
+<div class="row-fluid">
+	<div>	
+		<table class="table table-striped" style="width:99.5%">
+			<tbody>
+				<tr>
+					<td class="tableColumnName" style="font-weight:bolder;width:230px;">流水号：</td>
+					<td style="width:330px;"><span name="CK.rep_id"></span></td>
+					<td class="tableColumnName" style="font-weight:bolder;width:230px;">资产名称：</td>
+					<td style="width:330px;"><span name="CK.asset_name"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" style="font-weight:bolder;">资产类型：</td>
+					<td><span name="CK.asset_type_name"></span></td>
+					<td class="tableColumnName" style="font-weight:bolder;">申请人：</td>
+					<td><span name="CK.apply_user_name"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" style="font-weight:bolder;">申请人机构：</td>
+					<td><span name="CK.apply_org_name"></span></td>
+					<td class="tableColumnName" style="font-weight:bolder;">维修方式：</td>
+					<td>
+						<span name="CK.repair_method_name"></span>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="tableColumnName" style="font-weight:bolder;">申请时间：</td>
+					<td><span name="CK.apply_date"></span></td>
+					<td class="tableColumnName" style="font-weight:bolder;">要求完成时间：</td>
+					<td><span name="CK.required_date"></span></td>
+				</tr>
+				<tr>
+		            <td class= "tableColumnName" style="font-weight:bolder;">上传图片：</td>
+		            <td>
+						<input type="hidden" name="CK.filed_id" id="CKfiled_idId" value="">
+						<input type="hidden"  id="CKfiled_id"/>
+					</td>
+					  <td class= "tableColumnName" style="font-weight:bolder;">维修地址：</td>
+		            <td>
+						<span name="CK.repair_address"></span>
+					</td>
+	           </tr>
+	           <tr>
+		            <td class= "tableColumnName" style="font-weight:bolder;">维修人：</td>
+		            <td>
+						<span name="CK.user_name"></span>
+					</td>
+					  <td class= "tableColumnName" style="font-weight:bolder;">维修状态：</td>
+		            <td>
+						<span name="CK.repair_status_name"></span>
+					</td>
+	           </tr>
+				<tr>
+					<td class="tableColumnName" style="font-weight:bolder;">维修说明：</td>
+					<td colspan="3"><span name="CK.repair_remark"></span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!--完成反馈信息-->
+<div class="row-fluid" >
+	<h3 class="header-h3" id="title_repair">完成反馈</h3>
+	<div>	
+		<table id="Table_completeRepair" class="table_input table table-striped table-hover table-border" style="width:99.5%">
+			<tbody>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">维修结果： </span>
+					</td>
+					<td >
+					    <span style="text-align: left; float:left; margin-left:10px;">
+						    <select id="TKrepair_result" validate="v.required"  valititle="该项为必填项" style="width:400px; margin:3px 5px;" >
+						</select></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName"><span style="font-weight:bolder;">维修结果备注：</span></td>
+					<td colspan="3">
+						<textarea id="TKresult_remark" style="width: 97.5%; line-height:2;resize: none;margin:3px 5px" rows="3"></textarea>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div>	
+		<table id="Table_viewCompleteRepair" class="table_input table table-striped table-hover table-border" style="width:99.5%">
+			<tbody>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">维修结果： </span>
+					</td>
+					<td style="border-right:1px solid #cccccc;width: 77.5%;">
+						<span name="CK.repair_result_name" style="text-align: left; float:left; margin-left:20px;">
+						</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName"><span style="font-weight:bolder;">维修结果备注：</span></td>
+					<td colspan="3">
+						<span name="CK.result_remark" style="text-align: left; float:left; margin-left:20px;"></span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div  align="center" style="margin:20px 0px; margin-bottom:60px;">
+		<button class="ilsh_left btns"  id="save_propertyRepairList">保存</button>
+		<button class="ilsh_left btns" id="back_propertyRepairList">返回</button>
+	</div>
+</div>	
+</body>
+<script src="ppe/propertyManager/repairOrderManager/completeRepairRegister.js"></script>
+</html>

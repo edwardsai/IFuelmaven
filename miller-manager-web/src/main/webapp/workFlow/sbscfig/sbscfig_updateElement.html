@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>修改业务要素</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css"/>
+<style type="text/css">
+	#updateSbscfig_from div{
+		padding:7px;
+	}
+	.spp {
+		text-align:right;
+	}
+</style>
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px" id="updateSbscfig_from">
+	<input name="UF.b_id" id="UFb_id" type="hidden" value="存放记录ID"/>
+		<div class="row" align="left" >
+			<div class="span2 spp">业务系统：</div>
+			<div class="span4">
+				<select id="UFsystem_code" diccode="WF_DIC_SYSTEM" name="UF.system_code" style="width:85%" validate="v.required" valititle="该项为必填项">
+		        </select>
+			</div>
+			<div class="span2 spp">状态：</div>
+			<div class="span4">
+				<select id="UFb_state" diccode="WF_DIC_STATE" name="UF.b_state" style="width:85%" validate="v.required" valititle="该项为必填项">
+		        </select>
+			</div>
+		</div>
+		<div class="row" align="left">
+			<div class="span2 spp">要素类别：</div>
+			<div class="span4" id="UFrule_type" name="UF.rule_type" style="display: inline-block;">
+			</div>
+			<div class="span2 spp">业务要素ID：</div>
+			<div class="span4">
+				<input type="text" id="UFfactor_code" name="UF.factor_code" validate="v.required" valititle="该项为必填项"/>
+			</div>
+		</div>
+		<div class="row" align="left">
+			<div class="span2 spp">业务要素名称：</div>
+			<div class="span4">
+				<input type="text" id="UFfactor_name" name="UF.factor_name" validate="v.required" valititle="该项为必填项"/>
+			</div>
+			<div class="span2 spp">业务要素类型：</div>
+			<div class="span4">
+				<select id="UFfactor_type" name="UF.factor_type" diccode="WF_DIC_FAC_TYPE" style="width:85%" validate="v.required" valititle="该项为必填项">
+		        </select>
+			</div>
+		</div>
+		<div class="row" align="left">
+			<div class="span2 spp">备注：</div>
+			<div class="span10">
+				<textarea  name="UF.memo" placeholder="备注" id="UFmemo" style="width:85%"></textarea>
+			</div>
+		</div>
+		
+	</form>
+	<div style="width:200px;margin:30px auto;" >
+   		<button type="button" class="btns"  id="UsaveElement" >保存</button>     
+   		<button type="button" id="UgoBackSbscfigList" class="btns">返回</button> 				
+	</div>
+<script type="text/javascript" src="bootstrap/js/select2.js"></script>
+<script src="workFlow/sbscfig/sbscfig_updateElement.js"></script>
+</body>
+</html>

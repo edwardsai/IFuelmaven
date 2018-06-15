@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WFEntryDao">
+
+    <!-- 查询人员进场业务数据 -->
+	<select id="queryWFEntryBizData" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from e_admission_apply where id=#{id}
+	</select>
+	<!-- 根据id修改人员入场申请表对应信息审批状态 -->
+	<update id="updateEntranceAppStaById" parameterType="java.util.Map">
+		UPDATE E_ADMISSION_APPLY SET 
+			approve_status=#{approve_status}
+		WHERE id=#{id}
+	</update>
+	<!-- 根据人员编号修改人员基本信息表对应信息状态 -->
+	<update id="updateEmpStaByNum" parameterType="java.util.Map">
+		UPDATE EMP_EMPINFO SET 
+			EMP_STATUS=#{EMP_STATUS},ENTER_DATE=#{ENTER_DATE},
+			EMP_POST=#{EMP_POST},EMP_GRADE=#{EMP_GRADE}
+		WHERE USER_NUM=#{USER_NUM}
+	</update>
+	<!-- 根据id修改对应人员信息的当前审批人 -->
+	<update id="updateEmpAppPersonById" parameterType="java.util.Map">
+		UPDATE E_ADMISSION_APPLY SET 
+			curr_user_no=#{curr_user_no}
+		WHERE id=#{id}
+	</update>
+	<!-- 通过流程实例id获取审批过程信息 -->
+	<select id="queryAppIdByInstId" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from WF_APP_PROCESS where instance_id=#{instance_id}
+	</select>
+	<!-- 通过id查询人员信息表数据 -->
+	<select id="queryEmpinfobyid" parameterType="java.util.Map" resultType="java.util.Map">
+		select emp_post,emp_grade
+		 from e_admission_apply  where id=#{id}
+	</select>
+	<!-- 根据申请人员数据id获取该人员所属部门以及项目组 -->
+	<!-- <select id="queryEmpBelongById" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from WF_APP_PROCESS where instance_id=#{instance_id}
+	</select> -->
+</mapper>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,71 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>盘点计划查询</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<script src="ppe/propertyManager/inventoryManager/inventoryPlan/inventoryPlanList.js"></script>
+<style type="text/css">
+.moreSearch {display: none;}
+#head{font-weight:bolder;}
+/*加粗居右*/
+	.rightBolder{
+		text-align : right;
+		font-weight:bolder;
+	}
+td{height:35px;}	
+</style>
+</head>
+<body class="left_bor" style="line-height:24px;">
+	<h3  class="header-h3"></h3>
+	<div id="searchDiv_inventoryPlanList" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50" >
+				盘点计划编号：<input id="plan_num_inventoryPlanList" type="text" class="span4"/>
+			</div>
+			<div class="span5 h50" >
+				盘点计划名称：<input id="plan_name_inventoryPlanList" type="text" class="span4"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="search_inventoryPlanList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_inventoryPlanList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_inventoryPlanList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center"  id="moreSearch_inventoryPlanList">
+			<div class="span5 h50">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				盘点内容：<input id="inven_content_inventoryPlanList" readonly="readonly" type="text" class="span4" />
+			</div>
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				盘点范围：<input id="inven_scope_inventoryPlanList" readonly="readonly" type="text" class="span4" />
+			</div>
+			<div class="span5 h50">
+				盘点执行状态：<select diccode="INV_DIC_INVEN_STATE" id="state_inventoryPlanList" style="width: 201px;"></select>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" id="submenuList_inventoryPlanList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="addPlan_inventoryPlanList" ><i class="icon-plus" style="margin:4px 3px 0 0"></i>新建</li>
+			<li class="ilsh submenuList1" id="updatePlan_inventoryPlanList"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>修改</li>
+			<li class="ilsh submenuList1" id="deletePlan_inventoryPlanList"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li class="ilsh submenuList" id="executeScheme_inventoryPlanList">执行盘点</li>
+			<li class="ilsh submenuList" id="viewScheme_inventoryPlanList">查阅盘点方案</li>
+			<li class="ilshA" id="moreIlsh_inventoryPlanList"></li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+<table id="tb_inventoryPlanList"></table>
+</div>
+</body>
+</html>

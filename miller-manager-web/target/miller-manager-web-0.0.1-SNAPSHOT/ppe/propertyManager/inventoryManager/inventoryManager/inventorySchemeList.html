@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta charset="utf-8" />
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<title>盘点方案列表</title>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	/*加粗居右*/
+	.rightBolder{
+		text-align : right;
+		font-weight:bolder;
+	}
+	.uploadImg_btns{cursor:pointer;position:absolute;left:50%;border-radius:5px;margin-left:-100px;top:45%;margin-top:-22.5px;background: #1AB394;font-size:18px;width:200px;text-align:center;color:#fff;height: 55px;line-height: 55px;}
+	input.uploadImg_btns{background: none;opacity: 0;}
+	
+	
+.tableColumnName{font-weight:bolder;}
+
+</style>
+</head>
+<body style="line-height:24px;">
+<div id="inventorySchemeListBody">
+	<h3 class="header-h3"></h3>
+	<div  class="form-inline" style="font-size:15px" id="searchDiv_inventorySchemeList">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				方案编号 ：<input type="text" class="span3" id="scheme_num_inventorySchemeList"/>
+			</div>
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				方案名称：<input type="text" class="span3" id="scheme_name_inventorySchemeList"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" btn="query" id="search_inventorySchemeList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_inventorySchemeList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div id="showMore_inventorySchemeList" class="ilsh_left submenuList1 moreSearchBtn" id="showMore"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_inventorySchemeList">
+			<div class="span5 h50">
+				创建时间：<input type="text" readonly="readonly" placeholder="点击选择" class="span3" id="create_date_inventorySchemeList" onClick="WdatePicker({})"/>
+			</div>
+			
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				创建人：<input type="text" class="span3" id="plan_emp_inventorySchemeList"/>
+			</div>
+			<div class="span5 h50">
+				要求完成时间：<input type="text" readonly="readonly" placeholder="点击选择" class="span3" id="plan_end_time_inventorySchemeList" onClick="WdatePicker({})"/>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch2_inventorySchemeList">
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				状态：<select  sel="scheme_state" style="width:201px" id="scheme_state_inventorySchemeList" diccode="INV_DIC_INVEN_SCHEME_STATE" >
+				</select>
+			</div>
+			
+		</div>
+	</div>
+	<div class="submenuList" id="submenuList_inventorySchemeList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="makeScheme_inventorySchemeList">制定方案</li>
+			<li class="ilsh submenuList1" id="executeInv_inventorySchemeList">执行盘点</li>
+			<li class="ilsh submenuList1" id="detail_inventorySchemeList"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看详情</li>
+			<li class="ilsh submenuList1" btn="exportToEquip">导出盘点设备文件</li>
+			<!-- <li class="ilsh submenuList" id="export_excel">导出excel</li> -->
+			<li class="ilsh submenuList" btn ="insert_result">导入盘点结果
+			<li class="ilsh submenuList" id="write_inventorySchemeList">手工录入结果</li>
+			<li class="ilsh submenuList" btn="self_invenManage">自助盘点管理</li>
+			<li class="ilsh submenuList" id="get_inventorySchemeList">确定盘点结果</li>
+			<li class="ilshA" id="moreIlsh_inventorySchemeList"></li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<table id="tb_inventorySchemeList"></table>
+</div>
+
+<!-- 导入 -->
+	<div mod="insertResultzPop" class="modal hide fade" tabindex="-1" style="width: 700px; left: 50%; margin-left: -350px; display: none;top:20%;" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h5>导入盘点结果</h5>
+			</div>
+			<div class="modal-body">
+				<table id="table_warrantAreaInfo" class=" table table-striped table-border table-info" style="width:99.5%;margin-bottom:5px;font-size:14px">
+					<tbody><tr>
+						<td class="tableColumnName" style="height:44px;">选择附件：</td>
+						<td>
+							<div class="upload-checkfile-all">
+								<input name="fielIda" id="fielIda_insertResult" class="input-txt" type="text">
+								<input value="浏览" class="input-btn" type="button">
+								<input name="file" class="input-file" id="insert_result_file" onchange="document.getElementById('fielIda_insertResult').value=this.value" type="file">
+							</div>
+						</td>
+					</tr>
+				</tbody></table>
+				<div align="center" style="margin-top: 25px;">
+				<button class="ilsh_left btns" aria-hidden="true" data-dismiss="modal">关闭</button>
+				<button class="ilsh_left btns" btn="insert">导入</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/commons/ajaxfileupload.js"></script>
+<script src="ppe\propertyManager\inventoryManager\inventoryManager\inventorySchemeList.js"></script>
+
+</html>

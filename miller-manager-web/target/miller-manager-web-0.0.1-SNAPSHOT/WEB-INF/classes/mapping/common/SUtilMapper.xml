@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SUtilDao">
+	<!-- 查询任务序列  -->
+	<select id="findSenqunceByName" parameterType="java.util.Map" resultType="string">
+	   	select next_val(${name})
+	   	
+	</select>
+	
+	<!-- 根据多个id 查询用户 -->
+	<select id="queryUsersByIds" parameterType="java.util.List" resultType="java.util.Map">
+		select * from s_user where user_no in
+		<foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+				#{item}
+		</foreach>
+	</select>
+</mapper>

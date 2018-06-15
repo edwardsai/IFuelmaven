@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>人员管理列表</title>
+<link rel="stylesheet" href="../../../ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/public.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/index.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/jquery.datetimepicker.css" />
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+<script type="text/javascript" src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.core.js"></script>
+<script type="text/javascript" src="../../../ztree3.5.22/js/jquery.ztree.excheck.js"></script>
+<script type="text/javascript" src="../../../js/commons/Math.uuid.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+</style>
+<script type="text/javascript">
+	$(function() {
+		/* $("#showMore").click(function() {
+			$("#moreSearch").toggle("normal hide");
+		}); */
+		
+		$("#addUserInfo").click(function(){
+			window.location.assign("addUserInfo.html");			
+		});
+		
+		$("#updateUserInfo").click(function(){
+			window.location.assign("addUserInfo.html");	
+		});
+		/* $("#leaveApplication").click(function(){
+			window.location.assign("../empOutManage/empOutApply2.html");
+		}); */
+		
+		/* $("#viewEmpinfo").click(function(){
+			window.location.assign("EmpInfo.html");
+		}); */
+	})
+</script>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<form id="taskinfolist_form" action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			
+			<div class="span5 h50">
+				用户编号：<input type="text" class="span3"/>
+			</div>
+			<div class="span5 h50">
+				用户名 称：<input type="text" class="span3"/>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center"  id="moreSearch">
+			<div class="span5 h50">
+				登  录  名：<input type="text" class="span3"/>
+			</div>
+			<div class="span5 h50">
+				用户状态：<select id="task_state" class="span3" name="T.task_state" style="width:201px">
+					<option>请选择</option>
+					<option>在场</option>
+					<option>离场</option>
+				</select>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="select"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="showMore"><i class="icon-plus" style="margin:4px 3px 0 0"></i>高级查询</li>
+			<li class="ilsh submenuList1" id="addUserInfo" >新增</li>
+			<li class="ilsh submenuList1" id="updateUserInfo">修改</li>
+			<li class="ilsh submenuList1" id="deleteUser">删除</li>
+			<li class="ilsh submenuList" id="admissionApplication">角色分配</li>
+			<li class="ilsh submenuList" id="leaveApplication">生成权限</li>
+			<li class="ilshA" id="moreIlsh"></li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+		<tbody>
+			<tr id="head">
+				<td><input name="chkAll" id="chkAll" title="全选"
+					onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" /></td>
+				<td class="newStyle"><span>用户编号</span></td>
+				<td class="newStyle"><span>用户名称</span></td>
+				<td class="newStyle"><span>登录名</span></td>
+				<td class="newStyle"><span>用户状态</span></td>
+				<td class="newStyle"><span>所属部门</span></td>
+				<td class="newStyle"><span>用户邮箱</span></td>
+				<td class="newStyle"><span>用户等级</span></td>
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>1</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>01</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='2'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>2</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>02</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='3'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>3</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>03</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='4'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>4</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>admin</span></td>
+				<td><span>在职</span></td>
+				<td><span>乌鲁木齐银行</span></td>
+				<td><span>tanbo@yusys.com.cn</span></td>
+				<td><span>04</span></td>
+
+			</tr>
+		</tbody>
+	</table>
+	<!-- table结束 -->
+	<!-- 分页开始 -->
+	<div style="font-size:13px">
+			<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+				<span class="pagination-info">每页显示5条   共4条</span>
+			</div>
+		    <div class="pull-right pagination pull-right">
+				<ul class="pagination">
+					<li class="page-first disabled">
+						<a href="javascript:void(0)">首页</a>
+					</li>
+					<li class="page-pre disabled">
+						<a href="javascript:void(0)">上一页</a>
+					</li>
+					<li class="page-next">
+						<a href="javascript:void(0)">下一页</a>
+					</li>
+					<li class="page-last">
+						<a href="javascript:void(0)">末页</a>
+					</li>
+					<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+		    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+				</ul>
+			</div>
+		</div>
+	<!-- 分页结束 -->
+</div>
+
+<!-- 用户模态框 -->
+<div id="setUserRuleModal" class="modal hide fade" tabindex="-1"
+	style="width: 850px;left:50%;margin-left:-425px;height:450px;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		<h3 id="myModalLabel">分配机构角色</h3>
+	</div>
+	<div class="modal-body">
+		<p id="ms_context">
+		<table border="0" collspacing="0" cellpadding="0"
+			style="width: 800px; margin-left: 15px;">
+			<tr style="font-size: 20px; color: red;">
+				<td colspan="5" align="center">当前用户名称:<span id="setRoleUser"></span>&nbsp;当前用户编号:<span
+					id="setRoleUser_no"></span></td>
+			</tr>
+			<tr>
+				<td>
+					<fieldset style="font-size: 12px;">
+						<legend align="center" style="font-size: 18px"> 机构</legend>
+						<ul id="treeOrgRole" class="ztree" style="height:200px;width: 180px;overflow-y: auto;"></ul>
+					</fieldset>
+					
+				</td>
+				<td style="width:18px;"></td>
+				<td>
+					<fieldset style="font-size: 12px;">
+						<legend align="center" style="font-size: 18px">已分配角色 </legend>
+						<select id="selected" name="selected" multiple="" size="12"
+							style="width: 150px ;height: 200px" >
+						</select>
+					</fieldset>
+				</td>
+				<td style="width: 100px; padding-left: 12px;">
+					<button type="button"  style="padding:6px 6px; margin-top:55px;" class="btns">&gt;&gt;</button> <br><br>
+					<button type="button"  style="padding:6px 6px;" class="btns">&lt;&lt;</button>
+				</td>
+				<td>
+					<fieldset style="font-size: 12px;">
+						<legend align="center" style="font-size: 18px">未分配角色 </legend>
+						<select id="unselected" name="unselected" multiple="" size="12"
+							style="width: 150px;height: 200px" >
+						</select>
+					</fieldset>
+				</td>
+			</tr>
+		</table>
+		</p>
+	</div>
+
+	<div style="text-align:center;">
+	  <button class="btns" data-dismiss="modal" aria-hidden="true"  style=" margin: 10px;"  id="save">保存 </button>
+	  <button class="btns" data-dismiss="modal" aria-hidden="true"  style=" margin: 10px;"  id="back">取消 </button>
+    </div>
+	<div class="modal-footer"></div>
+</div>
+<script>
+	//模态框展示
+	$("#admissionApplication").click(function(){
+		$("#setUserRuleModal").modal("show");
+	});	
+	$('#close').bind('click', function(e) {
+		$("#setUserRuleModal").modal("hide");
+	});
+	
+var setting = {
+		view : {
+			showIcon : true
+		},
+		check : {
+			enable : false,
+			chkStyle : "checkbox",
+			radioType : "level"
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
+		callback : {
+			onCheck : onCheck
+		}
+	}; 
+	 var zNodes = [ {
+		id : 1,
+		pId : 0,
+		name : "乌鲁木齐银行",
+		open : true
+	},{
+		id : 11,
+		pId : 1,
+		name : "总部",
+		open : true
+	},{
+		id : 11,
+		pId : 11,
+		name : "总部",
+		open : true
+	},{
+		id : 11,
+		pId : 1,
+		name : "一类支行",
+		open : true
+	},{
+		id : 111,
+		pId : 11,
+		name : "新合支行",
+		open : true
+	},{
+		id : 112,
+		pId : 11,
+		name : "恒丰支行",
+		open : true
+	} ,{
+		id : 22,
+		pId : 1,
+		name : "异地分行",
+		open:true
+	}, {
+		id : 221,
+		pId : 22,
+		name : "昌吉分行",
+		open:true
+	}, {
+		id : 1111,
+		pId : 111,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 1112,
+		pId : 111,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 1113,
+		pId : 111,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 1114,
+		pId : 111,
+		name : "小企业业务部",
+		open:true
+	},{
+		id : 1121,
+		pId : 112,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 1122,
+		pId : 112,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 1123,
+		pId : 112,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 1124,
+		pId : 112,
+		name : "小企业业务部",
+		open:true
+	},{
+		id : 2211,
+		pId : 221,
+		name : "综合管理部",
+		open:true
+	},{
+		id : 2212,
+		pId : 221,
+		name : "公司银行部",
+		open:true
+	},{
+		id : 2213,
+		pId : 221,
+		name : "零售银行部",
+		open:true
+	},{
+		id : 2214,
+		pId : 221,
+		name : "小企业业务部",
+		open:true
+	}];
+ 
+	 var code; 
+	function setCheck() {
+		var type = $("#level").attr(
+				"checked") ? "level"
+				: "all";
+		setting.check.radioType = type;
+		showCode('setting.check.radioType = "'
+				+ type + '";');
+		$.fn.zTree.init($("#treeOrgRole"),
+				setting, zNodes);
+	} 
+	 function showCode(str) {
+		if (!code)
+			code = $("#code");
+		code.empty();
+		code.append("<li>" + str + "</li>");
+	} 
+	function onCheck(e, treeId, treeNode) {
+		var pNode = treeNode.getParentNode();
+		var reValue = treeNode.name;
+		if (pNode != null && pNode.id != 1) {
+			reValue = pNode.name + "/"
+					+ treeNode.name;
+		}
+		window.parent
+				.$("#institutionsname")
+				.val(reValue);
+	} 
+	 $(document).ready(
+			function() {
+				$("div [id=dep]").hide();
+				setCheck();
+				$("#level").bind("change",
+						setCheck);
+				$("#all").bind("change",
+						setCheck);
+			}); 
+	/* function check(value){
+		if(value=="已撤销"){
+			$("#timetoSee").show();
+			$(".name").html("撤销时间");
+		}else if(value=="已合并"){
+			$("#timetoSee").show();
+			$(".name").html("合并时间");
+		}else{
+			$("#timetoSee").hide();
+		}
+	} 
+
+	 $("#treeDemo_10_ico").click(function(){
+		$("input[name ^='EEC.']").val("1111");
+		$("textarea").val("");
+	});
+	
+	$("#updateOrg").click(function() {
+		var old_org_no = $("#old_org_code").val();
+		if(""==$.trim(old_org_no)){
+			updateOrg("SOrg/createsorg.asp","添加");
+		}else{
+			updateOrg("SOrg/updatesorg.asp","修改");
+		}
+	}); 
+	 */
+</script>
+</body>
+
+<script src="../../../js/commons/commons.js"></script>
+
+</html>

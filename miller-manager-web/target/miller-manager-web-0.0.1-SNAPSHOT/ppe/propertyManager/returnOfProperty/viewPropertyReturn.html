@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>资产归还查看</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript">
+</script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+</style>
+</head>
+<body class="left_bor">
+	<h3 class="header-h3">资产基本信息</h3>
+	<div>
+		<!-- 基本信息部分 -->
+		<div class="row-fluid" >
+			<table  class="table table-striped" style="width: 99.5%" >
+				<tbody>
+					<tr>
+						<td class="tableColumnName" style="width:250px;"><span
+							style="font-weight: bolder;">资产编码： </span></td>
+						<td style="width:310px;"><span name="VVPR.ASSET_NUM" ></span></td>
+						<td class="tableColumnName" style="width:250px;"><span
+							style="font-weight: bolder;">资产名称： </span></td>
+						<td style="width:310px;"><span name="VVPR.ASSET_NAME" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">资产类型：</span></td>
+						<td><span name="VVPR.ASSET_TYPE_VAL" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">使用人编号：</span></td>
+						<td><span name="VVPR.REAL_USER" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">使用人名称：</span></td>
+						<td><span name="VVPR.REAL_USER_NAME" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">使用人机构：</span></td>
+						<td><span name="VVPR.REAL_USER_ORG_NAME" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">资产使用地址：</span></td>
+						<td><span name="VVPR.REAL_ADDRESS" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">领取时间：</span></td>
+						<td><span name="VVPR.GET_DATE" ></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- 归还信息 -->
+	  <div id="theReturnInfo">
+		<h3 class="header-h3" >归还信息</h3>
+		<div class="row-fluid">
+			<table class="table_input table table-striped table-hover table-border"
+				 style="margin-top: 10px; width: 99.5%">
+				<tbody>
+					<tr>
+						<td class="tableColumnName" style="font-weight: bolder;width:250px;">
+						    <span>归还登记人：</span>
+						    </td>
+						<td style="width:310px;">
+							<span name="VVPR.RETURN_USER_NAME" ></span>
+						</td>
+						<td class="tableColumnName" style="font-weight: bolder;width:250px;">
+						    <span>归还登记人机构： </span>
+						</td>
+						<td>
+							<span name="VVPR.RETURN_USER_ORG_NAME" ></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="font-weight: bolder;width:250px;">
+						    <span>可用状态：</span>
+						</td>
+						<td>
+				            <span name="VVPR.USE_STATUS_VAL" ></span>
+				        </td>
+						<td class="tableColumnName" style="font-weight: bolder;width:250px;">
+						    <span>归还时间：</span>
+					    </td>
+						<td>
+							<span name="VVPR.RETURN_DATE" ></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="font-weight: bolder;width:250px;">
+						    <span>归还说明：</span>
+						</td>
+						<td colspan="3">
+					         <span name="VVPR.RETURN_REMARK" ></span>
+					     </td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	   </div>
+		<div class="row-fluid" align="center"
+			style="margin: 20px 0px; margin-bottom: 60px;">
+			<button class="btns ilsh_left" type="button" id="view_back_assetReturnList">返回</button>
+		</div>
+	</div>
+</body>
+<script src="ppe/propertyManager/returnOfProperty/viewPropertyReturn.js"></script>
+</html>

@@ -1,0 +1,38 @@
+<!-- 日志详情 -->
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<<style>
+.tableHoverNone tr:hover{background:#fff;cursor:pointer;}
+</style>
+<div id="logDetailPop" class="modal hide fade" style="top: 50%;margin-top: -250px; width:700px;" tabindex="-1">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+		<h5 id="myModalLabel">操作日志详情</h5>
+	</div>
+	<div class="modal-body">
+	<table style="width:100%;border:0;cellspacing:0;cellpadding:0;" class="table table-bordered table-bor-pad tableHoverNone">
+		<tr>
+			<td class="ecitic-right" style="border:none;text-align:right;">操作人：</td>
+			<td style="border:none;">
+			<input id="opt_person" readonly="readonly" style="width: 200px;border: 1px solid #ddd;height:28px;text-indent:.2em;"/></td>
+			<td style="border:none;text-align:right;" class="ecitic-right">操作时间：</td>
+			<td style="border:none;"><input id="opt_time" style="width: 200px;border: 1px solid #ddd;height:28px;text-indent:1em;" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td style="border:none;text-align:right;" class="ecitic-right">业务ID：</td>
+			<td style="border:none;"><input id="business_id"  style="width: 200px;border: 1px solid #ddd;height:28px;text-indent:1em;" readonly="readonly"/></td>
+		</tr>
+		<tr>
+			<td  style="border:none;text-align:right;" class="ecitic-right">日志详情：</td>
+			<td style="border:none;" colspan="3"><textarea contenteditable="true" id="memo" style="border: 1px solid #ddd;width: 94.5%;text-indent:.5em;padding:10px 0;" readonly></textarea></td>
+		</tr>
+	</table>
+	</div>
+	<!-- <div class="ecitic-save">
+		<input type="button" class="btn btn-ecitic" value="关闭" id="closeLogDetailPop"/>
+	</div> -->
+		<div class="modal-footer">
+	</div>
+</div>

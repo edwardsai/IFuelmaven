@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>编辑资产申请</title>
+<style>
+	/*表格样式*/
+	.table-info tr{
+		height:40px;
+	} 
+	#table_assetApplyView.table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+	#table_assetApplyView.table-info tbody > tr > td:nth-child(even){text-align:left}
+</style>
+</head>
+<body style="line-height:24px;">
+<div id="assetApplyEditPart">
+	<h3 class="header-h3">资产申请编辑</h3>
+		<div id="assetApplyView">
+          	<table id="table_assetApplyView" class=" table table-striped table-border table-info"  style="width:99.5%;margin: 20px 1px;">
+				<tbody>
+				    <tr>
+						<td class="tableColumnName">
+							<span>申请流水号：</span>
+						</td>
+						<td >
+							<input type="text" name="applyId" readonly="readonly" validate="v.required" valititle="申请流水号"/>
+						</td>
+						<td class="tableColumnName">
+							<span>资产类型：</span>
+						</td>
+						<td >
+							<input type="hidden" name="categoryId" readonly="readonly"/>
+							<input type="text" name="categoryName" readonly="readonly" placeholder="资产类别" validate="v.required" valititle="资产类别">
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>使用方式：</span>
+						</td>
+						<td>
+							<select name="useMethod" onchange="returndate()" style="width:83.4%;" dic_code="ASS_DIC_USEMETHOD" validate="v.required" valititle="使用方式"></select>
+						</td>
+						<td class="tableColumnName">
+							<span class="hide returndate">归还时间：</span>
+						</td>
+						<td >
+						     <span class="hide returndate">
+							<input type="text" name="returnDate" readOnly="readonly" onClick="WdatePicker({})" validate="v.required" valititle="归还时间"/>
+							</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>要求到达时间：</span>
+						</td>
+						<td>
+							<input  type="text" name="requiredDate" readOnly="readonly" onClick="WdatePicker({})" validate="v.required" valititle="要求到达时间"/>
+						</td>
+						<td class="tableColumnName">
+							<span>申请数量：</span>
+						</td>
+						<td  >
+							<input type="text" name="applyNum" validate="v.required" valititle="申请数量"/>
+						</td>
+					</tr>
+					<tr>
+					    <td class="tableColumnName">
+							<span>申请人：</span>
+						</td>
+						<td>
+							<input  type="text" name="applyUserName" readonly="readonly" validate="v.required" valititle="申请数量"/>
+							<input  type="hidden" name="user_no"/>
+						</td>
+						<td class="tableColumnName">
+							<span>申请人机构：</span>
+						</td>
+						<td  >
+							<input  type="text" name="applyOrgName" readonly="readonly" validate="v.required" valititle="申请数量"/>
+							<input  type="hidden" name="org_no"/>
+							<input type="hidden" name="applyDate" />
+							<input type="hidden" name="applyDate" />
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>申请备注：</span>
+						</td>
+						<td colspan="3">
+							<textarea name="remark" style="width: 93.5%; line-height:2;resize: none;" rows="3"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+          </div>
+	   	<div align="center"  style="margin-bottom:50px;">
+			<button class="btns ilsh_left" name="submit" >保存</button>
+			<button class="btns ilsh_left" name="commit" >保存&提交</button>
+			<button class="btns ilsh_left" name="back" >返回</button>
+		</div>
+		<!-- 资产列表模态框 -->
+	<div sel="typeSeleModel" class="modal hide fade" tabindex="-1"  style="width:600px;left:50%;margin-left:-300px;margin-top:50px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5 id="myModalLabel">选择资产类型</h5>
+		</div>
+		<div class="modal-body"  style="line-height:24px;">
+			 <ul sel="typeTree" id="assetTypeTree" class="ztree" style="max-height:280px;overflow-y:auto;padding:15px;border:1px solid #f8f8f8;box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125) !important;"></ul>
+			
+		</div>
+		<div align="center" style="margin-top:10px;margin-bottom:15px;">
+				<!-- <button class="btns ilsh_left" id="" data-dismiss="modal" >确定</button> -->
+				<button class="btns ilsh_left" id="" data-dismiss="modal" >返回</button>
+			</div>
+		<div class="modal-footer"></div>
+	</div>
+</div>
+</body>
+
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+
+<script src="ppe/propertyManager/assetApply/assetApplyEdit.js"></script>
+</html>

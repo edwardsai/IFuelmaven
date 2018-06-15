@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>撰写盘点报告</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+    td {
+		height: 40px;
+	}
+		/*表格表头加粗*/
+	#head{
+		font-weight:bolder;
+	}
+</style>
+</head>
+<body style="line-height:24px;">
+   <div>
+	<h3 class="header-h3">盘点报告撰写</h3>
+	<div id="inventoryreportview">
+          	<table class="table table-striped" style="width: 99.5%">
+				<tbody>
+				    <tr>
+						<td class="tableColumnName" style="font-weight:bolder;width:230px;">
+							<span>盘点计划编号：</span>
+						</td >
+						<td style="width:330px;">
+							<span name="VIR.plan_num"></span>
+							<span class="hide" name="VIR.inven_content_type"></span>
+						</td>
+						<td class="tableColumnName" style="font-weight:bolder;width:230px;">
+							<span>盘点计划名称：</span>
+						</td>
+						<td  style="width:330px;">
+							<span name="VIR.plan_name"></span>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName" style="font-weight:bolder;">
+							<span>计划负责人：</span>
+						</td>
+						<td  >
+							<span name="VIR.plan_emp_name"></span>
+						</td>
+						<td class="tableColumnName" style="font-weight:bolder;">
+							<span>报告时间：</span>
+						</td>
+						<td  >
+							<span name="VIR.report_time"></span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="tableColumnName" style="font-weight:bolder;">
+							<span>实际盘点开始时间：</span>
+						</td>
+						<td  >
+							<span name="VIR.real_start_time"></span>
+						</td>
+						<td class="tableColumnName" style="font-weight:bolder;">
+							<span>实际盘点完成时间：</span>
+						</td>
+						<td  >
+						    <span name="VIR.real_end_time"></span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+          </div>
+      <h3 class="header-h3">盘点方案信息</h3>   
+	      <table id="view_getSchemeTable" class="table-list table-striped table-hover table-border" style="width:99.5%;font-size: 14px">
+		  </table>
+   	<div align="center"  style="margin:40px 0px;">
+	    <button class="ilsh_left btns" type="button" id="view_back_report">返回</button>
+	</div>
+  </div>
+</body>
+<script type="text/javascript" src="ppe/propertyManager/inventoryManager/inventoryReport/viewInventoryReport.js"></script>
+</html>

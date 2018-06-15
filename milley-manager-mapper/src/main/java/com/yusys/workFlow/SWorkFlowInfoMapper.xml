@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.SWorkFlowInfoDao">
+    <!-- 查询所有流程信息 -->
+	<select id="queryAllProcessInfo" parameterType="java.util.Map" resultType="java.util.Map">
+	select wfi.*,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_STATE' and sdi.item_code=wfi.WF_STATE) as W_STATE,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_SYSTEM' and sdi.item_code=wfi.WF_SYS_NAME) as W_SYS_NAME
+		 from wf_info wfi where 1=1
+ 		<if test="wf_name!=null and wf_name!=''">
+ 			and wf_name like #{wf_name}
+ 		</if>
+ 		<if test="wf_sys_name!=null and wf_sys_name!=''">
+ 			and wf_sys_name like #{wf_sys_name}
+ 		</if>
+ 		<if test="wf_state!=null and wf_state!=''">
+ 			and wf_state like #{wf_state}
+ 		</if>
+ 	</select>
+    <!-- 向流程表中插入一条数据-->
+    <insert id="addOneProcessInfo" parameterType="java.util.Map">
+		insert into wf_info (wf_id,wf_name,wf_sys_name,wf_state,opt_time,opt_person,wf_memo)  
+		values(#{wf_id},#{wf_name},#{wf_sys_name},#{wf_state},#{opt_time},#{opt_person},#{wf_memo})
+	</insert>
+	<!-- 根据选择的id删除流程表中该信息 -->
+	<delete id="deleteOneProcessInfo" parameterType="java.util.Map">
+		delete from wf_info where wf_id=#{wf_id}
+	</delete>
+	<!-- 根据流程id删除节点表中该信息 -->
+	<delete id="deleteNoteInfoByWfId" parameterType="java.util.Map">
+		delete from WF_NODE_INFO where wf_id=#{wf_id}
+	</delete>
+	<!-- 根据流程id删除矩阵表中该信息 -->
+	<delete id="deleteMatrixInfoByWfId" parameterType="java.util.Map">
+		delete from wf_matrix where wf_id=#{wf_id}
+	</delete>
+	<!--修改一条流程信息 -->
+	<update id="updateOneProcessInfo" parameterType="java.util.Map">
+		update wf_info set wf_id=#{wf_id},wf_name=#{wf_name},
+		 wf_sys_name=#{wf_sys_name},wf_state=#{wf_state},
+		 opt_time=#{opt_time},opt_person=#{opt_person},
+		 wf_memo=#{wf_memo}
+		where wf_id=#{wf_id}
+	</update>
+	<!--通过流程id查询流程矩阵表中所有信息 -->
+	<select id="queryAllMatrixById" parameterType="java.util.Map" resultType="java.util.Map">
+		select  wm.m_id ,wm.wf_id, wm.r_id ,wm.m_state,
+	   (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_STATE' and sdi.item_code=wm.M_STATE) as MAT_STATE,
+       (select R_NAME from wf_rule where r_id=wm.r_id) r_name,
+       (select R_EXP from wf_rule where r_id=wm.r_id) r_exp,
+       (select WF_NAME from wf_info where wf_id =wm.wf_id) WF_NAME,
+       (select WF_SYS_NAME from wf_info where wf_id =wm.wf_id) WF_SYS_NAME,
+       (select WF_STATE from wf_info where wf_id =wm.wf_id) WF_STATE,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_STATE' and sdi.item_code=
+       (select WF_STATE from wf_info where wf_id =wm.wf_id)
+       ) as W_STATE,
+       (select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_SYSTEM' and sdi.item_code=
+       (select WF_SYS_NAME from wf_info where wf_id =wm.wf_id)
+       ) as W_SYS_NAME,
+        ( select wm_concat(n_id) from (select n_id,m_id,order_id from wf_matrix order by order_id) wfm where wfm.m_id=wm.m_id ) m_rote_v,
+      (select wm_concat(n_name) n_name from  (select  (select n_name from WF_NODE_INFO  wn where wn.n_id=wm.n_id) n_name,m_id from wf_matrix wm order by order_id) a where a.m_id=wm.m_id) m_name
+         from wf_matrix wm  where wf_id=#{wf_id}   group by wm.m_id ,wm.wf_id, wm.r_id ,wm.m_state
+	</select>
+	<!--通过规则id查询规则表中对应信息 -->
+	<select id="queryOneRuleById" parameterType="java.util.Map" resultType="java.util.Map">
+		select * from WF_RULE where R_ID=#{R_ID}
+	</select>
+	 <!-- 向规则表中插入一条数据-->
+    <insert id="addOneRuleInfo" parameterType="java.util.Map">
+		insert into WF_RULE (r_id,r_name,r_exp,opt_person,opt_time,memo)  
+		values(#{r_id},#{r_name},#{r_exp},#{opt_person},#{opt_time},#{memo})
+	</insert>
+	 <!-- 向矩阵表中插入一条数据-->
+    <insert id="addOneMatrixInfo" parameterType="java.util.Map">
+		insert into WF_MATRIX (m_id,wf_id,r_id,n_id,m_state,order_id,opt_person,opt_time,memo)  
+		values(#{m_id},#{wf_id},#{r_id},#{n_id},#{m_state},#{order_id},#{opt_person},#{opt_time},#{memo})
+	</insert>
+	<!-- 根据矩阵id删除矩阵表中的多条记录信息 -->
+	<delete id="deleteOneMatInfo" parameterType="java.util.Map">
+		delete from WF_MATRIX where m_id=#{m_id}
+	</delete>
+	<!-- 根据规则id删除规则表中的记录信息 -->
+	<delete id="deleteOneRuleInfo" parameterType="java.util.Map">
+		delete from WF_RULE where r_id=#{r_id}
+	</delete>
+	
+	 <!-- 修改规则表中一条数据-->
+	 <update id="updateOneRuleInfo" parameterType="java.util.Map">
+	 	update WF_RULE set r_name=#{r_name},opt_time=#{opt_time},r_exp=#{r_exp},memo=#{memo}
+		where r_id=#{r_id}
+	 </update>
+	 <!-- 修改矩阵表中所有对应的数据-->
+	 <update id="updateAllMatInfo" parameterType="java.util.Map">
+	 	update WF_MATRIX set m_state=#{m_state},m_name=#{m_name},m_rote_v=#{m_rote_v},opt_time=#{opt_time}
+		where r_id=#{r_id}
+	 </update>
+	 <!-- 向审批规则表中插入一条记录-->
+    <insert id="addApproveRuleInfo" parameterType="java.util.Map">
+		insert into WF_PROCESS (P_ID,M_ID,R_ID,N_ID,ORDER_ID,OPT_PERSON,OPT_TIME,MEMO)  
+		values(#{p_id},#{m_id},#{r_id},#{n_id},#{order_id},#{opt_person},#{opt_time},#{memo})
+	</insert>
+	<!--根据id查找矩阵下的审批路由信息 -->
+	<select id="queryMatixRoteById" parameterType="java.util.Map" resultType="java.util.Map">
+		select   R_ID,(select R_NAME from wf_rule where r_id=wp.r_id) r_name,
+		P_ID,M_ID,MATRIX_NOTE from WF_PROCESS wp  where wp.p_id in (select MIN(wp.p_id) from  WF_PROCESS wp group by wp.r_id ) and wp.m_id=#{m_id}
+	</select>
+	
+	<!-- 根据规则ID删除矩阵下所有路由节点和审批规则 -->
+	<delete id="deleteMatrixRoteById" parameterType="java.util.Map">
+		delete from WF_PROCESS where r_id=#{r_id}
+	</delete>
+	<!-- 根据矩阵ID删除审批流程表对应信息 -->
+	<delete id="deleteProcessByMId" parameterType="java.util.Map">
+		delete from WF_PROCESS where m_id=#{m_id}
+	</delete>
+	<select id="queryMatrixNodeInfos" parameterType="java.util.Map" resultType="java.util.Map">
+		 select n_id,n_name from WF_NODE_INFO where wf_id=#{wf_id} and n_id in
+              (select n_id from WF_MATRIX where m_id=#{m_id}) order by order_id
+	</select>
+	<!--根据id查找矩阵下的审批路由信息  -->
+	<select id="queryMatixRoteByMId" parameterType="java.util.Map" resultType="java.util.Map">
+		select p_id,m_id,r_id,(SELECT WF_RULE.R_NAME FROM WF_RULE WHERE WF_RULE.R_ID=wfp.r_id) r_name,
+		(SELECT WF_RULE.R_EXP FROM WF_RULE WHERE WF_RULE.R_ID=wfp.r_id) r_exp
+		from (select max(p_id) p_id,max(m_id) m_id,max(r_id)r_id from wf_process where (state is null or state!='01') and m_id=#{m_id} group by p_id) wfp
+	</select>
+	<select id="queryMProcessNodeIds" parameterType="java.util.Map" resultType="java.lang.String">
+			select n_id from wf_process where p_id=#{p_id}
+	</select>
+	<!-- 根据规则ID删除矩阵下所有路由节点和审批规则 -->
+	<delete id="deleteMatrixRoteByPId" parameterType="java.lang.String">
+		delete from WF_PROCESS where p_id=#{p_id}
+	</delete>
+	<!-- 根据流程ID修改流程状态 -->
+	<update id="updateProcessSateById" parameterType="java.lang.String">
+	    update WF_INFO set wf_state=#{wf_state}
+		where wf_id=#{wf_id}
+	</update>
+	<!-- 根据矩阵ID修改矩阵状态 -->
+	<update id="updateMatrixSateById" parameterType="java.lang.String">
+	    update WF_MATRIX set m_state=#{m_state}
+		where m_id=#{m_id}
+	</update>
+		<!-- 根据规则ID删除矩阵下所有路由节点和审批规则 -->
+	<update id="updateMatrixProcessState" parameterType="java.util.Map">
+		update WF_PROCESS set state=#{state} where p_id=#{p_id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

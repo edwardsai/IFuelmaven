@@ -1,0 +1,89 @@
+<html> 
+	<head>
+		<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="css/public.css"/>
+		<script src="bootstrap/js/select2.min.js"></script>
+		<script src="bootstrap/js/bootstrap-table.min.js"></script>
+		<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		<script src="js/commons/commons.js"></script>
+		<script src="pages/sauthorize/sauthorize_queryInfo.js"></script>
+		<script src="pages/sauthorize/sauthorize_add.js"></script>
+		<script src="pages/sauthorize/sauthorize_update.js"></script>
+		<script src="pages/suser/suserPop.js"></script>
+		<script src="pages/srole/srolePop.js"></script>
+		<script src="pages/sorg/sorgPop.js"></script>
+		<meta charset="UTF-8" />
+		<style>
+			<!--
+			.select2-container{
+			margin-left:4px;
+			margin-right:1px;
+			}
+			-->
+		</style>
+	</head>
+	<body>
+		<h3  class="header-h3">授权查询</h3>
+		<form action=""  class="form-inline">
+			<div class="row">
+				<div class="span6 h50">
+					<label class="pl45">授权人：</label> 
+					<input type="text"  class="span3" name="" id="auth_name"  readonly/>
+					<input type="hidden"     id="auth_no">
+				</div>
+				<div class="span6 h50">
+					<label class="pl45"> 被授权人：</label> 
+					<input type="text" class="span3" name="" id="bauth_name"  readonly/>
+					<input type="hidden"     id="bauth_no">
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6 h50">
+					<label class="pl45"> 授权角色：</label>
+					<input type="text" class="span3" name="" id="role_name"  readonly/>
+					<input type="hidden"    id="role_no">
+				</div>
+				<div class="span6 h50">
+					<label class="pl45" >授权机构：</label> 
+					<input type="text" class="span3" name="" id="org_name"  readonly/>
+					<input type="hidden"     id="org_no">
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6 h50">
+					<label class="pl45" style="float:left;"> 授权类型：</label>
+					<select id="auth_type" class="span3" name="" style="width:220px;">
+						<option value="" >--请选择--</option>			
+					</select>
+				</div>
+				<div class="span6 h50">
+					<label class="pl45" style="float:left;">授权操作：</label> 
+					<select id="option_op" class="span3" name="" style="width:220px;">
+						<option value="" >--请选择--</option>			
+					</select>
+				</div>
+			</div>
+			<div class="main_btn">
+					<button type="button" id="Authorize_search" class="btn-gray">查询</button>
+					<button type="button" id="Authorize_reset" class="btn-gray">重置</button>
+			</div>
+		</form>		
+	    <div class="widget-box">
+       		<div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            	 <button class="btn-gray" type="button"   onclick="pageDispatch_authorize_add(this)">授权</button>
+            	 <button class="btn-gray" type="button"   onclick="pageDispatch_authorize_update(this)">修改</button>
+            	 <button class="btn-gray" type="button" id="del_authorize">删除</button>
+          	</div>            
+       		<div class="widget-content nopadding">
+				<div class="control-group" style="height: 445px;">
+					<div class="controls">
+							<table id="table_authorize"></table>				
+					</div>
+				</div>
+			</div>	
+		 </div>    	
+		 <div id="userDivAuthorize"></div>
+		 <div id="orgDivAuthorize"></div>
+		 <div id="roleDivAuthorize"></div>
+	</body>
+</html>

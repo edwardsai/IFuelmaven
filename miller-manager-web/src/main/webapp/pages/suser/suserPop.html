@@ -1,0 +1,33 @@
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<!-- 用户模态框 -->
+<div id="myModal_user" class="modal hide fade" tabindex="-1"  style="width:850px;left:50%;margin-left:-425px;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+		<h5 id="myModalLabel">用户查询页面</h5>
+	</div>
+	<div class="modal-body">
+			<div class="popModal">
+				<label style="margin-left:60px;display:inline">用户编号 :</label>
+				<input type="text" id="pop_userCode"   name="user" class="span2" placeholder="用户编号" style="width:170px;margin-left:3px;">
+				<label  style="margin-left:150px;display:inline">用户名称 :</label>
+				<input type="text" id="pop_username"  name="user"  class="span2"  placeholder="用户名 " style="width:170px;">
+			</div>
+			<div class="popModal">
+				<label style="margin-left:69px;display:inline">登 录 名 :</label>
+				<input type="text" id="pop_userLoginName"   name="user" class="span2" placeholder="登录名" style="width:170px;">			
+				<label style="margin-left:149px;display:inline">状<span style="margin-left:32px;"></span>态 :</label>
+				<select id="pop_userState"   diccode="S_DIC_OC" style="width:183px;z-index:999999;"></select>
+			</div>
+			<div class="row-fluid" align="center" style="margin:15px 0px;">
+				<button class="ilsh_left btns" id="pop_userSearch">查询</button>
+				<button class="ilsh_left btns" id="pop_userReset">重置</button>
+			</div>
+			<table id="pop_userTable">
+			</table>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

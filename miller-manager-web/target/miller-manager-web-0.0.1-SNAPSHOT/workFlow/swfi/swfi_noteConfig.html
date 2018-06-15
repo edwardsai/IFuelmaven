@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>节点配置</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<style type="text/css">
+	#head{
+		font-weight:bolder;
+	}
+	td{
+		height:40px;
+	}
+	.popTable.table-border td{text-align:right;}
+</style>
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				<label class="pl60">流程名称：</label>
+ 				<input type="text" class="span3" name="WF.wf_name" id="wf_name" readonly/>
+ 				<input type="hidden" class="span3" name="WF.wf_id" id="wf_id" readonly/>
+			</div>
+			<div class="span5 h50">
+		        <label class="pl60">业务系统：</label>
+				<select id="wf_sys_name" name="WF.wf_sys_name" class="span3" diccode="WF_DIC_SYSTEM" style="width:201px" disabled="disabled">
+				</select>
+			</div>
+			<div class="span5 h50">
+		        <label class="pl60">流程状态：</label>
+				<select id="wf_state" name="WF.wf_state" class="span3" diccode="WF_DIC_STATE" style="width:201px"  disabled="disabled">
+				</select>
+			</div>
+		</div>
+	</form>
+	<div class="tz_btn">
+		<button class="btns" type="button" id="addNote">新增节点</button>	
+		<!--<button class="btns" type="button" id="updateNote">修改节点</button>-->	
+		<!--<button class="btns" type="button" id="delNote">删除节点</button>-->	
+	    <button class="btns" type="button" id="backToSwfiList">返回</button>
+    </div>
+	<!-- table开始 -->
+	<table id="noteInfoTable" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px"></table>
+	<!-- table结束 -->
+	<!--节点模态框开始 -->
+		<div id="noteInfoModal" class="modal hide fade" tabindex="-1" style="width:750px;height:500px;">
+			  <div class="modal-header">
+			    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			    <h5>新增节点</h5>
+			  </div>
+			  <div class="modal-body" style="height:450px;">
+			    
+					<div align="center" id="addNodeInfo">
+					  <form id="addNode_form">
+						<table class="popTable table table-striped table-hover table-border" style="margin: 0px 1px;height:100%; width:100%">
+					      <tbody>
+						    <tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>节点名称:</span>
+								</td>
+								<td>
+									<input validate="v.required" valititle="节点名称必填" type="text" name="ANO.n_name" id="n_name" style="width:93%;margin: 3px;">
+									<input  type="hidden" name="ANO.n_wf_id" id="n_wf_id"  >
+									<input  type="hidden" name="ANO.n_id" id="n_id"  >
+								</td>
+							</tr>
+						
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>开始节点:</span>
+								</td>
+								<td style="text-align:center;padding-left: 20px;" id="Ais_start">
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>节点类型:</span>
+								</td>
+								<td style="text-align:center;">
+									&nbsp;<select name="ANO.n_type" id="n_type" validate="v.required" valititle="节点类型必填" diccode="WF_DIC_NODE_TYPE" style="width:95%; margin: 3px 5px;">
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>节点审批人:</span>
+								</td>
+								<td style="text-align:center;padding-left: 20px;" id="Ais_auto">
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>节点取数规则:</span>
+								</td>
+								<td style="text-align:center;">
+									&nbsp;<select name="ANO.n_v_type" id="n_v_type" validate="v.required" valititle="节点取数规则必填" diccode="WF_DIC_NODE_VALUE" style="width:95%; margin: 3px 5px;">
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>规则名称:</span>
+								</td>
+								<td>
+									<input validate="v.required" valititle="规则名称必填" type="text" name="ANO.r_name" id="r_name" style="width:93%; margin: 3px 5px;">
+									<input  type="hidden" name="ANO.r_id" id="r_id"  >
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>规则表达式:</span>
+								</td>
+								<td>
+									<input validate="v.required" valititle="规则表达式必填" type="text" name="ANO.r_exp" id="r_exp" style="width:93%; margin: 3px 5px;">
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>节点状态:</span>
+								</td>
+								<td style="text-align:center;">
+									&nbsp;<select name="ANO.n_state" id="n_state" validate="v.required" valititle="节点状态必填" diccode="WF_DIC_STATE" style="width:95%; margin: 3px 5px;">
+									</select>
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>排序号:</span>
+								</td>
+								<td>
+									<input validate="v.required" valititle="排序号必填" type="text" name="ANO.order_id" id="order_id" style="width:93%; margin: 3px 5px;">
+								</td>
+							</tr>
+							<tr>
+								<td style="font-weight:bolder;width:20%">
+									<span>备注:</span>
+								</td>
+							    <td>
+									<textarea id="memo" name="ANO.memo" style="box-shadow:none;height:60px;width:88%;margin: 3px 15px 3px 0px;padding:20px;">
+									</textarea>
+								</td> 
+							</tr>
+						  </tbody>
+						</table>
+					  </form>
+				  	<button class="btns" type="button" id="addSaveNote">保存</button>	
+				  	<button class="btns" type="button" id="updateSaveNote">保存</button>	
+				  	<button class="btns" type="button" id="resetNote">重置</button>
+				  	<button class="btns" type="button" id="node_close">关闭</button>
+					</div>
+			  </div>
+			  <div class="modal-footer"></div>
+	    </div>
+<!-- 新增节点模态框结束 -->
+<script type="text/javascript" src="bootstrap/js/select2.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script> 
+<script src="js/commons/Math.uuid.js"></script> 
+<script src="workFlow/swfi/swfi_noteConfig.js"></script>
+</body>
+
+</html>

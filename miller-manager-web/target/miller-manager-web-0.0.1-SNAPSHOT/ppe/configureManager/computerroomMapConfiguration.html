@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="css/css_ppe/computerroomMapConfiguration.css"/>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<!-- <script src="css/css_ppe/input_radio/icheck.js"></script> -->
+<!-- <script type="text/javascript" src="js/commons/js_ppe/commons_ppe.js"></script> -->
+<!-- <script type="text/javascript" src="js/turnBox.js"></script> -->
+<style type="text/css">
+.tableColumnName{text-align:right;}
+.table-border td{text-align:left;}
+
+</style>
+<!--[if IE]>
+		<script src="http://libs.useso.com/js/html5shiv/3.7/html5shiv.min.js"></script>
+<![endif]-->
+</head>
+
+<body class="left_bor" style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				办公楼：<select id="workplace_edifice"  style="width: 201px;">
+				</select>
+			</div>
+			<div class="span5 h50">
+				楼层：<select	id="workplace_floor" style="width: 201px;">
+				</select>
+			</div>
+		</div>
+	</div>	
+	<!--主体区域-->
+	<!-- tab -->
+	<div class="tabWrap">
+		<ul class="tabD editTabD">
+			<li class="tabBtn tabBtn_Bg editTabBtn">仓库全景图</li>
+			<li class="tabBtn editTabBtn">仓库区域图</li>
+			<div style="clear: both;"></div>
+		</ul>
+		<!--内容区域-->
+			<!--tab1-->
+			<div class="tabContListD editTabContListD on">
+				<div class="img_delete whide" title="删除全景图">X</div>
+				<div class="uploadImg" style="margin-bottom:100px;">
+					<div class="uploadImg_btns">上传全景图</div>
+					<input id="workplace_imgview_file" class="uploadImg_btns" name="file" type="file" style="width:200px;height:55px;margin-left:-155px" />
+				</div>
+				<div>
+					<img id="workplace_img_view_element" class="whide" onerror="loadFloorWorkPlaceImg(1,this)" onload="loadFloorWorkPlaceImg(0,this)" src="cabinetsMap/imageFileViewToPage.asp?fid=20160929144603273&path_id=UPLOAD_IMG" />
+				</div>
+			</div>
+			<!--tab2-->
+			<div class="tabContListD editTabContListD" style="display:none;">
+				<div class="areaAndPS" style="margin-left: 25px;">
+					<div class="form-inline" style="font-size:15px">
+						<div class="row" align="center">
+							<div style="margin-top: 10px;float:left;">
+								区域：<select id="workplace_area" style="width: 201px;"></select>
+								<input type="hidden" id="workplace_id"/>
+							</div>
+							<div class="psArea">
+								全新机柜<i class="UNusedICON"></i>
+								余量机柜<i class="marginusedICON"></i>
+								已满机柜<i class="usedICON"></i>
+							</div>
+						</div>
+					</div>
+					<div class="mainArea_station"></div>
+					<div style="clear: both;"></div>
+				</div>
+				<div class="coordinate">
+					<ul class="Xcoordinate" id="Xcoordinate_edit">
+						<li>1</li>
+					</ul>
+					<ul class="Ycoordinate" id="Ycoordinate_edit">
+						<li>1</li>
+					</ul>
+					<div class="stationDet" style="border-bottom:2px solid #eee;" id="stationDet_edit">
+						<ul class="seatArea">
+							<li>
+								<div class="sta-layer"><i></i><span class="sta1"></span></div> 
+							</li>
+							<li class="hasStation glyphicon glyphicon-shopping-cart" id="computerroomMapConfiguration_typeModel">
+								<div class="sta-layer"><i></i><span class="sta1"></span></div>
+							</li>
+							<li class="hasStation hasStationed marginStation">
+								<div class="sta-layer"><i></i><span class="sta1"></span></div>
+							</li>
+							<li class="hasStation hasStationed">
+								<div class="sta-layer"><i></i><span class="sta1"></span></div>
+							</li>
+						</ul>	
+					</div>
+				</div>	
+			</div>		
+	</div>
+	<!-- 机柜信息模态框 -->
+	<div id="myModal_computerroomMapConfiguration" class="modal hide fade" tabindex="-1"  style="width:600px;left:50%;margin-left:-300px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5 id="jg_info">机柜详情</h5>
+		</div>
+		<div class="modal-body" style="line-height:24px;" align="center">
+			 <table id="cabinetInfo_table" class="table table-striped table-border" style="width:99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;" sel="cab_id">机柜编号： </span>
+							</td>
+							<td>
+								<input type="hidden" name="CPTRMPCFG.cab_id">
+								<input value="QGY2016117" type="text" name="CPTRMPCFG.cab_num" validate="v.required" valititle="该项为必填项">
+							</td>
+						<td class="tableColumnName">
+							<span style="font-weight:bolder;" sel="cab_name">机柜名称：</span>
+						</td>
+						<td>
+							<input value="服务器机柜" type="text" name="CPTRMPCFG.cab_name" validate="v.required" valititle="该项为必填项">
+						</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;" sel="coor_x">机柜X坐标：</span>
+							</td>
+							<td>
+								<input value="0424" type="text" name="CPTRMPCFG.coor_x" disabled>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;" sel="coor_y">机柜Y坐标：</span>
+							</td>
+							<td>
+							<input value="67" type="text" name="CPTRMPCFG.coor_y" disabled>
+							</td>
+						</tr>
+						
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;">深度： </span>
+							</td>
+							<td>
+								<input value="23" type="text" name="CPTRMPCFG.cab_deep" validate="v.required" valititle="该项为必填项">
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;">高度： </span>
+							</td>
+							<td>
+								<input value="45" type="text" name="CPTRMPCFG.cab_high" validate="v.required" valititle="该项为必填项">
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;">长度： </span>
+							</td>
+							<td>
+								<input value="431" type="text" name="CPTRMPCFG.cab_length" validate="v.required" valititle="该项为必填项">
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;">使用率： </span>
+							</td>
+							<td>
+								<input value="0%" type="text" name="CPTRMPCFG.cab_use_ratio" disabled>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;" sel="total_content">总U值： </span>
+							</td>
+							<td>
+								<input value="5" type="text" name="CPTRMPCFG.total_content" validate="v.number100" valititle="该项为必填项" onblur="initRemainContentUNum(this)">
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;" sel="remain_content">剩余U值： </span>
+							</td>
+							<td>
+								<input value="2" type="text" name="CPTRMPCFG.remain_content" validate="v.required" valititle="该项为必填项" disabled>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight:bolder;">备注： </span>
+							</td>
+							<td colspan="3">
+								<input value="服务器机柜" name="CPTRMPCFG.marks" type="text" style="width:92%;">
+							</td>
+						</tr>	
+					</tbody>
+				</table>
+				<div id="cabinetInfo_floor_div">
+					<div class="floorContent">
+						空(8)：<i class="emptyFloor"></i><br/>
+						满(8)：<i class="enoughFloor"></i>
+					</div>
+					<div id="cabinetInfo_floor" class="cfloor"></div>
+				</div>
+				
+		</div>
+		<div align="center" style="padding:15px 0;background-color:#fff;">
+				<button class="btns ilsh_left" id="editFloor">编辑层次</button>
+				<button class="btns ilsh_left" id="modal_save_computerroomMapConfigration">确定</button>
+				<button class="btns ilsh_left" data-dismiss="modal">返回</button>
+			</div>
+		<div class="modal-footer"></div>
+	</div>
+	<!--工位相关信息弹出-->
+	<div id="wp_info_detail" class="popLayer-all" style="display:none;"><!--  popLayer-bottom -->
+		<i class="pop-i01"></i>
+		<i class="pop-i02"></i>
+		<div class="popLayer">
+			<table id="person_socket" width="100%" border="0" cellspacing="0" cellpadding="0" class="pop-table">
+				<tr>
+					<td class="pop-title"><span cel="cab_id">机柜编号：</span></td>
+					<td name="CPTRMPCFGG.cab_num">demo</td>
+					<td class="pop-title"><span cel="cab_area">机柜区域：</span></td>
+					<td id="cabinetArea_computerroomMapConfiguration">demo</td>
+				</tr>
+				<tr>
+					<td class="pop-title"><span cel="cab_name">机柜名称：</span></td>
+					<td  name="CPTRMPCFGG.cab_name">demo服务器机柜</td>
+					<td class="pop-title">使用率：</td>
+					<td name="CPTRMPCFGG.cab_use_ratio">demo</td>
+				</tr>
+				<tr>
+					<td class="pop-title"><span cel="cab_radio">总U值：</span></td>
+					<td  name="CPTRMPCFGG.total_content">demo12</td>
+					<td class="pop-title"><span cel="cab_content">剩余U值：</span></td>
+					<td  name="CPTRMPCFGG.remain_content">demo8</td>
+				</tr>
+			</table>
+			<table width="100%" id="assetList_computerroomMapConfiguration"  class="pop-table">
+				<tr>
+					<td class="pop-title">序号</td>
+					<td class="pop-title">资产条形码编码</td>
+					<td class="pop-title">物品名称</td>
+					<td class="pop-title">类别</td>
+					<td class="pop-title">状态</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	</body>
+	<script type="text/javascript" src="js/commons/ajaxfileupload.js"></script>
+	<script src="ppe\configureManager\computerroomMapConfiguration.js"></script>
+</html>
+
+<script type="text/javascript">
+	/* tab选项卡 */
+	$(document).ready(function() {
+		getCurrentPageObj().find(".editTabBtn").click(function() {
+			getCurrentPageObj().find(".editTabBtn").removeClass('tabBtn_Bg')
+			getCurrentPageObj().find(this).addClass("tabBtn_Bg");
+		});
+		getCurrentPageObj().find(".editTabD li").click(function() {
+			getCurrentPageObj().find(".editTabContListD").hide().eq(getCurrentPageObj().find(this).index()).show();
+			$this.addClass("tabBtn_Bg");
+		});
+	});
+</script>

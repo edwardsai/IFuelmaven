@@ -1,0 +1,28 @@
+<!-- 角色模态框 -->
+<div id="myModal_role" class="modal hide fade" tabindex="-1"  style="width:850px;left:50%;margin-left:-425px;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+		<h5 id="myModalLabel">角色查询页面</h5>
+	</div>
+	<div class="modal-body">
+	<div class="popModal">
+			<label  style="margin-left:60px;display:inline">角色名称 :</label>
+			<input type="text" id="pop_roleName"  name="user"  class="span2"  placeholder="用户名 " style="width:170px;">
+			<label style="margin-left:150px;display:inline">角色编号 :</label>
+			<input type="text" id="pop_roleNo"   name="user" class="span2" placeholder="用户编号" style="width:170px;">
+			</div>
+			<div class="popModal">	
+			<label style="margin-left:58px;display:inline">状<span style="margin-left:27px;"></span>态 :</label>
+			<select id="pop_roleState"     diccode="S_DIC_OC"  style="width:185px;margin:0px;padding:0px;">
+			</select>
+			</div>
+			</br>
+		<button class="ilsh_left btns" id="pop_roleSearch"   style="margin-left:250px;">查询</button>
+		<button class="ilsh_left btns" id="pop_roleReset"  style="margin-left:150px;">重置</button>
+			<br>	<br>
+			<table id="pop_roleTable">
+			</table>
+	</div>
+	<div class="modal-footer">
+	</div>
+</div>

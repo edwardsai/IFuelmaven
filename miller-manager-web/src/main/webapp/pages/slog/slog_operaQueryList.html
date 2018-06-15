@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="css/form.css" /> -->
+<script src="js/commons/commons.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="pages/slog/slog_operaQueryList.js"></script>
+<script src="pages/slog/logDetailPop.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css">
+.submenuList li{float: left;position: relative;}
+.submenuList li input{border:none;}
+.tableColumnName{text-align:right!important;}
+/* .icon-search,.icon-repeat{position: absolute;margin-top: 8.5px!important;margin-left: 5px!important;} */
+.search.table.table-bordered.table-bor-pad tr:hover{background:#fff!important;}
+</style>
+</head>
+<body>
+	    <h3 class="header-h3"></h3>
+	<form action=""  class="form-inline">
+
+		<div class="ecitic-inquire" id="ecitic-inquire">
+			<div class="ecitic-table" id="ecitic-table">
+				<table style="width:100%;border:0;cellspacing:0;cellpadding:0;" class="search table table-bordered table-bor-pad">
+					<tr>
+						<td class="rightTitle tableColumnName" style="border: none;">操作账号：</td>
+						<td style="border: none;"><input type="text" name="O.login_name" id="Ologin_name" /></td>
+						<td style="border: none;" class="rightTitle tableColumnName">操作人：</td>
+						<td style="border: none;"><input type="text" name="O.user_name" id="Ouser_name" /></td>
+					
+						<td style="border: none;" class="rightTitle tableColumnName">操作日期：</td>
+						<td style="border: none;">
+							<span class="ecitic-time">
+								<input style="width: 100px;"  type="text" name="O.opt_time1" id="Oopt_time1" readonly="readonly" onclick="initDate(this)"/>
+							</span>
+							<span class="ecitic-to">至</span>
+							<span class="ecitic-time">
+								<input style="width: 100px;"  type="text" name="O.opt_time2" id="Oopt_time2" readonly="readonly" onclick="initDate(this)"/>
+							</span>
+						</td>
+						</tr>
+					<tr>
+						<td style="border: none;" class="rightTitle tableColumnName">业务ID：</td>
+						<td style="border: none;">
+							<input type="text" name="O.business_id" id="Obusiness_id" />
+						</td>
+					</tr>
+				</table>
+			</div>
+			<!-- <ul class="ecitic-btn-all">
+				<li><input type="button" class="btn btn-ecitic" id="queryOpera" value="查询" /></li>
+				<li><input type="reset" class="btn btn-ecitic" id="resetOpera" value="重置" /></li>
+			</ul> -->
+		</div>
+	</form> 
+	<!-- 
+	<div class="submenuList" style="margin-bottom: 5px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="queryLogin"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="resetLogin"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="openOptDetail"><i class="icon-eye" style="margin:4px 3px 0 0"></i>查看详情</li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div> -->
+	
+	<div class="submenuList" style="margin-bottom: 5px;">
+		<ul class="" style="margin-left:0px">
+			<li>
+			<i class="icon-search" style="left: 5px;top: 6.5px;position: absolute;"></i>
+			<input type="button" class="ilsh submenuList1" id="queryOpera" value="&nbsp;&nbsp;&nbsp;查询" /></li>
+			
+			<li>
+			<i class="icon-repeat" style="left: 5px;top: 6.5px;position: absolute;"></i>
+			<input type="reset" class="ilsh submenuList1" id="resetOpera" value="&nbsp;&nbsp;&nbsp;重置" /></li>
+			
+			<li>
+			<i class="icon-eye-open" style="left: 5px;top: 6.5px;position: absolute;"></i>
+			<input type="button" class="ilsh submenuList1" id="openOptDetail" value="&nbsp;&nbsp;&nbsp;查看详情" /></li>
+			
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	
+	
+	
+	
+	<div class="ecitic-new">
+		<table id="SOperaTableInfo" class="table table-bordered table-hover"></table>
+	</div>
+	<div id="optLogPop"></div>
+</body>
+</html>

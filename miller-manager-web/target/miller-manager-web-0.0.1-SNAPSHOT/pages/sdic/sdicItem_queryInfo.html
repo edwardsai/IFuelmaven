@@ -1,0 +1,154 @@
+<html>
+<head>
+<meta charset="utf-8">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="pages/sdic/sdicItem_queryInfo.js"></script>
+</head>
+<body>
+	<form action="" class="form-inline">
+		<h3 class="header-h3">字典项配置</h3>
+		<div class="row">
+			<div class="span6 h50">
+				<label class="pl45">类别编码：</label> <input type="text" class="span3"
+					name="" id="sdic_code" style="cursor: pointer; background: #fff;"
+					readonly />
+			</div>
+			<div class="span6 h50">
+				<label class="pl45">类别名称：</label> <input type="text" class="span3"
+					name="" id="sdic_name" style="cursor: pointer; background: #fff;"
+					readonly />
+			</div>
+		</div>
+	</form>
+	<div class="tz_btn">
+			<!-- onclick="pageDispatch_sdicItem_add(this,$('#sdic_name').val(),$('#sdic_code').val())" -->
+			<!-- onclick="pageDispatch_sdicItem_update(this,'item_add')"   -->
+			<button class="ilsh_left btns" type="button" id="add_item"	 >创建</button>
+			<button class="ilsh_left btns" type="button" id="update_item"	>修改</button>
+			<button class="ilsh_left btns" type="button" id="del_item">删除</button>
+			<button class="ilsh_left btns" type="button" 	id="item_queryInfo_return">返回</button>
+	</div>
+	<table id="table_item"></table>
+	<div align="center">
+	</div>
+	<!-- 新增字典项模态框 -->
+	<div id="s_dic_tiem_add_Pop" class="modal hide fade" tabindex="-1"  style="width:950px;height:500px;left:50%;margin-left:-475px;">
+	    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5>新增字典项</h5>
+	     </div>
+	     <br/><br/><br/>
+		 <div >
+			<form action="" class="form-inline" id="sdicItem_form_add">
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60">字典编码：</label> <input type="text" name=""
+							id="dic_item_code" validate="v.required" valititle="该项为必填项" />
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">字典类别：</label> <input type="text" name=""
+							id="dicItem_name" validate="v.required" valititle="该项为必填项"
+							style="cursor: pointer; background: #fff;" readonly />
+					</div>
+				</div>
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60" style="float: left;">字典状态：</label> 
+						<select id="dic_item_state" diccode="S_DIC_OC"
+							name="" validate="v.required" style="width: 237px;"
+							valititle="该项为必填项">
+						</select>
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">文本值：</label> <input type="text" name=""
+							id="dic_item_name" validate="v.required" valititle="该项为必填项" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60" style="float: left;">是否默认：</label> 
+						<select id="dic_is_default"name="" diccode="S_DIC_IS_LOCALE" validate="v.required" style="width: 237px;" 	valititle="该项为必填项">
+						</select>
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">序号：</label> <input type="text" name=""
+							id="dic_order_id" validate="v.required" valititle="该项为必填项" />
+					</div>
+		
+				</div>
+				<div class="row">
+					<div class="span12 h50">
+						<label class="pl60">字典说明：</label>
+						<textarea class="span6" name="" id="dic_memo" rows="3" cols="3"></textarea>
+					</div>
+				</div>
+			</form>
+			<div align="center">
+				<button type="button" class="btns" id="itemdic_save">保存</button>
+				<button type="button" class="btns" id="itemdic_close">关闭</button>
+			</div>
+		</div>
+	 </div>
+	
+	<!-- 修改字典项模态框 -->
+	<div id="s_dic_tiem_update_Pop" class="modal hide fade" tabindex="-1"  style="width:950px;height:500px;left:50%;margin-left:-475px;">
+	    <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5>修改字典项</h5>
+	     </div>
+	     <br/><br/><br/>
+	     <div>
+			<form action="" class="form-inline" id="sdicItem_form_update">
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60">字典编码：</label> <input type="text" name=""
+							id="dic_item_update_code" validate="v.required" valititle="该项为必填项"
+							style="cursor: pointer; background: #fff;" readonly />
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">字典类别：</label> <input type="text" name=""
+							id="dic_update_name" validate="v.required" valititle="该项为必填项"
+							style="cursor: pointer; background: #fff;" readonly />
+					</div>
+				</div>
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60" style="float: left;">字典状态：</label> 
+						<select		id="dic_item_update_state" name="" validate="v.required"	style="width: 237px;" valititle="该项为必填项">
+						</select>
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">文本值：</label> <input type="text" name=""
+							id="dic_item_update_name" validate="v.required" valititle="该项为必填项" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="span6 h50">
+						<label class="pl60" style="float: left;">是否默认：</label> 
+						<select		id="dic_is_update_default" name="" validate="v.required"	style="width: 237px;" valititle="该项为必填项">
+						</select>
+					</div>
+					<div class="span6 h50">
+						<label class="pl60">序号：</label> <input type="text" name=""
+							id="dic_order_update_id" validate="v.required" valititle="该项为必填项" />
+					</div>
+				</div>
+				<div class="row">
+					<div class="span12 h50">
+						<label class="pl60">字典说明：</label>
+						<textarea class="span6" name="" id="dicItem_update_memo" rows="3"
+							cols="3"></textarea>
+					</div>
+				</div>
+			</form>
+			<div align="center">
+				<button type="button" class="btns"	id="item_update_save">保存</button>
+				<button type="button" class="btns"	id="item_update_close">关闭</button>
+			</div>
+		</div>
+	 </div>	
+	
+</body>
+</html>

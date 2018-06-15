@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>资产入库</title>
+<link type="text/css" href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css">
+	.moreSearch {display: none;}
+	#head {font-weight:bolder;}
+	td {height:35px;}
+	#assetListPart .span5{width:30% !important;}	
+</style>
+</head>
+<body class="left_bor" style="line-height:24px;">
+<div id="assetListPart">
+	<h3  class="header-h3"></h3>
+	<div id="serach_assetList" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				资产名称：<input type="text" name="assetName" class="span3"/>
+			</div>
+			<div class="span5 h50">
+				资产类别：<input type="hidden" name="assetType" value=""/>
+					<input placeholder="点击选择" type="text" name="assetTypeTree" readonly="readonly"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" sel="query"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" sel="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_assetlist"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_assetList" style="display: none;">
+			
+			<div class="span5 h50"  style="margin-left:10px;"> 
+				     登记人&nbsp;:&nbsp;<input type="text" class="span3" name="assetStroageRegisterName" />
+			</div>
+			<div class="span5 h50"  style="margin-left:2px;">
+				     管理人&nbsp;:&nbsp;<input type="text" class="span3" name="assetStroageManageName" />
+			</div>
+			<div class="span5 h50"  style="margin-left:-26px;">
+			预计报废时间&nbsp;:&nbsp;<input type="text" class="span3" name="assetStroageScrapDate" onClick="WdatePicker({})"/>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_assetList2" style="display: none;">
+			<div class="span5 h50"  style="margin-left:-8px;">
+			     入库流水号：<input type="text" class="span3" name="assetStroageNum"/>
+			</div>
+			<div class="span5 h50"  style="margin-left:9px;">
+				资产状态：<select  class="span3"  style="width:54%"  diccode="PRO_DIC_EQUIPMENT_STATE" name="assetStroage_state"></select>
+			</div>
+			<div class="span5 h50">
+				入库时间&nbsp;:&nbsp;<input type="text" class="span3" name="assetStroageDate" onClick="WdatePicker({})"/>
+			</div>
+			
+		</div>
+	</div>
+	
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" sel="add"><i class="icon-plus" style="margin:4px 3px 0 0"></i>新建</li>
+			<li class="ilsh submenuList1" sel="edit"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>修改</li>
+			<li class="ilsh submenuList1" sel="del"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li class="ilsh submenuList1" sel="view"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看</li>
+			<li class="ilsh submenuList1" sel="printCode"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>打印条形码</li>
+			<li class="ilsh submenuList1" sel="readCode"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>读取条形码</li>
+			<li class="ilsh submenuList1" sel="printQRCode"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>打印二维码</li>
+			<!-- <li class="ilsh submenuList1" sel="copy"><i class="icon-file" style="margin:4px 3px 0 0"></i>复制</li>
+			
+			<li class="ilsh submenuList" sel="import"><i class="icon-download-alt" style="margin:4px 3px 0 0"></i>导入</li>
+			<li class="ilsh submenuList" sel="printOnline"><i class="icon-print" style="margin:4px 3px 0 0"></i>在线打印</li>
+			<li class="ilsh submenuList" sel="syncData"><i class="icon-refresh" style="margin:4px 3px 0 0"></i>信息同步</li> -->
+			<li class="ilsh submenuList" sel="unReceive"><i class="icon-remove-circle" style="margin:4px 3px 0 0"></i>不可领用</li>
+			<!-- <li class="ilshA" sel="moreIlsh"></li> -->
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<div>
+		<table id="tb_assetList"></table>
+	</div>
+</div>
+</body>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="ppe/propertyManager/assetStorage/assetList.js"></script>
+</html>

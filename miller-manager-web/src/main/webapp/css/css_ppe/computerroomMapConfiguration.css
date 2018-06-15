@@ -1,0 +1,89 @@
+/* tab */
+.tabWrap{width: 99%;margin-top: 15px;}
+.tabContListD{float:left;width:100%;padding-top:15px;height:230px;display:none;}
+.tabD{padding:0 15px;list-style:none;border-bottom:3px solid #ddd;width: 100%;}
+.tabD li.tabBtn{margin-bottom: -3px;float:left;margin-right:2px;padding:0 15px;font-size:18px;position:relative;height:30px;line-height:30px;text-align:center;cursor:pointer; }
+.tabD li.tabBtn:hover,.tabD li.tabBtn_Bg{border-bottom:3px solid #AE423F;color:#AE423F;}
+.tabD li.tabBtn:hover .tabsArrow{ border-left-color: #1f262d;}
+.on{display:block;}
+.tabD li.cur{background:darkorange;}
+.tabsArrow{display: inline-block;position: absolute;z-index: 1;border: 10px solid transparent;border-left-color: #ffb848;top: 31px;left: 162px;} 
+/*上传图片*/
+.uploadImg{background: #F5F5F5;height: 400px;width:100%;margin:10px 0;position: relative;}
+.uploadImg img{position:absolute;width: 80px;left:50%;margin-left:-40px;top:30%;}
+.uploadImg_btns{cursor:pointer;position:absolute;left:50%;border-radius:5px;margin-left:-100px;top:45%;margin-top:-22.5px;background: #1AB394;font-size:18px;width:200px;text-align:center;color:#fff;height: 55px;line-height: 55px;}
+input.uploadImg_btns{background: none;opacity: 0;filter:alpha(opacity=0);}
+/*备注*/
+.psArea{height: 48px;line-height: 48px;float: right;margin-right: 5px;}
+.psArea i{display: inline-block;width: 12px;height: 12px;background:#428BCA;margin-right: 10px;}
+.psArea i.UNusedICON{background: #eee;}
+.psArea i.marginusedICON{background: #5CB85C;}
+/*坐标轴-机柜框架*/
+.coordinate {font-size:14px;color:#9d9c9c;position:relative;overflow:auto;overflow-y:hidden ;}
+/*坐标轴*/
+.Xcoordinate {/*width:100%;*/margin-left:39px;overflow:hidden;}
+.Xcoordinate li {float:left;width:80px;height:14px;line-height:14px;text-align:center;margin-right:10px;}
+.Ycoordinate {width:25px;margin-top:14px;overflow:hidden;}
+.Ycoordinate li {width:25px;height:80px;line-height:80px;text-align:right;margin-bottom:10px;}
+/*机柜框架*/
+.stationDet {overflow-y:hidden;padding:5px;position:absolute;top:17px;left:28px;border:1px solid #eee;height:325px;}
+/*工位*/
+.stationDet .seatArea{margin:-1px 0 0 -1px;}
+.stationDet .seatArea li{position:relative;float:left;color:#fff;width: 80px;height: 80px;margin: 5px; cursor: pointer;border-style:solid;border-width:0px;border-color:transparent;}
+.seatArea li:hover{width: 78px;height: 78px;background: url(../../images/add-zx.png) center no-repeat;background-size: 30px 30px;border: 1px solid #ddd;}
+ .seatArea li{}
+.stationDet .seatArea .hasStation{background: url(../../images/seat-zx.png) center no-repeat #eee;background-size: 35px auto;}
+.stationDet .seatArea .hasStation.hasStationed{background-color: #428BCA;}
+.stationDet .seatArea .hasStation.hasStationed:hover{background-color: #356FA2;}
+#stationDet_view li:not(.hasStation){background:none;position:relative;float:left;color:#fff;width: 80px;height: 80px;margin: 5px; cursor: auto;border-style:solid;border-width:0px;border-color:transparent;}
+
+.stationDet .seatArea .hasStation.hasStationed.marginStation{background-color:#5CB85C;}
+.stationDet .seatArea .hasStation.hasStationed.marginStation:hover{background-color:#4A934A;}
+.sta-layer{text-align: center;position: relative;height: 100%;display: none;}
+.sta-layer i{position: absolute;background-image: url(../../images/close-zx.png);width: 15px;height: 15px;top: 4px;right: 4px;cursor: pointer;background-size: 100%;}
+
+.stationDet .seatArea .hasStation:hover{background-color: #ddd;}
+.sta-layer .sta2,.sta-layer .sta3{position: absolute;bottom:5px;display: inline-block;width: 15px;height: 15px;background-size: 15px;}
+.hasStation:hover .sta-layer{display: block;}
+/*机柜详情pop*/
+.popLayer-all {overflow:hidden;height:208px;min-width:431px;/*width:292px;*/position:absolute;display:none;}
+	.popLayer-all i {position:absolute;width:0;height:0;border-width:8px;border-style:solid;border-color:transparent transparent #dc8f8f transparent;}
+		.popLayer-all .pop-i01 {top:0;left:18px;z-index:98;}
+		.popLayer-all .pop-i02 {top:1px;left:18px;z-index:99;border-color:transparent transparent #fff transparent;}
+	.popLayer {/*width:270px;*/height:170px;border-radius:3px;padding:10px;/*position:absolute;top:0;left:0;z-index:11;*/margin-top:16px;/*box-sizing:border-box;*/background:#fff;border:1px solid #dc8f8f;overflow:hidden;overflow-y:auto;}
+	.popLayer-bottom {}
+		.popLayer-bottom i {border-color:#dc8f8f transparent transparent transparent;}
+			.popLayer-bottom .pop-i01 {top:auto;bottom:0;left:18px;z-index:98;}
+			.popLayer-bottom .pop-i02 {top:auto;bottom:1px;left:18px;z-index:99;border-color:#fff transparent transparent transparent;}
+		.popLayer-bottom .popLayer {top:auto;left:0;bottom:15px;}
+/*机柜详情pop1*/
+.pop-table {margin-bottom:10px;border-collapse:collapse;border-top:1px solid #ccc;border-left:1px solid #ccc;}
+	.pop-table th, .pop-table td {word-break:keep-all;white-space:nowrap;text-overflow:ellipsis;text-align:center;border:1px solid #ccc;height:26px;line-height:26px;}
+		.pop-table th {padding:0 15px;font-size:14px;background:#f5f5f5;}
+	.pop-table .pop-title {font-weight:bold;}
+	
+.whide{display:none;}
+.tabContListD img{width:100%;padding-bottom:100px;}
+/*删除按钮*/
+.img_delete {width:32px;height:32px;position:absolute;right:30px;top:190px;text-align:center;font-size:16px;line-height:32px;color:#fff;background:#1AB394;z-index:9;border-radius:50%;}
+	.img_delete:hover {background:#2C6F61;color:#fff;cursor:pointer;}
+ /* 机柜层次样式 */
+.cfloor {/* border:1px solid #EEE; */width:50%;text-align:center; margin-left:25%;margin-right:25%;}
+.floorTr{ background-color: #00ff13;height:40px;border:1px solid #EEE;}
+.floorTr:hover{ cursor: pointer;}
+.chooseFloor{background-color:#ff0000;color:#fff}
+.chooseFloor:hover{background-color:#ff0000;color:#fff}
+.emptyFloor{background:#ccc;display: inline-block;width: 12px;height: 12px;margin-right: 10px;}
+.enoughFloor{background: #F7A42F;display: inline-block;width: 12px;height: 12px;margin-right: 10px;}
+.floorContent{float:right;}
+
+
+/* 翻转效果 */
+.example {font-size: 15px;color: #fff;margin-bottom: 8px;text-align:center;}  
+.example p {-webkit-transition: all 100ms ease-in-out 0ms;-moz-transition: all 100ms ease-in-out 0ms;-ms-transition: all 100ms ease-in-out 0ms;-o-transition: all 100ms ease-in-out 0ms;transition: all 100ms ease-in-out 0ms;line-height: 2.5;color:#fff;}
+.example p:hover {color: #fff;}
+.example.turnBoxCurrentFace1 > .turnBoxFaceNum1 {background-color: #00ff13;}
+.example.turnBoxCurrentFace2 > .turnBoxFaceNum2 {background-color: #ff0000;}
+.check.example.turnBoxCurrentFace2 > .turnBoxFaceNum2:hover {background-color: #007e98;}
+.example .turnBoxFaceNum1 {background-color: #ccc;}
+.example .turnBoxFaceNum2 {background-color: #F7A42F;}

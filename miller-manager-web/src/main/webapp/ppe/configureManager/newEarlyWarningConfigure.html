@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>添加预警配置</title>
+<link rel="stylesheet" href="bootstrap/css/bootstrap-switch.min.css" type="text/css">
+<script src="bootstrap/js/bootstrap-switch.min.js"></script>
+<script src="bootstrap/js/highlight.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script src="bootstrap/js/switch-main.js"></script>
+<script type="text/javascript" src="ppe/configureManager/newEarlyWarningConfigure.js"></script>
+<style type="text/css">
+  #infoDiv_newEarlyWarningConfigure .table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder;width:20%} 
+  #infoDiv_newEarlyWarningConfigure .table-info tbody > tr > td:nth-child(even){text-align:left;width:30%}
+  #infoDiv_newEarlyWarningConfigure .table-info input{width:80%}
+  #infoDiv_newEarlyWarningConfigure .table-info textarea{width:94%}
+</style>
+</head>
+<body>
+	<h3 class="header-h3" id="headTle_newEarlyWarningConfigure">新增预警信息</h3>
+		<div id="infoDiv_newEarlyWarningConfigure">
+          	<table class="table table-striped table-border table-info" style="width:99.5%;margin: 20px 1px;">
+				<tbody>
+				    <tr>
+						<td>资产类型：</td>
+						<td>
+							<input type="text" validate="v.required" name="NEWCFG.ASSET_TYPE_NAME" valititle="该项为必填项" placeholder="资产类别"/>
+							<input type="hidden" name="NEWCFG.ASSET_TYPE"/>
+							<input type="hidden" name="NEWCFG.ID"/>
+						</td>
+						<td>是否启用：</td>
+						<td>
+								<input class="switch_btn" id="is_use_state_newEarlyWarningConfigure" type="checkbox" checked>
+						</td>
+					</tr>
+					<tr>
+						<td>资产闲置率(%)：</td>
+						<td><input type="text" name="NEWCFG.UNUSE_WARN" validate="v.number100"/></td>
+						<td>维修到期天数(天)：</td>
+						<td><input  type="text" name="NEWCFG.WARN_DAY" validate="v.number"/></td>
+					</tr>
+					
+					<tr>
+						<td>安全库存下限(数量)：</td>
+						<td><input  type="text" name="NEWCFG.DOWN_WARN" validate="v.number"/></td>
+						<td>安全库存上限(数量)：</td>
+						<td><input type="text" name="NEWCFG.UP_WARN" validate="v.number"/></td>
+						
+					</tr>
+					<tr>
+						<td>备注：</td>
+						<td colspan="3"><textarea name="NEWCFG.MARKS" style="line-height:2;resize: none;" rows="3";"></textarea></td>	
+					</tr>
+				</tbody>
+			</table>
+          </div>
+   	<div align="center"  style="margin-bottom:50px;">
+		<button class="btns ilsh_left" id="save_newEarlyWarningConfigure">保存</button>
+		<button class="btns ilsh_left" id="reset_newEarlyWarningConfigure">重置</button>
+		<button class="btns ilsh_left" id="back_newEarlyWarningConfigure">返回</button>
+	</div>	
+</body>
+</html>

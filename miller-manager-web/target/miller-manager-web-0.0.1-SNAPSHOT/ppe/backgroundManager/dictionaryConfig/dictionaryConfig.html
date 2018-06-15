@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>字典项配置</title>
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css"/>
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../js/select2.js"></script>
+<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+<style>
+	#head{
+		font-weight:bolder;
+	}
+	.table{
+		height: 30px;
+	}
+	.span10{
+		width:752px;
+	}
+</style>
+</head>
+<body class="left_bor" style=" line-height:24px;">
+	<h3  class="header-h3"></h3>
+	<form id="contractInfoList" action=""  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				类  别  编  码：<input type="text" class="span3" value="M_DIC_DAYS"/>
+			</div>
+			<div class="span5 h50">
+				类  别  名  称：<input type="text" class="span3" value="每月哪一天"/>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px;">
+			<li class="ilsh submenuList1" href="#addDictionaryConfig" data-toggle="modal">创建</li>
+			<li class="ilsh submenuList1" href="#updateDictionaryConfig" data-toggle="modal">修改</li>
+			<li class="ilsh submenuList1" id="deleteDictionaryConfig">删除</li>
+			<li class="ilsh submenuList1" id="back">返回</li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<div style="">
+		<table class="table table-striped table-hover table-border" style="margin-bottom: 0px;">
+			<tbody>
+				<tr id="head">
+					<td class="newStyle">
+					</td>
+					<td class="newStyle">
+						<span>序号</span>
+					</td>
+					<td class="newStyle">
+						<span>字典编码</span>
+					</td>
+					<td class="newStyle">
+						<span>文本值</span>
+					</td>
+					<td class="newStyle">
+						<span>类别编码</span>
+					</td>
+					<td class="newStyle">
+						<span>状态</span>
+					</td>
+					<td class="newStyle">
+						<span>是否默认</span>
+					</td>
+					<td class="newStyle">
+						<span>说明</span>
+					</td>
+					<td class="newStyle">
+						<span>操作人</span>
+					</td>
+					<td class="newStyle">
+						<span>操作时间</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="cfg" type="radio"/>
+					</td>
+					<td class="newStyle">
+						<span>1</span>
+					</td>
+					<td class="newStyle">
+						<span>01</span>
+					</td>
+					<td class="newStyle">
+						<span>01</span>
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span><img src="../../../images/bluePoint.png" /></span>
+					</td>
+					<td class="newStyle">
+						<span>否</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>admin</span>
+					</td>
+					<td class="newStyle">
+						<span>2016-05-31 16:39:54</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="cfg" type="radio"/>
+					</td>
+					<td class="newStyle">
+						<span>2</span>
+					</td>
+					<td class="newStyle">
+						<span>02</span>
+					</td>
+					<td class="newStyle">
+						<span>02</span>
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span><img src="../../../images/bluePoint.png" /></span>
+					</td>
+					<td class="newStyle">
+						<span>否</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="cfg" type="radio"/>
+					</td>
+					<td class="newStyle">
+						<span>3</span>
+					</td>
+					<td class="newStyle">
+						<span>03</span>
+					</td>
+					<td class="newStyle">
+						<span>03</span>
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span><img src="../../../images/yellowPoint.png" /></span>
+					</td>
+					<td class="newStyle">
+						<span>否</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="cfg" type="radio"/>
+					</td>
+					<td class="newStyle">
+						<span>4</span>
+					</td>
+					<td class="newStyle">
+						<span>04</span>
+					</td>
+					<td class="newStyle">
+						<span>04</span>
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span><img src="../../../images/bluePoint.png" /></span>
+					</td>
+					<td class="newStyle">
+						<span>否</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="cfg" type="radio"/>
+					</td>
+					<td class="newStyle">
+						<span>5</span>
+					</td>
+					<td class="newStyle">
+						<span>05</span>
+					</td>
+					<td class="newStyle">
+						<span>05</span>
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span><img src="../../../images/bluePoint.png" /></span>
+					</td>
+					<td class="newStyle">
+						<span>否</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		<div style="font-size:13px">
+			<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+				<span class="pagination-info">每页显示5条   共5条</span>
+			</div>
+			<div align="right" class="pull-left pagination-detail" style="font-size:15px;margin-top:3px; margin-left:25%;" id="important">
+				<span style="font-weight:bold;">注释说明：</span>
+				<img src="../../../images/bluePoint.png" /><span>启用</span>  
+				<img src="../../../images/yellowPoint.png" /><span>停用</span>
+			</div>
+			<style>
+				#important span{
+					margin:0px 15px 0px 6px;
+				}
+			</style>
+		    <div class="pull-right pagination pull-right">
+				<ul class="pagination">
+					<li class="page-first disabled">
+						<a href="javascript:void(0)">首页</a>
+					</li>
+					<li class="page-pre disabled">
+						<a href="javascript:void(0)">上一页</a>
+					</li>
+					<li class="page-next">
+						<a href="javascript:void(0)">下一页</a>
+					</li>
+					<li class="page-last">
+						<a href="javascript:void(0)">末页</a>
+					</li>
+					<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+		    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+<!-- 创建字典项配置模态框开始 -->
+<div id="addDictionaryConfig" class="modal hide fade" tabindex="-1" role="dialog" 
+	  aria-labelledby="myModalLabel" aria-hidden="true" style="width:760px; left:43%;">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h4 id="myModalLabel" style=" text-align:center;">新增字典项</h4>
+	  </div>
+	  <div class="modal-body">
+	    <form class="form-inline" style="font-size:15px">
+			<div class="row" align="center">
+				<div class="span5 h50">
+					字典编码：<input type="text" class="span3"/>
+				</div>
+				<div class="span5 h50">
+					字典类别：<input type="text" class="span3"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span5 h50">
+					字典状态：<select id="task_state" class="span3" name="T.task_state" style="width: 53.5%;">
+						<option>请选择</option>
+						<option>启用</option>
+						<option>停用</option>
+					</select>
+				</div>
+				<div class="span5 h50">
+					文&nbsp;本&nbsp;值&nbsp;：<input type="text" class="span3"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span5 h50">
+					是否默认：<select id="task_state" class="span3" name="T.task_state" style="width: 53.5%;">
+						<option>请选择</option>
+						<option>否</option>
+						<option>是</option>
+					</select>
+				</div>
+				<div class="span5 h50">
+					&nbsp;&nbsp;序&nbsp;&nbsp;号&nbsp;&nbsp;：<input type="text" class="span3"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span10 h50" style="height:100px;width:752px;">
+					类别说明：<textarea rows="5" cols="20" style="line-height:2.0; 
+					text-indent:2em; height:100px; width:76.3%;resize: none;"></textarea>
+				</div>
+			</div>		</form>
+		<div class="row" align="center" style="margin-top:40px;width:752px;">
+				<div class="span10">
+					<button class="btns" data-dismiss="modal" aria-hidden="true">保存</button>
+					<button class="btns" data-dismiss="modal" aria-hidden="true">返回</button>
+				</div>
+		</div>
+	  </div>
+</div>
+<!-- 创建字典项配置模态框结束 -->
+<!-- 修改字典项配置模态框开始 -->
+<div id="updateDictionaryConfig" class="modal hide fade" tabindex="-1" role="dialog" 
+	  aria-labelledby="myModalLabel" aria-hidden="true" style="width:760px; left:43%;">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h4 id="myModalLabel" style=" text-align:center;">新增字典项</h4>
+	  </div>
+	  <div class="modal-body">
+	    <form class="form-inline" style="font-size:15px">
+			<div class="row" align="center">
+				<div class="span5 h50">
+					字典编码：<input type="text" class="span3" value="01"/>
+				</div>
+				<div class="span5 h50">
+					字典类别：<input type="text" class="span3" value="每月哪一天"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span5 h50">
+					字典状态：<select id="task_state" class="span3" name="T.task_state" style="width: 53.5%;">
+						<option>请选择</option>
+						<option selected>启用</option>
+						<option>停用</option>
+					</select>
+				</div>
+				<div class="span5 h50">
+					文&nbsp;本&nbsp;值&nbsp;：<input type="text" class="span3" value="01"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span5 h50">
+					是否默认：<select id="task_state" class="span3" name="T.task_state" style="width: 53.5%;">
+						<option>请选择</option>
+						<option selected>否</option>
+						<option>是</option>
+					</select>
+				</div>
+				<div class="span5 h50">
+					&nbsp;&nbsp;序&nbsp;&nbsp;号&nbsp;&nbsp;：<input type="text" class="span3" value="1"/>
+				</div>
+			</div>
+			<div class="row" align="center">
+				<div class="span10 h50" style="height:100px;width:752px;">
+					类别说明：<textarea rows="5" cols="20" style="line-height:2.0; 
+					text-indent:2em; height:100px; width:76.3%;resize: none;"></textarea>
+				</div>
+			</div>
+		</form>
+		<div class="row" align="center" style="margin-top:40px;width:752px;">
+				<div class="span10">
+					<button class="btns" data-dismiss="modal" aria-hidden="true">保存</button>
+					<button class="btns" data-dismiss="modal" aria-hidden="true">返回</button>
+				</div>
+		</div>
+	  </div>
+</div>
+<!-- 修改字典项配置模态框结束 -->
+
+
+
+
+
+
+
+
+	<script>
+	$("#back").click(function(){
+		window.location.assign("dictionaryConfigList.html");
+	});
+	</script>
+	<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+</body>
+</html>

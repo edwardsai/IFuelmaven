@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>查看领用详情</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe\propertyManager\propertyRecipients\propertyRecipientsDetails.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+.tableColumnName{text-align:right;}
+</style>
+</head>
+<body class="left_bor">
+	<h3 class="header-h3">资产申请基本信息</h3>
+	  <div>
+		<!-- 基本信息部分 -->
+		<div class="row-fluid">
+			<table class="table table-striped" style="width: 99.5%">
+				<tbody>
+					<tr>
+						<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">申请流水号： </span></td>
+						<td style="width:310px;"><span name="VRD.apply_id" ></span></td>
+						<td class="tableColumnName" style="width:250px;"><span
+							style="font-weight: bolder;" >使用方式： </span></td>
+						<td style="width:310px;"><span name="VRD.use_method_name" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请人：</span></td>
+						<td><span name="VRD.apply_user_name" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">领用数量：</span></td>
+						<td><span name="VRD.apply_num" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请时间：</span></td>
+						<td><span name="VRD.apply_date" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">资产类型：</span></td>
+						<td><span name="VRD.category_name" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">申请人机构：</span></td>
+						<td><span name="VRD.apply_org_name" ></span></td>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">要求使用时间：</span></td>
+						<td><span name="VRD.required_date" ></span></td>
+					</tr>
+					<tr>
+						<td class="tableColumnName"><span
+							style="font-weight: bolder;">备注：</span></td>
+						<td colspan="3"><span name="VRD.remark" ></span></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!--设备具体领用情况-->
+		<div class="row-fluid">
+			<h3 class="header-h3">资产具体领用信息</h3>
+			<div>
+			    <table id="Table_assetGetInfo"></table>
+			</div>
+		</div>
+		<!-- 设备具体使用情况结束 -->
+		<div class="row-fluid" align="center"
+			style="margin: 20px 0px; margin-bottom: 60px;">
+			<button class="btns ilsh_left" type="button" id="view_back_RecipientsList">返回</button>
+		</div>
+	</div>
+</body>
+</html>

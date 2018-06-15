@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产报废审批</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe/propertyManager/propertyDealManager/propertyDiscarding/appPropertyDiscard.js"></script>
+<style type="text/css">
+			/*表格样式*/
+			.table-info tr{
+				height:40px;
+			} 
+			.table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+			/* .table-info tbody > tr > td:nth-child(even){text-align:left} */
+		
+	/*step*/
+.step{ margin:0 auto; display:block; height:60px;}
+.step li{ cursor:pointer;position:relative; text-align:center;float:left;width:33%;}
+.step .line_bg{ height:3px; background:#d9eaf3; display:inline-block; width:50%; top:13px; position:absolute; z-index:1;}
+.step .lbg-l{left:0;}
+.step .lbg-r{right:0;}
+.step .num{ position:relative; z-index:2; background:#fff;width:54px; height:30px;text-align:center; display:inline-block;}
+.step .num em,.num i{width:24px; height:24px; display:inline-block; left:15px; top:2px;position:absolute;}
+.step .num em{ border-radius: 5px;background:#d9eaf3;transform:rotate(45deg);-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);-o-transform:rotate(45deg);z-index:2;}
+.step .num i{  z-index:3; color:#fff; font-style:normal; font-weight:700; top:4px;}
+.step .lbg-txt{ position:relative; color:#b6c6ce; font-size:13px;}
+.step .on .lbg-txt{color:#1a97d7;}
+.step .on .line_bg,.step .on .num em{ background:#1a97d7}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">资产报废审批</h3>
+	<div class="step">        	
+       <ul>
+           <li class="col-xs-4 on">
+               <span class="num"><em class="f-r5"></em><i>1</i></span>                	
+               <span class="line_bg lbg-r"></span>
+               <p class="lbg-txt">资产负责人</p>
+           </li>
+           <li class="col-xs-4">
+               <span class="num"><em class="f-r5"></em><i>2</i></span>
+               <span class="line_bg lbg-l"></span>
+               <span class="line_bg lbg-r"></span>
+               <p class="lbg-txt">资源管理岗</p>
+           </li>
+           <li class="col-xs-4">
+               <span class="num"><em class="f-r5"></em><i>3</i></span>
+               <span class="line_bg lbg-l"></span>
+               <p class="lbg-txt">开发中心总经理</p>
+           </li>
+       </ul>
+	</div>
+	<div class="row-fluid" style="margin-bottom:15px;">
+		<input type="hidden" id="APDid" name="AAP.id">
+		<table  class="table table-striped" style="width: 99.5%">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:15%;">报废名称：</td>
+					<td  style="width:35%">
+						<span id="APDscrap_id" name="AAP.scrap_name" ></span>
+					</td>
+					<td class="rightTitle tableColumnName" >审批状态：</td>
+					<td>
+						<span id="APDapprove_state_name" name="AAP.approve_state_name"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >报废申请人：</td>
+					<td>
+						<span id="APDscrap_name" name="AAP.scrap_apply_user_name"></span>
+					</td>
+					<td class="rightTitle tableColumnName" >申请时间：</td>
+					<td>
+						<span id="APDscrap_date" name="AAP.scrap_apply_date"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >备注：</td>
+					<td colspan="3"><textarea id="APDscrap_remark" name="AAP.scrap_remark" 
+						style="width:90.8%;box-shadow:none;resize:none;padding:10px" disabled="disabled"></textarea></td>
+				</tr>
+			</table>
+	</div>
+	<h3 class="header-h3">报废清单</h3>
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 8px;width:99.5%;font-size:14px" id="table_info_appPropertyDiscard"></table>
+	<div align="center" style="margin-bottom:50px;margin-top:20px;">
+		<button class="ilsh_left btns" id="back_appPropertyDiscard">返回</button>
+	</div>	
+</body>
+</html>

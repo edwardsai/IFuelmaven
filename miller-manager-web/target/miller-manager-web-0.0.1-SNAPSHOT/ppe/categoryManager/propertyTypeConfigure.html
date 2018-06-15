@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>资产类别配置</title>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+
+<!-- 模态框的样式 -->
+<!-- <style rel="stylesheet" type="text/css">
+.tableColumnName {
+    text-align: right;}
+</style> -->
+<style>
+	/*表格样式*/
+	.table-info tr{
+		height:40px;
+	} 
+	.header-h3{}
+	.table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder;width: 25%;} 
+	.table-info tbody > tr > td:nth-child(even){text-align:left}
+</style>
+		
+</head>
+<body class="left_borproperty">
+	<h3  class="header-h3" style="margin-bottom:30px;">资产类别配置</h3>
+		<div class="row-fluid">
+			<div class="span12" style="margin-top: -7px;">
+				<div class="span6" style="border-right:0px solid gray;width: 23%;float:left;">
+					<div class="widget-box" style="margin-top: -1.6px;background-color: white;">
+						<div class="widget-title">
+							<span class="icon"> <i style="background-image: url('img/glyphicons-halflings.png');" class="icon-align-justify"></i></span>
+							<button class="ilsh_left btns" type="button" style="float: right;" id="addCategoryConfig" class="btns">添加资产类别</button>
+						</div>
+						<div class="widget-content nopadding">
+							<div class="control-group" style="height: 380px;overflow-y: auto;">
+								<div class="controls">
+									<ul id="propertyTypeTreeManager" class="ztree" style=""></ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tabbable" style="width: 75%; margin-left: 15px;float:left;" id="subject">
+					<ul class="nav nav-tabs " >
+					    <li class="active" style="list-style-type:none;font-size:15px;"><a tabli="1" href="#categoryConfigInfo" data-toggle="tab">类别属性</a></li>
+					    <li class="hide" tabli="2" style="list-style-type:none;font-size:15px;"><a href="#privateFieldList" data-toggle="tab">字段配置</a></li>
+					 </ul>
+			 	    <div class="tab-content" style="overflow:hidden;">
+    					<!-- 新增类别标签页面 -->
+	    				<div class="tab-pane  active" id="categoryConfigInfo">
+							<div class="tz_btn" style="margin-bottom:15px;">
+								<button class="ilsh_left btns" id="saveProTypeConfig">保存</button>
+								<button class="ilsh_left btns" id="delProTypeConfig">删除</button>
+								<button class="ilsh_left btns" id="resetProTypeConfig">重置</button>
+							</div>
+							<table class="table table-striped table-hover tablesty table-info" >
+									<tbody>
+										<tr>
+											<td  class="tableColumnName">
+												<span>类型编号：</span> 
+											</td>
+											<td colspan="5">
+												<input type="text" name="PC.category_id" style="width: 91%;" validate="v.number10" valititle="该项为必填" readOnly="readonly"/>
+
+												<input type="hidden" id="old_category_id" name="PC.old_category_id"/>
+
+												<input type="hidden" id="old_category_idproperty" name="PC.old_category_id"/>
+
+											</td>
+										</tr>
+										<tr>
+											<td  class="tableColumnName">
+												<span>类型名称：</span>
+											</td>
+											<td colspan="5">
+												<input type="text" name="PC.category_name" style="width: 91%;" validate="v.required" valititle="该项为必填"/>
+											</td>
+										</tr>
+										<tr>
+											<td  class="tableColumnName">
+												<span>上级类型编号：</span>
+											</td>
+											<td colspan="5">
+												<input type="hidden" id="pre_category_id" name="PC.pre_category_id" placeholder="上级评价科目" >
+												<input type="text" id="pre_category_nameproperty" name="PC.pre_category_name" style="width: 91%;" readonly placeholder="请选择"/>
+											</td>
+										</tr>
+										<tr>
+											<td class="tableColumnName">
+												<span>排序序号：</span>
+											</td>
+											<td colspan="5">
+												<input type="text" name="PC.order_id" style="width: 91%;" validate="v.required" valititle="该项为必填"/>
+											</td>
+										</tr>
+										<tr>
+											<td  class="tableColumnName">
+												<span>描述：</span>
+											</td>
+											<td colspan="2">
+												<textarea name="PC.description" rows="4" style="width:93%;resize: none;" ></textarea>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+	    				</div>
+	    				
+					<!-- 配置项管理标签页面 -->
+					<div class="tab-pane" id="privateFieldList" style="width: 100%;height: auto;overflow:hidden;">
+						<h4 id="privateFieldListTitle"></h4>
+						<br>
+					<div class="tz_btn" style="margin-bottom:15px;">
+					  <button class="ilsh_left btns" id="addPrivateField"><i class="icon-plus" style="margin:4px 3px 0 0"></i>新增</button>
+					  <button class="ilsh_left btns" id="updatePrivateField"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>修改</button>
+					  <button class="ilsh_left btns" id="delPrivateField"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</button>
+					</div>
+						<table id="privateFieldTable"></table>
+					</div>
+				</div>			
+				</div>
+			</div>
+		</div>
+	<!-- 新增字段模态框 -->	
+	<div id="modalPrivateField" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:800px;margin-left:-400px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h5 id="modalPrivateFieldTitle">修改字段信息</h5>
+		</div>
+		<div class="modal-body" style="overflow-x: hidden;">
+			<input type="hidden" name="PF.col_id">
+			<table class="table table-border table-striped table-border table-info" style="margin: 1px;">
+				<tbody>
+				    <tr>
+						<td class="tableColumnName">
+							<span>标签ID：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.tag_id" validate="v.required" valititle="该项为必填"/>
+						</td>
+						<td class="tableColumnName">
+							<span>标签名：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.tag_name" validate="v.required" valititle="该项为必填"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>是否必填：</span>
+						</td>
+						<td>
+							 <select style="width:94%; margin: 3px 5px;" id="M_col_required" name="PF.col_required" validate="v.required" valititle="该项为必填"> 
+						    </select>
+						</td>
+						<td class="tableColumnName">
+							<span>标签类型：</span>
+						</td>
+						<td>
+							<select style="width:94%; margin: 3px 5px;" id="M_tag_type" name="PF.tag_type" validate="v.required" valititle="该项为必填">
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>最大长度：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.max_length" validate="v.required" valititle="该项为必填" maxlength="4" placeholder="请输入任意1~4位正整数"
+								onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"  
+    							onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'0')}else{this.value=this.value.replace(/\D/g,'')}"/>
+						</td>
+						<td class="tableColumnName">
+							<span>初始化模版：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.init_template"/>
+						</td>
+						
+					</tr>
+					<tr>
+						<td class="tableColumnName">
+							<span>排序序号：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.order_id" validate="v.required" valititle="该项为必填">
+						</td>
+						<td class="tableColumnName">
+							<span>默认值：</span>
+						</td>
+						<td>
+							<input style="width: 86%;" type="text" id="" name="PF.default_value"/>
+						</td>
+					</tr>
+					<tr sel="tableColumnNameHide">
+						<td class="tableColumnName">
+							<span>字典项编号：</span>
+						</td>
+						<td colspan="3" align="center">
+							<input style="width: 95.5%;" type="text" id="" name="PF.dic_code"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			<div align="center" style="margin-bottom:15px;">
+			<button class="ilsh_left btns" id="savePrivateField" >保存</button>
+			<button class="ilsh_left btns" id="resetPrivateField" >重置</button>
+			<button class="ilsh_left btns" id="" data-dismiss="modal" aria-hidden="true" >关闭</button>
+	</div>
+		<div class="modal-footer"></div>
+	</div>
+		
+<script type="text/javascript" src="ppe/categoryManager/propertyTypeConfigure.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>新增处置</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	#head{
+		font-weight:bolder;
+	}
+	input:disabled{
+		border:1px solid #ccc;
+	}
+	table tr:hover{
+	 background-color:#fff;
+	}
+	.rightTitle{
+		padding-bottom:8px;font-weight:bolder;text-align:right;
+	}
+	/* .table_input tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+	.table_input tbody > tr > td:nth-child(even){text-align:left} */
+	td{height: 35px;}
+</style>
+
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">处置基本信息 :</h3>
+	<div class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<div>
+		<input type="hidden" id="APDid" name="APD.ID">
+			<table id="propertyDeal_table" class="table_input table table-striped table-hover table-border" style="width:99.5%;margin-bottom:5px;font-size:14px">
+				<tr>
+					<td class="rightTitle tableColumnName" style="width:220px">处置名称：</td>
+					<td style="width:340px"><input style="width:80%" type="text" name="APD.DEAL_NAME" id="APDdeal_name" validate="v.required"  valititle="该项为必填项"/>
+					<input type="hidden" name="APD.DEAL_ID" id="APDdeal_id" />
+					<input type="hidden" name="APD.DEAL_USER_NO" id="APDdeal_user_no" />
+					<input type="hidden" name="APD.DEAL_USER_NAME" id="APDdeal_user_name" /></td>
+					<td class="rightTitle tableColumnName" style="width:220px">处置方式：</td>
+					<td style="width:330px">
+						<select name="APD.DEAL_METHOD" id="APDdeal_method" diccode="ASS_DIC_DEAL_METHOD" 
+						        onchange="dealIt()" validate="v.required"  valititle="该项为必填项" style="width:84%;">
+						</select>
+					</td>
+				</tr>
+				<tr id="dealIt01" class="hide">
+					<td class="rightTitle tableColumnName Akasset_type1" >买断人：</td>
+					<td class="rightTitle tableColumnName Akasset_type2" >赠与人：</td>
+					<td><input type="text" name="APD.GET_USER_NAME" id="APDget_user_name" readOnly="true" 
+					        placeholder="点击选择..."  validate="v.required"  valititle="该项为必填项"/>
+					<input type="hidden" name="APD.GET_USER_NO" id="APDget_user_no" /></td>
+					
+					<td class="rightTitle tableColumnName  Akasset_type1" >买断人部门：</td>
+					<td class="rightTitle tableColumnName Akasset_type2" >赠与人部门：</td>
+					<td ><input type="text"  name="APD.GET_BELONG_NAME" id="APDget_belong_name" readOnly="true" 
+					       validate="v.required"  valititle="该项为必填项"/>
+					<input type="hidden" name="APD.GET_BELONG_NO" id="APDget_belong_no" /></td>
+					
+				</tr>
+				<tr class="hide Akasset_type1">
+					<td class="rightTitle tableColumnName" >买断金额：</td>
+					<td colspan="3"><span style=" float:left; margin-left:20px;">
+					<input  type="text" name="APD.DEAL_PRICE" id="APDdeal_price" 
+					       validate="v.required"  valititle="该项为必填项" style="width:268px;"/></span></td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" >处置说明：</td>
+					<td colspan="3"><textarea name="APD.DEAL_REMARK" id="APDdeal_remark" 
+					style="width:91.7%;float:left;margin-left:20px;box-shadow:none;resize:none;height:100px;padding:10px"></textarea></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<h3 class="header-h3">处置资产信息 : </h3>
+	<div style="margin-bottom:5px;">
+		<button class="ilsh_left btns" id="add_addPropertyDeal" style="margin-left:0px;"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>新增</button>
+		<button class="ilsh_left btns" id="delete_addPropertyDeal"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</button>
+	</div>
+	<table id="Table_propertyDealInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 8px;font-size:14px">
+	</table>
+	<div align="center" style="margin-top:50px;margin-bottom:50px;">
+		<button class="ilsh_left btns" id="save_addPropertyDeal">保存</button>
+		<button class="ilsh_left btns" id="sure_addPropertyDeal">保存&确认</button>
+		<button class="ilsh_left btns" id="back_addPropertyDeal">返回</button>
+	</div>
+	<!-- 资产列表模态框 -->
+	<div id="myModal_addPropertyDeal" class="modal hide fade" tabindex="-1"  style="width:950px;left:57%;margin-left:-475px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" title="点击关闭">×</button>
+			<h5 id="myModalLabel">资产列表模态框 </h5>
+		</div>
+		<div class="modal-body"  style="line-height:24px;min-height:200px">
+			<div  class="form-inline" style="font-size:15px">
+				<div class="row" align="center">
+					<div class="span4 h50">
+						资产编号：<input type="text" id="PDasset_num" class="span3"/>
+					</div>
+					<div class="span4 h50">
+						资产名称：<input type="text" id="PDasset_name" class="span3"/>
+					</div>
+					<div class="span4 h50">
+								<input  type="hidden" name="assetTypeDeal" value=""/>
+						资产类别：<input type="text" id="PDasset_type" name=assetTypeTree class="span3" readonly="readonly"/>
+					</div>
+				</div>
+				
+			</div>
+			<div align="center" style="margin-bottom:10px;margin-top:5px;">
+				<button class="ilsh_left btns searchBtn" id="searchModal_addPropertyDeal"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</button>
+				<button class="ilsh_left btns" style="float:left;" id="addModal_addPropertyDeal">选择&返回</button>
+				<button class="ilsh_left btns resetBtn" id="resert_addPropertyDeal"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</button>
+			</div>
+			<table id="Table_modalassetInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+			</table>
+		</div>
+		<div class="modal-footer"></div>
+	</div>
+	<div id="chooseUser_addDeal"></div>
+</body>
+<script src="ppe\propertyManager\propertyRecipients\userPop.js"></script>
+<script src="ppe/propertyManager/propertyDealManager/propertyDeal/addPropertyDeal.js"></script>
+</html>

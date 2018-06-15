@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>生成方案清单</title>
+		<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+		<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+		<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+		<script src="bootstrap/js/bootstrap-table.min.js"></script>
+		<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+		<script src="ppe/propertyManager/inventoryManager/inventoryPlan/inventorySchemeListDetail.js"></script>
+		<script src="ppe/propertyManager/inventoryManager/inventoryPlan/historyAssetPop.js"></script>
+		<style>
+			td{height:35px;}
+			/* 统计数据 */
+			.Statistics .Statistics_cont{text-align:center;margin:25px 0;color:#fff;}
+			.Statistics .Statistics_cont li{/* border:1px dashed; */position:relative;display:inline-block;height:70px;width:180px;border-radius: 10px;margin-right:25px;}
+			.Statistics .Statistics_cont li:hover{border:none;background:#333;cursor:pointer;}
+			.Statistics .Statistics_cont li:hover .title{font-size:20px;font-weight:bolder;}
+			.bg_blue{background: #27a9e3;}
+			.bg_green{background: #28b779;}
+			.bg_orange{background: #f39c12;}
+			.bg_red{background: #da542e;}
+			.Statistics .Statistics_cont li i{border-radius: 10px;position:absolute;top:0;right:0;width: 0;height: 0;border-top: 10px solid transparent;border-right: 20px solid #f5f5f5;border-bottom: 60px solid transparent;}
+		    .Statistics .Statistics_cont li .title{font-size:18px;padding-top: 10px;display: inline-block;line-height: 30px;padding-left: 30px;}
+		    .Statistics .Statistics_cont li .num{display:block;font-weight:bold;font-size:16px;}
+		    .Statistics .Statistics_cont li img{width:30px;position: absolute;left: 17.5px;top: 17.5px;}
+		</style>
+		
+	</head>
+	<body class="left_bor" >
+	 <h3 class="header-h3">方案基本信息</h3>
+	 <!-- 统计数据 -->
+	<div class="Statistics" id="invenStatistics_inventorySchemeListDetail">
+		<ul class="Statistics_cont">
+			<li class="bg_blue" style="width: 200px;">
+				<img alt="" src="images/pdd.png" style="width:35px;">
+				<span class="title">盘点设备数量</span>
+				<span class="num" name="INVSCMLSTDTL.TOTAL_AMOUNT"></span>
+			</li>	
+			<li class="bg_green">
+				<img alt="" src="images/pd.png">
+				<span class="title">正常数量</span>
+				<span class="num" name="INVSCMLSTDTL.NORMAL_AMOUNT"></span>
+			</li>
+			<li class="bg_orange">
+				<img alt="" src="images/py.png">
+				<span class="title">盘盈数量</span>
+				<span class="num" name="INVSCMLSTDTL.PROFIT_AMOUNT"></span>
+			</li>
+			<li class="bg_red">
+				<img alt="" src="images/pk.png" style="width:38px;">
+				<span class="title">盘亏数量</span>
+				<span class="num" name="INVSCMLSTDTL.LOST_AMOUNT"></span>
+			</li>
+			<div style="clear:both;"></div>
+		</ul>
+	</div>
+<!-- 盘点计划基本信息部分 -->
+	<div>
+		<table class="table table-striped" style="width:100%">
+			<tbody>
+			    <tr>
+					<td align="right" width="20%">
+						<span style="font-weight:bolder;">方案编号： </span>
+					</td>
+					<td width="30%">
+						<span name="INVSCMLSTDTL.SCHEME_NUM"></span>
+					</td>
+					<td align="right"  width="20%">
+						<span style="font-weight:bolder;">方案名称： </span>
+					</td>
+					<td  width="30%">
+						<span name="INVSCMLSTDTL.SCHEME_NAME"></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<span style="font-weight:bolder;">盘点部门：</span>
+					</td>
+					<td>
+						<span name="INVSCMLSTDTL.INVEN_DEP_NAME"></span>
+					</td>
+					<td align="right"><span style="font-weight:bolder;">盘点方式：</span></td>
+					<td>
+						<span name="INVSCMLSTDTL.INVEN_PATTERN_NAME"></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right"><span style="font-weight:bolder;">盘点负责人：</span></td>
+					<td>
+						<span name="INVSCMLSTDTL.INVEN_EMP_NAME"></span>
+					</td>
+					<td align="right"><span style="font-weight:bolder;">计划完成时间：</span></td>
+					<td><span name="INVSCMLSTDTL.PLAN_END_TIME"></span></td>
+				</tr>
+				<tr>
+					<td align="right">
+						<span style="font-weight:bolder;">盘点资产类型： </span>
+					</td>
+					<td colspan="3">
+						<span name="INVSCMLSTDTL.PRO_TYPE_NAME"></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right"><span style="font-weight:bolder;">备注：</span></td>
+					<td>
+						<span name="INVSCMLSTDTL.REMARKS"></span>
+					</td>
+					<td align="right">
+						<span hspn="eState" style="font-weight:bolder;">盘点资产状态：</span>
+					</td>
+					<td>
+						<span hspn="eState" name="INVSCMLSTDTL.EQUIPMENT_STATE_NAME"></span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<span style="font-weight:bolder;">执行状态： </span>
+					</td>
+					<td>
+						<span name="INVSCMLSTDTL.SCHEME_STATE_NAME" style="text-align:center;font-size: 14px;width:100px"></span>
+					</td>
+					<td colspan="2"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<!-- 盘点清单 -->
+	<h3 class="header-h3">盘点清单</h3>
+	<table id="tb_inventorySchemeListDetail"></table>
+	<div class="row-fluid" align="center" style="margin:20px 0px; margin-bottom:60px;">
+		  <button class="ilsh_left btns" id="back_inventorySchemeListDetail">返 回 </button>
+	</div>
+	<div id="pop_inventorySchemeListDetail"></div>
+	</body>
+</html>

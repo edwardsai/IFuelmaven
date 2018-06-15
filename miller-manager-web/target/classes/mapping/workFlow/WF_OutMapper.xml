@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WFOutDao">
+
+    <!-- 查询人员离场业务数据 -->
+	<select id="queryWFOutBizData" parameterType="java.lang.String" resultType="java.util.Map">
+		select * from E_LEAVE_APPLY where id=#{id}
+	</select>
+	<!-- 根据id修改人员离场申请表对应信息审批状态 -->
+	<update id="updateOutAppStaById" parameterType="java.util.Map">
+		UPDATE E_LEAVE_APPLY SET 
+			approve_status=#{approve_status}
+		WHERE id=#{id}
+	</update>
+	<!-- 根据id修改对应人员信息的当前审批人 -->
+	<update id="updateEmpAppPersonById" parameterType="java.util.Map">
+		UPDATE E_LEAVE_APPLY SET 
+			curr_user_no=#{curr_user_no}
+		WHERE id=#{id}
+	</update>
+	<!-- 根据人员编号修改人员基本信息表对应信息状态 -->
+	<update id="updateEmpStaByNum" parameterType="java.util.Map">
+		UPDATE EMP_EMPINFO SET 
+			EMP_STATUS=#{EMP_STATUS},LEAVE_DATE=#{LEAVE_DATE}
+		WHERE USER_NUM=#{USER_NUM}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+

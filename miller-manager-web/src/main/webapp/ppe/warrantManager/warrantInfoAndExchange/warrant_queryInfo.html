@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>权证卡片</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="ppe/warrantManager/warrantInfoAndExchange/warrant_queryInfo.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+</style>
+</head>
+<body class="left_bor">
+<div class="tabbable">	
+	<ul id="myTab" class="nav nav-tabs">
+	    <li class="active" style="list-style-type:none;font-size:15px;"><a href="#home" data-toggle="tab">权证基本信息</a></li>
+	    <li style="list-style-type:none;font-size:15px;"><a href="#tab2" data-toggle="tab">权证价值信息</a></li>
+	    <li style="list-style-type:none;font-size:15px;"><a href="#tab3" data-toggle="tab">权证影像</a></li>
+	    <li style="list-style-type:none;font-size:15px;"><a href="#tab4" data-toggle="tab">权证库存管理信息</a></li>
+	    <li style="list-style-type:none;font-size:15px;"><a href="#tab5" data-toggle="tab">权证位置地图</a></li>
+	    <li style="list-style-type:none;font-size:15px;"><a id="back_warrant" style="cursor:pointer" data-toggle="tab">返回</a></li>
+	</ul>
+<div id="myTabContent" class="tab-content">
+    <div class="tab-pane active" id="home" style="margin-bottom: 35px;">
+    	<div class="row-fluid">
+			<table  class="table table-striped" style="width: 99.5%">
+				<tr>
+					<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">担保合同编号：</span></td>
+					<td colspan="3"><span name="wrt.CONTRACT_NO"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">押品编号：</span></td>
+					<td style="width:310px;"><span name="wrt.GUARANTEE_ID"></span></td>
+					<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">押品名称：</span></td>
+					<td style="width:310px;"><span name="wrt.GUARANTEE_NAME"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权证编号：</span></td>
+					<td><span name="wrt.WARRANT_NO"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权证分类：</span></td>
+					<td><span name="wrt.WARR_CLASSIFY_NAME"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权证类型：</span></td>
+					<td><span name="wrt.WARR_TYPE_NAME"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权属人客户号：</span></td>
+					<td><span name="wrt.OWNER_ID"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权属人名称：</span></td>
+					<td><span name="wrt.PROPERTY_OWNER_NAME"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权属人证件类型：</span></td>
+					<td><span name="wrt.ID_TYPE_NAME"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权属人证件号码：</span></td>
+					<td><span name="wrt.ID_NUMBER"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">登记机构：</span></td>
+					<td><span name="wrt.STORY_MGR_ORGNAME"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">登记日期：</span></td>
+					<td><span name="wrt.EXECUTE_DATE"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">经办机构：</span></td>
+					<td><span name="wrt.ORG_NAME"></span></td>
+				</tr>
+				<tr>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">权证状态：</span></td>
+					<td><span name="wrt.WARR_STATUS_NAME"></span></td>
+					<td class="tableColumnName" colspan="2"></td>
+				</tr>
+				<tr sel="hide" class="hide">
+					<td class="tableColumnName" ><span style="font-weight: bolder;">他项权证生效日期：</span></td>
+					<td><span name="wrt.TAKE_EFFECT_TIME"></span></td>
+					<td class="tableColumnName" ><span style="font-weight: bolder;">他项权证到期日期：</span></td>
+					<td><span name="wrt.EXPIRE_TIME"></span></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row-fluid" id="warrant_listInfo">
+			<h3 class="header-h3">关联权证</h3>
+			<div>
+			    <table id="table_warrantInfo"></table>
+			</div>
+		</div>
+    </div>
+    <div class="tab-pane fade"  id="tab2" style="margin-bottom: 35px;">
+   		<table  class="table table-striped" style="width: 99.5%">
+			<tr>
+				<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">评估方式：</span></td>
+				<td style="width:310px;"><span name="worth.EVA_METHOD_NAME"></span></td>
+				<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">币种：</span></td>
+				<td style="width:310px;"><span name="worth.CURRENCY"></span></td>
+			</tr>
+			<tr>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">内部评估金额(元)：</span></td>
+				<td><span name="worth.INNER_ASSESS_VALUE"></span></td>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">评估金额(元)：</span></td>
+				<td><span name="worth.ASSESS_VALUE"></span></td>
+			</tr>
+			<tr>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">评估日期：</span></td>
+				<td><span name="worth.ASSESS_DATE"></span></td>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">评估收费(元)：</span></td>
+				<td><span name="worth.ASSESS_COST"></span></td>
+			</tr>
+			<tr>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">最高额抵/质押率(%)：</span></td>
+				<td><span name="worth.HIGH_PLEDGE_RATE"></span></td>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">最高可抵/质押金额(元)：</span></td>
+				<td><span name="worth.HIGH_PLEDGE_VALUE"></span></td>
+			</tr>
+			<tr>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">内部设定额抵/质押率(%)：</span></td>
+				<td><span name="worth.INNER_SET_PLEDGE_RATE"></span></td>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">内部设定金额(元)：</span></td>
+				<td><span name="worth.INNER_SET_VALUE"></span></td>
+			</tr>
+			<tr>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">名义折率(%)：</span></td>
+				<td><span name="worth.NOMINAL_RATE"></span></td>
+				<td class="tableColumnName" ><span style="font-weight: bolder;">名义金额(元)：</span></td>
+				<td><span name="worth.NOMINAL_VALUE"></span></td>
+			</tr>
+   		</table>
+    </div>
+     <div class="tab-pane fade" id="tab3">
+   		<div>
+			<img id="warrant_img_view_element1"  src="images/sss.jpg" />
+			<img id="warrant_img_view_element2"  src="images/sss.jpg" />
+			<img id="warrant_img_view_element3"  src="images/sss.jpg" />
+		</div>
+    </div>
+     <div class="tab-pane fade" id="tab4" style="margin-bottom: 35px;">
+     	<div class="row-fluid">
+			<h3 class="header-h3">标签信息</h3>
+			<div>
+			    <table  class="table table-striped" style="width: 99.5%">
+			    	<tr>
+			    		<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">标签编码(TID)：</span></td>
+						<td style="width:310px;"><span name="wrt.TAG_ID"></span></td>
+						<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">权证编号：</span></td>
+						<td style="width:310px;"><span name="wrt.WARRANT_NO"></span></td>
+			    	</tr>
+			    	<tr>
+			    		<td class="tableColumnName" ><span style="font-weight: bolder;">权证类型：</span></td>
+						<td><span name="wrt.WARR_TYPE_NAME"></span></td>
+						<td class="tableColumnName" ><span style="font-weight: bolder;">权证分类：</span></td>
+						<td><span name="wrt.WARR_CLASSIFY_NAME"></span></td>
+			    	</tr>
+			    </table>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<h3 class="header-h3">权证库存信息</h3>
+			<div>
+			    <table  class="table table-striped" style="width: 99.5%">
+			    	<tr>
+			    		<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">库存状态：</span></td>
+						<td style="width:310px;"><span name="wrt.WARR_STATUS_NAME"></span></td>
+						<td class="tableColumnName" style="width:250px;"><span style="font-weight: bolder;">存放区域：</span></td>
+						<td style="width:310px;"><span name="wrt.AREA_NAME"></span></td>
+			    	</tr>
+			    	<tr>
+			    		<td class="tableColumnName" ><span style="font-weight: bolder;">柜号：</span></td>
+						<td><span name="wrt.CABINETNUM"></span></td>
+						<td class="tableColumnName" ><span style="font-weight: bolder;">柜位：</span></td>
+						<td><span name="wrt.LAYER"></span></td>
+			    	</tr>
+			    	<tr rel="warr" class="hide">
+			    		<td class="tableColumnName" ><span style="font-weight: bolder; display: none" name="cel">预计归还日期：</span></td>
+						<td><span class="hide" name="wrt.RETURN_DATE"></span></td>
+						<td class="tableColumnName" ><span style="font-weight: bolder; display: none" name="gel">注销日期：</span></td>
+						<td><span class="hide" name="wrt.EXECUTE_DATE"></span></td>
+			    	</tr>
+			    </table>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<h3 class="header-h3">权证出入库记录</h3>
+			<div>
+			    <table class="table table-bordered table-hover" id="warrant_exit" >
+			    </table>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<h3 class="header-h3">权证变更日志</h3>
+			<div>
+			    <table class="table table-bordered table-hover" id="warrant_updateDate">
+			    </table>
+			</div>
+		</div>
+    </div>
+     <div class="tab-pane fade" id="tab5">
+  		<div>
+			<img id="warrant_img_map_element" src="cabinetsMap/imageFileViewToPage.asp?fid=20160929144603273&path_id=UPLOAD_IMG"  />
+		</div>
+    </div>
+</div>
+</div>
+</body>
+</html>

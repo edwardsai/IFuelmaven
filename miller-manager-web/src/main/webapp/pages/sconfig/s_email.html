@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="css/public.css"/>		
+	<script src="js/commons/commons.js"></script>
+	<script src="pages/sconfig/s_email.js"></script>
+</head>
+<body>			
+		<h3 class="header-h3">邮箱配置</h3>		
+	<div>
+		<form id="email_from" class="form-inline">			
+			<div class="row" style="margin-bottom:21px;">		    		
+		 			<div class="span8 h60">
+		 				<label class="pl60" style="width:120px;">邮箱服务器地址：</label>
+		 				<input type="text"  name="email_ip" id="email_ip" class="span4" validate="v.required" valititle="该项为必填项"/>
+		 			</div>					
+		 	</div>	
+			<div class="row">		    		
+	 			<div class="span8 h50">
+	 				<label class="pl60" style="width:120px;">邮箱名称：</label>
+	 				<input type="text"  name="email_name" id="email_name" class="span4" validate="v.required" valititle="该项为必填项"/>
+	 			</div>				
+	 		</div>	 			 		
+	 		<div class="row">
+				<div class="span8 h50">
+	 				<label class="pl60" style="width:120px;">邮箱账号：</label>
+	 				<input type="text"  name="email_num" id="email_num" class="span4" validate="v.required" valititle="该项为必填项"/>
+	 			</div>
+			</div>
+			<div class="row">
+				<div class="span8 h50" >
+	 				<label class="pl60" style="width:120px;">邮箱密码：</label>
+	 				<input type="text"  name="email_password" id="email_password" class="span4" validate="v.required" valititle="该项为必填项"/>
+	 			</div>
+			</div>
+			<div class="main_btn" style="margin-left:160px;">
+				<button type="button" class="btn-gray"  id="svaeEmail">保存</button>  					    			    	
+			 </div>
+		</form>
+		</div>
+		<script type="text/javascript">
+			initVlidate($("#email_from"));
+			hideVlidate();
+		</script>
+	</body>
+</html>

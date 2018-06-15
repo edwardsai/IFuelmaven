@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+ <mapper namespace="com.yusys.consumableManager.CMRecipientsDao">
+ 	<!--查询耗材领用信息  -->
+ 	<select id="queryAllRecipients" parameterType="java.util.Map" resultType="java.util.Map">
+ 		select id,out_id,out_date,getuser_org,getuser_no,create_user,create_date,room,create_org,descr,out_status,
+ 		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='CM_DIC_OUT_STATUS' and sdi.item_code=out_status) as out_status_name,
+ 		(select b.org_name from s_org b where b.org_code=getuser_org) as getuser_org_name,
+ 	    (select b.org_name from s_org b where b.org_code=create_org) as create_org_name,
+ 		(select su.user_name from s_user su where su.user_no=getuser_no) as getuser_name,
+ 		(select su.user_name from s_user su where su.user_no=create_user) as create_user_name,
+ 		(select listagg(ash.store_name,'->') within GROUP (order by ash.store_id) 
+          from amc_store_house ash where ash.store_id in (select ashh.store_id from amc_store_house ashh 
+		  CONNECT BY PRIOR ashh.store_p_id=ashh.store_id START WITH ashh.store_id=room) 
+          ) as room_name
+ 		from CG_GOODS_OUT where 1=1
+ 		<if test="out_id!=null and out_id!=''">
+ 			and out_id like #{out_id}
+ 		</if>
+ 		<if test="out_status!=null and out_status!=''">
+ 			and out_status like#{out_status}
+ 		</if>
+ 		<if test="room!=null and room!=''">
+ 		    and room in (select ashh.store_id from amc_store_house ashh 
+		    CONNECT BY PRIOR ashh.store_id=ashh.store_p_id START WITH ashh.store_id=#{room}) 
+ 	    </if>
+ 	    <if test="start_time!=null and start_time!=''">
+			and to_date(out_date,'yyyy-MM-dd') &gt;= to_date(#{start_time},'yyyy-MM-dd') 
+		</if>
+		<if test="end_time!=null and end_time!=''">
+			and to_date(out_date,'yyyy-MM-dd') &lt;= to_date(#{end_time},'yyyy-MM-dd')
+		</if>
+ 		order by to_number(id) desc
+ 	</select>
+ 	 <!-- 新增领用信息 -->
+    <insert id="addRecipientsInfo" parameterType="java.util.Map">
+    insert into CG_GOODS_OUT(ID,OUT_ID,OUT_DATE,GETUSER_ORG,GETUSER_NO,CREATE_USER,CREATE_DATE,ROOM,
+                             CREATE_ORG,DESCR,OUT_STATUS) 
+    values(#{ID},#{OUT_ID},#{OUT_DATE},#{GETUSER_ORG},#{GETUSER_NO},#{CREATE_USER},#{CREATE_DATE},
+                #{ROOM},#{CREATE_ORG},#{DESCR},#{OUT_STATUS})
+    </insert>
+    <!-- 修改领用信息 -->
+    <update id="updateRecipientsInfo" parameterType="java.util.Map">
+    update CG_GOODS_OUT set OUT_DATE=#{OUT_DATE}, GETUSER_ORG=#{GETUSER_ORG},GETUSER_NO=#{GETUSER_NO},
+                CREATE_USER=#{CREATE_USER}, CREATE_DATE=#{CREATE_DATE},ROOM=#{ROOM},
+                CREATE_ORG=#{CREATE_ORG},DESCR=#{DESCR},OUT_STATUS=#{OUT_STATUS}
+    where ID=#{ID}
+    </update>
+    <!-- 新增领用详情表信息 -->
+    <insert id="addRecipientsDetailInfo" parameterType="java.util.Map">
+    insert into CG_GOODS_OUT_DETAIL(OUT_ID,GOODS_ID,GOODS_NUMBER) 
+    values(#{OUT_ID},#{GOODS_ID},#{GOODS_NUMBER})
+    </insert>
+ 	<!-- 删除领用详情表信息 -->
+	<delete id="deleteRecipientsDetailInfo" parameterType="java.util.Map">
+       delete from CG_GOODS_OUT_DETAIL where out_id=#{out_id}
+	</delete>
+	<!-- 删除耗材领用信息 -->
+	<delete id="deletecmRecipients" parameterType="java.util.Map">
+       delete from CG_GOODS_OUT where out_id=#{out_id}
+	</delete>
+	<!-- 根据id查询耗材领用信息 -->
+	<select id="queryRecipientsInfoById" parameterType="java.util.Map" resultType="java.util.Map">
+	 select sbi.goods_number,a.goods_num,age.goods_id,age.goods_name,age.brand,age.standard,age.quantity 
+		 from CG_GOODS_OUT_DETAIL sbi 
+		 	left join CG_GOODS_TYPE age on sbi.goods_id = age.goods_id 
+		 	   left join  CG_GOODS a on  sbi.goods_id = a.goods_id and a.room_id=#{room} 
+		 	      where sbi.out_id=#{out_id}
+	</select>
+	<!-- 查询类别对应的物品信息-->
+	<select id="queryAllStorageField" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+		     t.goods_id,t.goods_name,t.brand,t.standard,t.quantity,m.goods_num
+		from CG_GOODS_TYPE t,CG_GOODS m 
+		     where  t.category_id = m.category_id and t.goods_id = m.goods_id and m.room_id=#{room_id}  
+		    <if test="category_id!=null and category_id!=''">
+ 			   and m.category_id in (select category_id  from CG_SUPPLIES_CONFIG 
+		  CONNECT BY PRIOR category_id=pre_category_id START WITH category_id= #{category_id}) 
+ 		    </if>
+    </select>
+    <!-- 根据id查询领用详情表信息 -->
+	<select id="queryRecipientsDetailById" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			sbi.*
+		from 
+			CG_GOODS_OUT_DETAIL sbi
+		where 
+			sbi.out_id=#{out_id}
+	</select>
+	 <!-- 修改物品的剩余数量 -->
+    <update id="updateGoods_Number" parameterType="java.util.Map">
+    update CG_GOODS set 
+               GOODS_NUM=GOODS_NUM-#{GOODS_NUMBER}
+    where ROOM_ID=#{ROOM} and GOODS_ID=#{GOODS_ID}
+    </update>
+     <!-- 根据id查询物品的剩余数量-->
+	<select id="queryGoods_NumberById" parameterType="java.util.Map" resultType="java.util.Map">
+		select *
+		from 
+			CG_GOODS 
+		where 
+			ROOM_ID=#{ROOM} and GOODS_ID=#{GOODS_ID}
+	</select>
+	 <!-- 修改出库状态 -->
+    <update id="updateOut_Status" parameterType="java.util.Map">
+    update CG_GOODS_OUT set 
+               out_status=#{out_status}, out_date=#{out_date}
+    where out_id=#{out_id}
+    </update>
+ </mapper>

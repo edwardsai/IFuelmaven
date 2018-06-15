@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>审批规则配置</title>
+<link rel="stylesheet" href="bootstrap/css/matrix-style.css" />
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="css/public.css" />
+<link rel="stylesheet" type="text/css" href="task_mytable/task_mytable.css" />
+</head>
+<body style="line-height:24px;"  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				流程名称：<input type="text" class="span3" name="WM.wf_name" id="wf_name" readonly/>
+						<input type="hidden" class="span3" name="WM.m_id" id="m_id" />
+						<input type="hidden" class="span3" name="WM.wf_id" id="wf_id" />
+			</div>
+			<div class="span5 h50">
+			           业务系统：<select id="wf_sys_name" class="span3" name="WM.wf_sys_name" style="width:201px" diccode="WF_DIC_SYSTEM" disabled="disabled">
+			          </select>	
+			</div>
+			<div class="span5 h50">
+				流程状态：<select id="wf_state" class="span3" name="WM.wf_state" style="width:201px" diccode="WF_DIC_STATE" disabled="disabled">
+				       </select>
+			</div>
+			<div class="span5 h50">
+				矩阵名称：<input type="text" class="span3" name="WM.r_name" id="r_name" readonly/>
+			</div>
+		</div>
+	</form>
+	<div class="tz_btn">
+		<button type="btns" id="addApproveRules" class="btns">新增审批规则</button>
+		<button type="btns" id="backMatrixList" class="btns">返回</button>
+	</div>
+	<!-- table开始 -->
+	<!-- <table id="approRuleTableInfo" class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px"></table> -->
+	<div id="approRuleTableInfo"></div>
+	<!-- table结束 -->
+	
+	<!-- 新增审批规则模态框开始 -->
+	<div id="addApproveRoleModal" class="modal hide fade" tabindex="-1" role="dialog" 
+	  aria-labelledby="myModalLabel" aria-hidden="true" style="width:750px; top:23%;left:43%;">
+	  <div class="modal-header">
+	    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+	    <h4 id="myModalLabel" style=" text-align:center;">增加矩阵</h4>
+	  </div>
+	  <div class="modal-body">
+	    <div class="selectArea" style="width:600px;margin: 0 100px;text-align:center;" id="roleInfoDetail">
+		  <ul>
+		  <li>审批规则名称：<input type="text" class="inp" validate="v.required" valititle="审批规则名称必填" name="WMR.a_r_name" id="pop_r_name"></li>
+		  <li>&nbsp;&nbsp;&nbsp;&nbsp;规则表达式：<input type="text" class="inp" validate="v.required" valititle="规则表达式必填" name="WMR.r_exp" id="pop_r_exp"></li>
+		  </ul>
+		  <div style="clear:both;"></div>
+	    </div>
+		<div style="text-align:center;margin:15px auto;">
+			<button type="button" id="saveRoleInfo" class="btns">保存</button>
+			<button type="button" data-dismiss="modal" aria-hidden="true" class="btns">关闭</button>
+		</div>
+	  </div>
+	  <div class="modal-footer"></div>
+	</div>
+	<!-- 新增审批规则模态框结束 -->
+	
+</body>
+<script src="task_mytable/task_mytable.js"></script>
+<script src="workFlow/swfi/swfi_approveRulesConfig.js"></script>
+<script src="js/commons/Math.uuid.js"></script> 
+</html>

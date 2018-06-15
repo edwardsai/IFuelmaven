@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产归还列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	.spanLink{
+		color:blue;
+	}
+	.spanLink:hover{
+		color:blue;
+		font-weight:bolder;
+		text-decoration: underline;
+	}
+	#assetreturn_form .span5{width:30% !important;}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div id="assetreturn_form"  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				资产编码：<input type="text" class="span3" id="RPRasset_num"/>
+			</div>
+			<div class="span5 h50">
+				资产名称：<input type="text" class="span3" id="RPRasset_name"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="select_assetReturnList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_assetReturnList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_assetReturnList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_assetReturnList">
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;使用人：<input type="text" class="span3" id="RPRreal_user_name"/>
+			</div>
+			<div class="span5 h50">
+				是否归还：<select style="width:54%;" id="RPRis_return" diccode="ASS_DIC_IS_RETURN">
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="propertyReturnRegist"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>资产归还登记</li>
+			<li class="ilsh submenuList1"  id="readPropertyReturnDet"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看</li>
+		</ul>
+	<div style="clear: both;"></div>
+    </div>
+	<div>
+		<!-- table开始 -->
+		<table id="Table_assetReturnList"></table>
+		<!-- table结束 -->
+	</div>
+</body>
+<script src="ppe/propertyManager/returnOfProperty/propertyReturnList.js"></script>
+</html>

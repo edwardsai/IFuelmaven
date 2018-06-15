@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.warrantHomePage2.WarrantHomePageDao">
+	<!-- 统计资产各状态数量  -->
+	<select id="queryAssetStateCount" parameterType="java.util.Map" resultType="java.util.Map">
+		select wws.warr_status,count(0) count_num 
+			from WRT_WARRANT_STOCK wws 
+		group by wws.warr_status
+	</select>
+	<!-- 统计某个月资产出库的权证数量 -->
+	<select id="queryUseAssetNumByMonth" parameterType="java.lang.String" resultType="java.lang.Integer">
+	select count(*) out2
+	 	from WRT_WARRANT_HISTORY wwh 
+     where wwh.storage_type in('03','04','05') 
+     	and to_char(to_date(wwh.EXECUTE_DATE,'yyyy-mm-dd'),'yyyy-mm')=#{currMonth}
+	</select>
+	<!-- 统计某个月资产入库权证的数量 -->
+	<select id="queryInAssetNumByMonth" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select count(*) out2
+	 	from WRT_WARRANT_HISTORY wwh 
+     where wwh.storage_type in('00','01','02') 
+     	and to_char(to_date(wwh.EXECUTE_DATE,'yyyy-mm-dd'),'yyyy-mm')=#{currMonth}
+	</select>
+	
+	
+	
+	<!-- 查询前几名的资产信息 -->
+	<select id="queryTopAssetInfo" parameterType="java.lang.String" resultType="java.util.Map">
+	 select racall.* from
+                (      
+                           select acall.*, rownum rn
+                           from(   
+                                        select wws.Warr_Type,count(0) numx,
+                                        (SELECT CC.CATEGORY_NAME FROM CAT_CATEGORY_CONFIG CC WHERE  CC.CATEGORY_ID =wws.warr_type) WARR_TYPE_NAME
+                                        from WRT_WARRANT_STOCK wws 
+                                           left join    WRT_WARRANT_HISTORY wwh on wwh.serno=wws.serno
+                                                 where wwh.storage_type in ('00','01','02') 
+                                          group by wws.warr_type
+                                          order by count(0) desc
+                          ) acall
+          
+                ) racall
+            
+         where rn &lt;= #{typeNum}  
+	</select>
+	<!-- 统计前几名的资产数量 -->
+	<select id="queryTopAssetNumByDate" parameterType="java.util.Map" resultType="java.util.Map">
+	  select count(0) numx,aaa.warr_type 
+            from(
+                     select  * from WRT_WARRANT_STOCK wws 
+                                     left join    WRT_WARRANT_HISTORY wwh on wwh.serno=wws.serno
+                               where  to_date(wwh.execute_date,'yyyy-MM-dd') &lt; to_date(#{date},'yyyy-MM-dd')
+                               and wwh.storage_type in ('00','01','02') 
+                 ) aaa
+          group by aaa.warr_type
+     having  aaa.warr_type in   
+      <foreach item="item" index="index" collection="typeList" open="("  
+	            separator="," close=")">  
+	            #{item}  
+	 </foreach>
+	</select>
+	<!-- 统计除了前几名其他资产的数量 -->
+	<select id="queryOtherAssetNumByDate" parameterType="java.util.Map" resultType="java.lang.Integer">
+	  select  count(0) numx
+          from WRT_WARRANT_STOCK wws 
+                 left join    WRT_WARRANT_HISTORY wwh on wwh.serno=wws.serno
+     where
+     wws.warr_type not in 
+		 <foreach item="item" index="index" collection="typeList" open="("  
+		            separator="," close=")">  
+		            #{item}  
+		 </foreach>
+     and to_date(wwh.execute_date,'yyyy-MM-dd') &lt; to_date(#{date},'yyyy-MM-dd')
+     and wwh.storage_type in ('00','01','02')
+	</select>
+	
+	
+	
+<!-- 	//权证的待办提醒查询 -->
+	<!-- 入库待处理 -->
+	<select id="queryWarrantInNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+       select  count(0) from WRT_MIDDLE_TABLE aaa 
+     where  aaa.ENTER_FLAG = '00' and aaa.STORAGE_TYPE in ('00','01','02') 
+	</select>
+	<!-- 出库领用登记数 -->
+	<select id="queryWarrantOutNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+         select  count(0) from WRT_MIDDLE_TABLE aaa 
+     where  aaa.ENTER_FLAG = '00' and aaa.STORAGE_TYPE in ('03','04','05')
+	</select>
+	
+	<!-- //资产的待办提醒查询 -->
+	<!-- 资产申请数 -->
+	<select id="queryAssetApplyNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select  count(0) from ass_asset_apply aaa 
+     where  aaa.apply_status = '02' and aaa.del_flag='00'
+	</select>
+	<!-- 资产领用登记数 -->
+	<select id="queryAssetResignNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select  count(0) from ass_asset_apply aaa 
+     where  aaa.get_status = '01' and aaa.apply_status='03' and aaa.del_flag='00'
+	</select>
+	<!-- 资产转移数 -->
+	<select id="queryAssetTranNum" parameterType="java.lang.String" resultType="java.util.Map">
+     select  aat.transfer_type,count(0) num  from ass_asset_transfer aat 
+     where  aat.approve_state = '02' and aat.is_del='00'
+     group by aat.transfer_type
+	</select>
+	<!-- 资产调拨分配数 -->
+	<select id="queryAssetAsignNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select  count(0) from ass_asset_transfer aat 
+     where  aat.assign_status = '01' and aat.is_del='00'
+	</select>
+	<!-- 待制定方案数 -->
+	<select id="queryDraftSchemeNum" parameterType="java.lang.String" resultType="java.lang.Integer">
+     select  count(0) from ass_inventory_scheme ais 
+     where  ais.scheme_state = '01'
+	</select>
+</mapper>

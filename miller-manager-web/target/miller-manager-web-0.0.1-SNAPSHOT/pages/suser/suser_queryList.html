@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>人员管理列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+
+</head>
+<body  id="content">
+	<h3 class="header-h3"></h3>
+	<form action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				用户编号：<input type="text" class="span3" name="SUSER.user_no" id="user_no" />
+			</div>
+			<div class="span5 h50">
+				用户名称：<input type="text" class="span3" name="SUSER.user_name" id="user_name"/>
+			</div>
+			<div class="span5 h50">
+				登录名 ：<input type="text" class="span3" name="SUSER.login_name" id="login_name" />
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" style="display: none;" id="moreSearch_suserList">
+			
+			<div class="span5 h50">
+				用户状态：<select id="SQuser_state" class="span3" name="SUSER.state" style="width:201px"></select>
+			</div>
+		
+			<div class="span5 h50">
+				用户属性：<select id="SQuser_belong" class="span3" name="SUSER.belong" style="width:201px"></select>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" id="submenuList_backUserList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="queryUser"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="showMore_suserList"><i class="icon-plus" style="margin:4px 3px 0 0"></i>高级查询</li>
+			<li class="ilsh submenuList1" id="addUser" >新增</li>
+			<li class="ilsh submenuList1" id="updateUser">修改</li>
+			<li class="ilsh submenuList1" id="delteUser">删除</li>
+			<li class="ilsh submenuList1" id="viewUserInfo">查看详情</li>
+			<li class="ilsh submenuList" id="setUserRule">角色分配</li>
+			<li class="ilsh submenuList" id="permissionUser">生成权限</li>
+			<li class="ilshA" id="moreIlsh_backUserList"></li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<table id="SUserTableInfo"></table>
+	
+	
+	<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">提示...</h3>
+		</div>
+		<div class="modal-body">
+			<p id="ms_context">One fine body…</p>
+		</div>
+		<div class="modal-footer">
+			<button class="btn-gray" data-dismiss="modal" aria-hidden="true">确定</button>
+		</div>
+	</div>
+	<div id="setUserRuleModal" class="modal hide fade" tabindex="-1"
+		style="width: 850px;">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">分配机构角色</h3>
+		</div>
+		<div class="modal-body">
+			<p id="ms_context">
+			<table border="0" collspacing="0" cellpadding="0"
+				style="width: 800px; margin-left: 15px;">
+				<tr style="font-size: 20px; color: red;">
+					<td colspan="5" align="center">当前用户名称:<span id="setRoleUser"></span>&nbsp;当前用户编号:<span
+						id="setRoleUser_no"></span></td>
+				</tr>
+				<tr>
+					<td>
+						<fieldset style="font-size: 12px;">
+							<legend align="center"> 机构</legend>
+							<ul id="treeOrgRole" class="ztree" style="height:250px;width: 180px;overflow-y: auto;"></ul>
+						</fieldset>
+					</td>
+					<td style="width:18px;"></td>
+					<td>
+						<fieldset style="font-size: 12px;">
+							<legend align="center">已分配角色 </legend>
+							<select id="selected" name="selected" multiple="" size="12"
+								style="width: 250" ondblclick="move('rmselected');">
+								<option value="">部门经理</option>
+							</select>
+						</fieldset>
+					</td>
+					<td style="width: 100px; padding-left: 57px;">
+						<button type="button" onclick="move('rmselected');" style="padding:6px 6px;" class="btns">&gt;&gt;</button> <br><br>
+						<button type="button" onclick="move('addselected');" style="padding:6px 6px;" class="btns">&lt;&lt;</button>
+					</td>
+					<td>
+						<fieldset style="font-size: 12px;">
+							<legend align="center">未分配角色 </legend>
+							<select id="unselected" name="unselected" multiple="" size="12"
+								style="width: 250" ondblclick="move('addselected');">
+							</select>
+						</fieldset>
+					</td>
+				</tr>
+			</table>
+			</p>
+		</div>
+	
+		<div class="modal-footer">
+			<button class="btns" data-dismiss="modal" id="addUserRole" aria-hidden="true">保存</button>
+			<button class="btns" data-dismiss="modal" aria-hidden="true">取消</button>
+		</div>
+	</div>
+</body>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<script src="pages/suser/suser_queryList.js"></script>
+</html>

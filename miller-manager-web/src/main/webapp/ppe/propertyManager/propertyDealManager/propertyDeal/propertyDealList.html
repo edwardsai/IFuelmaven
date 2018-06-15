@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产处置列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	.spanLink{
+		color:blue;
+	}
+	.spanLink span:hover{
+		color:blue;
+		font-weight:bolder;
+		text-decoration: underline;
+	}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div id="propertyDealList_form"  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				处置流水号 ：<input type="text" class="span3" id="PDLdeal_id"/>
+			</div>
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处置名称：<input type="text" class="span3" id="PDLdeal_name"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="select_propertyDealList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_propertyDealList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_propertyDealList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_propertyDealList">
+		<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;处置方式：<select  style="width:201px" id="PDLdeal_method" diccode="ASS_DIC_DEAL_METHOD">
+				</select>
+			</div>
+			<div class="span5 h50">
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			处置人：<input type="text" class="span3" id="PDLdeal_user_name"/>
+			</div>
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;处置状态：<select  style="width:201px" id="PDLdeal_status" diccode="ASS_DIC_DEAL_STATUS">
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="add_propertyDealList"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>添加</li>
+			<li class="ilsh submenuList1" id="update_propertyDealList"><i class="icon-pencil" style="margin:4px 3px 0 0;"></i>修改</li>
+			<li class="ilsh submenuList1" id="delete_propertyDealList"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			<li class="ilsh submenuList1" id="view_propertyDealList"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看详情</li>
+			<li class="ilsh submenuList1" id="sure_propertyDealList">确认赠予/买断</li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table id="Table_propertyDealList"  class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+	</table>
+	<!-- table结束 -->
+</div>
+</body>
+<script src="ppe/propertyManager/propertyDealManager/propertyDeal/propertyDealList.js"></script>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>耗材入库</title>
+<link type="text/css" href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<style type="text/css">
+.moreSearch {display: none;}
+#head{font-weight:bolder;}
+td{height:35px;}	
+</style>
+</head>
+<body style="line-height:24px;">
+	<div id="consumablesStorageListPart">
+		<h3 class="header-h3"></h3>
+		<div  class="form-inline" style="font-size:15px">
+			<div class="row" align="center">
+				<div class="span5 h50">
+					入库单号：<input type="text" class="span3" name="csl_id"/>
+				</div>
+				<div class="span5 h50">
+					入库仓库：<input type="text" name="csl_room_name" readOnly="true" placeholder="点击选择仓库" class="span3" /> 
+					        <input type="hidden" name="csl_room_id"/>	
+				</div>
+				<div class="span5 h50" >
+				 	<div class="span5 h50" >
+						<div class="ilsh_left searchBtn" sel="query"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+						<div class="ilsh_left resetBtn" sel="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+						<div class="ilsh_left submenuList1 moreSearchBtn" sel="showMore"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+					</div> 
+			   </div>
+		   </div>
+			<div class="row moreSearch" align="center" sel="moreSearch">
+				<div class="span5 h50">
+					入库状态：<select style="width:201px;" name="csl_in_status" diccode="CM_DIC_IN_STATUS">
+					</select>
+				</div>
+				<div class="span7 h50">
+					&nbsp;&nbsp;入库时间：<input placeholder="点击选择" type="text" style="width: 30%;" name="csl_start_time" readOnly="true" 
+					onClick="WdatePicker({})"/> 至 
+					<input placeholder="点击选择" type="text" style="width: 30%;" name="csl_end_time" readOnly="true" 
+					onClick="WdatePicker({})"/>
+				</div>
+			</div>
+		</div>
+		<div class="submenuList" style="margin-bottom:7px;">
+			<ul class="" style="margin-left:0px">
+				<li class="ilsh submenuList1" sel="addCsl" id="add_consumablesStorage"><i class="icon-plus" style="margin:4px 3px 0 0;"></i>入库</li>
+				<li class="ilsh submenuList1" sel="updateCsl" id="update_consumablesStorage"><i class="icon-pencil" style="margin:4px 3px 0 0;"></i>修改</li>
+				<li class="ilsh submenuList1" sel="deleteCsl" id="delete_consumablesStorage"><i class="icon-trash" style="margin:4px 3px 0 0"></i>删除</li>
+			    <li class="ilsh submenuList1" sel="viewCsl"><i class="icon-eye-open" style="margin:4px 3px 0 0;"></i>查看详情</li>
+			    <li class="ilsh submenuList1" sel="sureCsl">确认入库</li>
+			</ul>
+			<div style="clear: both;"></div>
+		</div>
+		<div style="margin-bottom:100px;">
+			<table id="tb_consumablesStorageList">
+			</table>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="ppe/consumablesManagement/consumablesStorage/consumablesStorageList.js"></script>
+</html>

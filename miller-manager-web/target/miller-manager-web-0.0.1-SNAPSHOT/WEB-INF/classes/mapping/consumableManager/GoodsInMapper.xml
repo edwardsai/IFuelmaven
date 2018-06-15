@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.consumableManager.GoodsInDao">
+	
+	<select id="queryGoodsIn" parameterType="java.util.Map" resultType="com.yusys.consumableManager.GoodsIn">
+		select 
+			t.id id, t.supplier_name supplierName, t.create_date create_date, t.create_no create_no, 
+			t.create_org create_org, t.room room, t.descr descr,t.in_status in_status,
+			(select sdi.item_name from s_dic_item sdi where sdi.dic_code='CM_DIC_IN_STATUS' and sdi.item_code=t.in_status) as in_status_name,
+			(select su.user_name from s_user su where su.user_no=t.create_no) as create_name,
+ 		    (select listagg(ash.store_name,'->') within GROUP (order by ash.store_id) 
+             from amc_store_house ash where ash.store_id in (select ashh.store_id from amc_store_house ashh 
+		     CONNECT BY PRIOR ashh.store_p_id=ashh.store_id START WITH ashh.store_id=t.room) 
+             ) as room_name 
+		from 
+			CG_GOODS_IN t
+		where 
+			1=1
+			<if test="id!=null and id!=''">
+				and t.id like #{id}
+			</if> 
+			<if test="in_status!=null and in_status!=''">
+				and t.in_status like #{in_status}
+			</if> 
+			<if test="room!=null and room!=''">
+ 		    and t.room in (select ashh.store_id from amc_store_house ashh 
+		    CONNECT BY PRIOR ashh.store_id=ashh.store_p_id START WITH ashh.store_id=#{room}) 
+ 	    </if>
+			<if test="start_time!=null and start_time!=''">
+				and to_date(t.create_date,'yyyy-MM-dd') &gt;= to_date(#{start_time},'yyyy-MM-dd') 
+			</if>
+			<if test="end_time!=null and end_time!=''">
+				and to_date(t.create_date,'yyyy-MM-dd') &lt;= to_date(#{end_time},'yyyy-MM-dd')
+			</if>
+			order by id desc
+	</select>
+	
+	<select id="getOne" parameterType="java.lang.String" resultType="com.yusys.consumableManager.GoodsIn">
+		select
+			t.id id, t.supplier_name supplierName, t.create_date create_date, t.create_no create_no, 
+			t.create_org create_org, t.room room, t.in_status in_status, t.descr descr 
+		from 
+			CG_GOODS_IN t
+		where t.id=#{id}
+	</select>
+	<insert id="addGoodsIn" parameterType="com.yusys.consumableManager.GoodsIn">
+		insert into CG_GOODS_IN
+			(id, supplier_name, create_date, create_no, create_org, room, in_status, descr) 
+		values 
+			(#{id}, #{supplierName}, #{create_date}, #{create_no}, #{create_org}, #{room}, #{in_status}, #{descr})
+	</insert>
+
+	<update id="updateGoodsIn" parameterType="com.yusys.consumableManager.GoodsIn">
+		update CG_GOODS_IN set 
+			supplier_name=#{supplierName}, 
+			update_date=#{update_date}, 
+			update_no=#{update_no}, 
+			room=#{room},
+			in_status=#{in_status},
+			descr=#{descr} 
+		where 
+			id=#{id} 
+	</update>
+	
+	<delete id="deleteGoodsIn" parameterType="java.lang.String">
+		delete from CG_GOODS_IN where id=#{id}
+	</delete>
+
+	<!--查询资产类别及其仓库、存储数量等信息  -->
+	<select id="queryGoodsByLocation" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			t1.col_id, t1.goods_id, t1.goods_name,t1.brand, t1.standard,t1.quantity,t1.status,t1.descr,t1.category_id,
+      		(select item_name from s_dic_item where dic_code = 'S_DIC_OC' and item_code = t1.status ) status_name,
+			(select t2.category_name from CG_SUPPLIES_CONFIG t2 where t1.category_id = t2.category_id) category_name,
+			g.room_id, g.goods_num 
+		from 
+			CG_GOODS_TYPE t1 left join cg_goods g on g.goods_id =t1.goods_id and g.room_id=#{location}
+    	where 
+    		 t1.status='00'
+    		<if test="category_id!=null and category_id!=''">
+ 			   and t1.category_id in (select category_id  from CG_SUPPLIES_CONFIG 
+		     CONNECT BY PRIOR category_id=pre_category_id START WITH category_id= #{category_id}) 
+ 		    </if>
+	
+	</select>
+	
+	<insert id="addGoodsInDetail">
+		insert into CG_GOODS_IN_DETAIL
+			(goods_id, id, goods_number <!-- price, money, --> ) 
+		values
+			(#{goodsId}, #{id}, #{goodsNumber} <!-- #{price}, #{money}, -->)
+	</insert>
+	<delete id="deleteGoodsInDetail" parameterType="java.lang.String">
+		delete from CG_GOODS_IN_DETAIL where id=#{id}
+	</delete>
+	 <!-- 根据id查询入库详情表信息 -->
+	<select id="queryGoodsInDetailById" parameterType="java.util.Map" resultType="java.util.Map">
+		select 
+			sbi.*
+		from 
+			CG_GOODS_IN_DETAIL sbi
+		where 
+			sbi.id=#{id}
+	</select>
+	<!-- 查询库存表中是否有该物品 -->
+	<select id="queryCoodsInGoodsById" parameterType="java.util.Map" resultType="java.util.Map">
+		select sbi.* from CG_GOODS sbi where sbi.GOODS_ID=#{GOODS_ID} and sbi.ROOM_ID=#{ROOM}
+	</select>
+	<!-- 查询类型编码 -->
+	<select id="queryCategoryIdById" parameterType="java.util.Map" resultType="java.util.Map">
+		select CATEGORY_ID from CG_GOODS_TYPE where goods_id=#{GOODS_ID}
+	</select>
+	<!-- 添加库存物品  -->
+	<insert id="addGoodsToGoods" >
+		insert into CG_GOODS (goods_id,room_id,goods_num,flag,category_id,id)
+		values(#{GOODS_ID},#{ROOM},#{GOODS_NUMBER},#{flag},#{categoryId},#{id})
+	</insert>
+	 <!-- 修改物品的剩余数量 -->
+    <update id="updateGoods_Num" parameterType="java.util.Map">
+    update CG_GOODS set 
+               GOODS_NUM=GOODS_NUM+#{GOODS_NUMBER}
+    where ROOM_ID=#{ROOM} and GOODS_ID=#{GOODS_ID}
+   	</update>
+   	 <!-- 修改物品的剩余数量 -->
+    <update id="updateNum" parameterType="java.lang.String">
+    update CG_GOODS set 
+               goods_num=goods_num+#{goodsNumber}
+    where room_id=#{room} and goods_id=#{goodsId}
+   	</update>
+   	 <!-- 修改入库状态 -->
+    <update id="updateIn_Status" parameterType="java.util.Map">
+    update CG_GOODS_IN set 
+              in_status=#{in_status}
+    where id=#{id}
+    </update>
+    <!-- 根据id查询耗材入库信息 -->
+	<select id="queryGoodsInInfoById" parameterType="java.util.Map" resultType="java.util.Map">
+	  select sbi.goods_number,age.goods_id,age.goods_name,age.brand,age.standard,age.quantity,a.goods_num from 
+    	 CG_GOODS_IN_DETAIL sbi left join CG_GOODS_TYPE age on sbi.goods_id=age.goods_id left join CG_GOODS a on a.goods_id=sbi.goods_id and a.room_id=#{room}
+ 	 		where sbi.id=#{id} 
+	</select>
+</mapper>

@@ -1,0 +1,508 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>权证入库</title>
+<link rel="stylesheet" type="text/css" href="css/css_ppe/computerroomMapConfiguration.css"/>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe/warrantManager/warrantStorage/warrantStorage_add.js"></script>
+<style>
+.table_input td {
+	height: 45px;
+}
+	#WarrantStorageTableInfo.table-info tbody > tr > td:nth-child(odd){text-align:right;font-weight:bolder} 
+	#WarrantStorageTableInfo.table-info tbody > tr > td:nth-child(even){text-align:left}
+#head {
+	font-weight: bolder;
+}
+td {
+	height: 35px;
+}
+/* 3D翻转效果开始*/
+.nav-menu-rotate > td {
+	display: inline;
+	float:left;
+	border-right:1px solid #94c0be;
+}
+.nav-menu-rotate > td:last-child {
+	border-right: none;
+}
+.nav-menu-rotate td a {
+	color: #fff;
+	display: block;
+	/* font-size: 20px; */
+	/* padding: 15px 30px 15px 31px; */
+	height:35px;
+	width:275px;
+}
+.three-d-rotate {
+	-webkit-perspective: 200px;
+	-moz-perspective: 200px;
+	-ms-perspective: 200px;
+	-o-perspective: 200px;
+	perspective: 200px;
+/*设置3D舞台布景过渡效果*/
+	-webkit-transition: all .07s linear;
+ 	-moz-transition: all .07s linear;
+ 	-ms-transition: all .07s linear;
+ 	-o-transition: all .07s linear;
+ 	transition:all .7s linear;
+	position: relative;
+}
+.three-d-rotate:not(.active):hover {
+	cursor: pointer;
+}
+/*给不是当前状态的3D舞台的悬浮与聚焦状态设置变形效果*/
+.three-d-rotate:not(.active):hover .three-d-box-rotate,  .three-d-rotate:not(.active):focus .three-d-box-rotate {
+	-wekbit-transform: translateZ(-16px) rotateX(90deg);
+ 	-moz-transform: translateZ(-16px) rotateX(90deg);
+ 	-o-transform: translateZ(-16px) rotateX(90deg);
+ 	-ms-transform: translateZ(-16px) rotateX(90deg);
+ 	transform: translateZ(-16px) rotateX(90deg);
+}
+.three-d-box-rotate {
+/*给3D舞台中“.three-d-box”设置过渡与变形效果*/
+	-webkit-transition: all .3s ease-out;
+ 	-moz-transition: all .3s ease-out;
+ 	-ms-transition: all .3s ease-out;
+ 	-o-transition: all .3s ease-out;
+ 	transition: all .3s ease-out;
+	-webkit-transform: translatez(-16px);
+	-moz-transform: translatez(-16px);
+	-ms-transform: translatez(-16px);
+	-o-transform: translatez(-16px);
+	transform: translatez(-16px);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform-style: preserve-3d;
+	-ms-transform-style: preserve-3d;
+	-o-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+/*给导航设置3D前，与3D后变形效果*/
+.front-rotate {
+	-webkit-transform: rotatex(0deg) translatez(16px);
+	-moz-transform: rotatex(0deg) translatez(16px);
+	-ms-transform: rotatex(0deg) translatez(16px);
+	-o-transform: rotatex(0deg) translatez(16px);
+	transform: rotatex(0deg) translatez(16px);
+}
+.back-rotate {
+	-webkit-transform: rotatex(-90deg) translatez(16px);
+	-moz-transform: rotatex(-90deg) translatez(16px);
+	-ms-transform: rotatex(-90deg) translatez(16px);
+	-o-transform: rotatex(-90deg) translatez(16px);
+	transform: rotatex(-90deg) translatez(16px);
+	color: #FFE7C4;
+}
+.front-rotate, .back-rotate {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #74adaa;
+	/* padding: 15px 30px 15px 31px; */
+	width:275px;
+	height:35px;
+	line-height:35px;
+	text-align:center;
+	color: white;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.nav-menu-rotate tr {
+	position: absolute;
+	text-align: left;
+	font-size: 14px;
+	-webkit-transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-ms-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
+	transition: all 0.3s ease-in;
+	-webkit-transform-origin: 0px 0px;
+	-moz-transform-origin: 0px 0px;
+	-ms-transform-origin: 0px 0px;
+	-o-transform-origin: 0px 0px;
+	transform-origin: 0px 0px;
+	-webkit-transform: rotateX(-90deg);
+	-moz-transform: rotateX(-90deg);
+	-ms-transform: rotateX(-90deg);
+	-o-transform: rotateX(-90deg);
+	transform: rotateX(-90deg);
+	-webkit-backface-visibility: hidden;
+	-moz-backface-visibility: hidden;
+	-ms-backface-visibility: hidden;
+	-o-backface-visibility: hidden;
+	backface-visibility: hidden;
+}
+/* 3D翻转效果结束*/
+</style>
+</head>
+<body class="left_bor">
+	<div id="warrantAreaRoom_info">
+		<div id="baseInfo">
+	  		<h3 class="header-h3">入库申请信息</h3>
+			<!-- 入库申请信息部分 -->
+			<div class="row-fluid">
+				<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">入库类型： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="WS.STORAGE_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;">入库申请人： </span>
+							</td>
+							<td style="width:310px;">
+								<span name="WS.APPLY_USER_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">审批通过日期：</span>
+							</td>
+							<td>
+								<span name="WS.APPROVE_DATE"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">担保合同编号：</span>
+							</td>
+							<td>
+								<span name="WS.CONTRACT_NO"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">押品编号：</span>
+							</td>
+							<td>
+								<span name="WS.GUARANTEE_ID"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">押品名称：</span>
+							</td>
+							<td>
+								<span name="WS.GUARANTEE_NAME"></span>
+							</td>
+						</tr>
+			        </tbody>
+		        </table>
+	        </div>
+			<!-- 权证基本信息部分 -->
+			<div class="row-fluid">
+				<h3 class="header-h3">权证基本信息</h3>
+				<div>
+				 	<table class="table table-striped" style="width: 99.5%">
+					<tbody>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权证编号： </span>
+							</td>
+							<td>
+								<span name="WS.WARRANT_NO"></span>
+							</td>
+						
+							<td class="tableColumnName" style="width:250px;">
+								<span style="font-weight: bolder;" >权证分类： </span>
+							</td>
+							<td>
+								<span name="WS.WARR_CLASSIFY_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权证类型一：</span>
+							</td>
+							<td>
+								<span name="WS.WARR_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权证类型二：</span>
+							</td>
+							<td>
+								<span name="WS.WARR_TYPE2_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人客户号：</span>
+							</td>
+							<td>
+								<span name="WS.OWNER_ID"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人名称：</span>
+							</td>
+							<td>
+								<span name="WS.PROPERTY_OWNER_NAME"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人证件类型：</span>
+							</td>
+							<td>
+								<span name="WS.ID_TYPE_NAME"></span>
+							</td>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">权属人证件号码：</span>
+							</td>
+							<td>
+								<span name="WS.ID_NUMBER"></span>
+							</td>
+						</tr>
+						<tr>
+							<td class="tableColumnName">
+								<span style="font-weight: bolder;">标签ID(TID)：</span>
+							</td>
+							<td>
+								<span name="WS.TAG_ID"></span>
+							</td>
+							<td class="tableColumnName" id="tag_id">
+								<span style="font-weight: bolder;">旧权证编号：</span>
+							</td>
+							<td id="t_tag_id">
+								<span name="WS.OLD_WARRANT_NO"></span>
+							</td>
+							<td id="notag_id"></td><td id="ntag_id"></td>
+						</tr>
+						<tr>
+						<td class="tableColumnName">
+								<span style="font-weight: bolder;" >权证影像： </span>
+							</td>
+							<td colspan="3">
+								<div>
+				   					<img style="height: 40px;width: 60px;"  alt="" src="" name="PHOTO_ID">
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+			</div>
+			
+			<div class="row-fluid" align="center"
+				style="margin: 20px 0px;">
+				<button class="btns ilsh_left" type="button" name="returnInfo">信息不符合打回</button>
+				<button class="btns ilsh_left" type="button" name="confirmInfo">信息确认</button>
+				<button class="btns ilsh_left" type="button" name="warrantAdd_back_list">返回</button>
+			</div>
+		</div>
+		
+		<!-- 入库信息登记 -->
+		<div class="row-fluid" id="WarrantStorageTable" hidden="hidden">
+			<h3 class="header-h3">入库信息登记</h3>
+			<div>
+				<table id="WarrantStorageTableInfo" class=" table table-striped table-border table-info" style="width:99.5%;margin: 20px 1px;">
+					<tbody>
+					    <tr>
+					    	<td class="tableColumnName"><span style="font-weight: bolder;">标签编码(TID)：</span></td>
+							<td>
+								<input type="text" name="wart.TAG_ID" validate="v.required" valititle="标签编码" readOnly>
+							</td>
+							<td class="tableColumnName"><span style="font-weight: bolder;">入库交接人：</span></td>
+							<td>
+								<input type="text" name="wart.EXCHANGE_USER" validate="v.required" valititle="入库交接人">
+							</td>
+						</tr>
+						<tr>
+				    		<td class="tableColumnName"><span style="font-weight: bolder;">存放区域：</span></td>
+							<td colspan="3">
+								<input style="width:92.7%;" type="text" name="wart.STORAGEPLACENAME" readonly="readonly" validate="v.required" valititle="存放位置"/>
+								<button class="btns" sel="openWinWar" style="float: right;margin-top: -26px; z-index: 1;position: relative;margin-right: 60px;">选择</button>
+								<input type="hidden" name="wart.AREA"/>
+							</td>
+						</tr>
+						<tr>
+					    	<td class="tableColumnName"><span style="font-weight: bolder;">存放楼层：</span></td>
+							<td>
+								<input type="text" name="wart.FLOORNAME" readonly/>
+								<input type="hidden" name="wart.FLOOR"/>
+							</td>
+							<td class="tableColumnName"><span style="font-weight: bolder;">存放区域（房号）：</span></td>
+							<td>
+								<input  type="text" name="wart.MACHINEROOMNAME" readonly/>
+								<input type="hidden" name="wart.MACHINE_ROOM"/>
+							</td>
+						</tr>
+						<tr>
+					    	<td class="tableColumnName"><span style="font-weight: bolder;">文件柜名称：</span></td>
+							<td>
+								<input type="text" name="wart.CABINETNUM" readonly/>
+								<input type="hidden" name="wart.CAB_NUM"/>
+							</td>
+							<td class="tableColumnName"><span style="font-weight: bolder;">文件柜位：</span></td>
+							<td>
+								<input type="text" name="wart.LAYER" readonly/>
+							</td>
+						</tr>
+					</tbody> 
+				</table>
+			</div>
+			<div class="row-fluid" align="center"
+				style="margin: 20px 0px; margin-bottom: 60px">
+				<button class="btns ilsh_left" type="button" name="before">上一步</button>
+				<button class="btns ilsh_left" type="button" name="makeTag_id">制作标签</button>
+				<button class="btns ilsh_left" type="button" name="warrantStorage_save">入库</button>
+				<button class="btns ilsh_left" type="button" name="warrantAdd_back_list">返回</button>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 信息打回模态框 -->
+	<div id="myModal_warrantStorage" class="modal hide fade" tabindex="-1" role="dialog" 
+		  aria-labelledby="myModalLabel" aria-hidden="true">
+		  <div class="modal-header">
+		    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		    <h5>打回</h5>
+		  </div>
+		  <div class="modal-body">
+			  <table class="table">
+				  <tr>
+				  	<td class="rightBolder" width="25%">打回说明：</td>
+				  	<td><textarea id="WS_RETURN_REASON" style="line-height:2;resize: none;" rows="3" validate="v.required" valititle="该项为必填项"></textarea></td>
+				  </tr>
+			  </table>
+		  </div>
+		<div class="modal-footer">
+			<div style="text-align:center;">
+				<button class="btns ilsh_left" id="beatStorage">打回</button>
+				<button class="btns ilsh_left"  data-dismiss="modal" aria-hidden="true">关闭</button>
+			</div>
+		</div>
+	</div>
+	<div id="myModal_warr" class="modal hide fade" tabindex="-1"  style="width:1000px;height:550px;left:35%;margin-left:-300px;">
+	</div>
+	<!-- 机柜信息模态框 -->
+<div sel="myModal_warrantroomMap" class="modal hide fade" tabindex="-1"  style="width:600px;left:50%;margin-left:-300px;">
+	<div class="modal-header">
+		<h5>文件柜详情</h5>
+	</div>
+	<div class="modal-body" style="line-height:24px;height:300px;" align="center">
+		 <table sel="cabinetInfo_table_warr" class=" table table-striped table-border table-info" style="width:99.5%">
+			<tbody>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">文件柜编号： </span>
+					</td>
+					<td>
+						<input type="hidden" name="cab_id">
+						<input type="text" name="cab_num" readonly="readonly" validate="v.required" valititle="该项为必填项">
+					</td>
+				<td class="tableColumnName">
+					<span style="font-weight:bolder;">文件柜名称：</span>
+				</td>
+				<td>
+					<input value="服务器机柜" type="text" name="cab_name" readonly="readonly" validate="v.required" valititle="该项为必填项">
+				</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">文件柜X坐标：</span>
+					</td>
+					<td>
+						<input value="0424" type="text" name="coor_x" readonly="readonly" disabled>
+					</td>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">文件柜Y坐标：</span>
+					</td>
+					<td>
+					<input value="67" type="text" name="coor_y" readonly="readonly" disabled>
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">深度： </span>
+					</td>
+					<td>
+						<input value="23" type="text" name="cab_deep" readonly="readonly" validate="v.required" valititle="该项为必填项">
+					</td>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">高度： </span>
+					</td>
+					<td>
+						<input value="45" type="text" name="cab_high" readonly="readonly" validate="v.required" valititle="该项为必填项">
+					</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">长度： </span>
+					</td>
+					<td>
+						<input value="431" type="text" name="cab_length" readonly="readonly" validate="v.required" valititle="该项为必填项">
+					</td>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">使用率： </span>
+					</td>
+					<td>
+						<input value="34%" type="text" name="cab_use_ratio" readonly="readonly" disabled>
+					</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">总容量： </span>
+					</td>
+					<td>
+						<input value="5" type="text" name="total_content" readonly="readonly" validate="v.required" valititle="该项为必填项" onblur="calculateUsedRate(this)">
+					</td>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">剩余容量： </span>
+					</td>
+					<td>
+						<input value="2" type="text" name="remain_content" readonly="readonly" validate="v.required" valititle="该项为必填项" onblur="calculateUsedRate(this)">
+					</td>
+				</tr>
+				<tr>
+					<td class="tableColumnName">
+						<span style="font-weight:bolder;">备注： </span>
+					</td>
+					<td colspan="3">
+						<input value="服务器机柜" name="marks" readonly="readonly" type="text" style="width:92%;">
+					</td>
+				</tr>	
+			</tbody>
+		</table>
+		<div sel="warrCabinetInfo_floor_div">
+			<div class="floorContent">
+				空(8)：<i class="emptyFloor"></i><br/>
+				满(8)：<i class="enoughFloor"></i>
+			</div>
+			<table sel="cabinetInfo_floor_warr" class="cfloor">
+				
+			</table>
+		</div>
+	</div>
+	<div align="center" style="padding:15px 0;background-color:#fff;">
+			<button class="btns ilsh_left" sel="editFloor_warr">选择柜位</button>
+			<button class="btns ilsh_left" sel="modal_save_warrantroomMapConfigration">确定</button>
+			<button class="btns ilsh_left" data-dismiss="modal" sel="closseWarrantModal">取消选择</button>
+		</div>
+	<div class="modal-footer"></div>
+</div>
+</body>
+</html>

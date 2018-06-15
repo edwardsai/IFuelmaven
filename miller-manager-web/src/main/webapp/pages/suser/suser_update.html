@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script src="pages/suser/suser_update.js"></script>
+<script src="pages/sorg/sorgPop.js"></script>
+<style>
+.myselect .select2-container{
+margin-left:0px;
+margin-right:1px;
+}
+</style>
+</head>
+
+<body>
+	<div>
+		<h3 class="header-h3">
+			用户信息
+		</h3>
+		
+		<form action="" class="form-inline myselect" id="updateuser_from">
+		<div class="row">
+			<div class="span6 h50">
+				<label class="pl60">用户编号：</label>
+				<input type="text" name="UDUS.user_no" id="Uuser_no" disabled="disabled"/>
+			</div>
+			<div class="span6 h50">
+				<label class="pl60">用户名称：</label>
+				<input type="text"  name="UDUS.user_name" id="Uuser_name"  validate="v.required" valititle="该项为必填项" />
+			</div>
+		</div>
+		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">登陆名：</label>
+ 				<input type="text"  name="UDUS.login_name" id="Ulogin_name"  validate="v.required" valititle="该项为必填项" />
+ 			</div>
+			<div class="span6 h50">
+ 				<label class="pl60">电话：</label>
+ 				<input type="text"  name="UDUS.user_mobile" id="Auser_mobile"  validate="v.required" valititle="该项为必填项" />
+ 			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">昵称：</label>
+ 				<input type="text"  name="UDUS.nick_name" id="Unick_name"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">状态：</label>
+				<select id="Ustate" name="UDUS.state" style="width:53%;" validate="v.required" valititle="该项为必填项" >
+				</select>
+			</div>
+ 		</div>
+ 		
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">用户岗位：</label>
+ 				<select id="Uuser_post" name="UDUS.user_post" style="width:53%;" validate="v.required" valititle="该项为必填项" >
+				</select>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">用户等级：</label>
+				<select name="UDUS.user_level" id="Uuser_level" style="width:53%;" validate="v.required" valititle="该项为必填项" >
+				</select>
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+ 				<label class="pl60">所属部门：</label>
+ 				<input type="text" name="UDUS.org_no_name" id="Uorg_no_name"  placeholder="请选择" validate="v.required" valititle="该项为必填项"/>
+ 				<input type="hidden" name="UDUS.org_no_code" id="Uorg_no_code"/>
+ 			</div>
+			<div class="span6 h50">
+				<label class="pl60">邮箱：</label>
+				<input type="text"  name="UDUS.user_mail" id="Uuser_mail" validate="v.email" />
+			</div>
+ 		</div>
+ 		<div class="row">
+ 			<div class="span6 h50">
+				<label class="pl60" >用户属性：</label>
+				<select name="UDUS.user_belong" id="Uuser_belong" validate="v.required" style="width:53%;" valititle="该项为必填项">
+				</select>
+			</div>
+ 		</div>
+ 		<div class="row">
+			<div class="span12 h50">
+				<label class="pl60">备注：</label>
+				<textarea name="UDUS.memo" placeholder="备注" id="Umemo"></textarea>
+			</div>
+		</div>
+	</form>
+	<div style="clear:both;"></div>
+	<div style="width:200px;margin:30px auto;" >
+    		<button type="button" class="ilsh_left btns"  id="updateSUser" >保存</button>     
+    		<button type="button" id="update_backToUserList" class="ilsh_left btns">返回</button> 				
+		</div>
+  </div>
+ <div id="orgDivPopU"></div>
+<script type="text/javascript">
+	initVlidate($("#updateuser_from"));
+</script>
+</body>
+</html>

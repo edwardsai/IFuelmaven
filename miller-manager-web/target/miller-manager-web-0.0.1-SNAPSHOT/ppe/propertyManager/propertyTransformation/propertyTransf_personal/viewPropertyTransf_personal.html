@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产转移（个人）-详情</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<style>
+	/*表格样式*/
+	.table-info tr{
+		height:40px;
+	} 
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">转移资产列表</h3>
+	<div id="editPropertyTransfer" class="row-fluid" style="margin-bottom:5px;font-size:14px" >
+	<input type="hidden" id="PTPid" name="PTP.id">
+			<table   class="table table-striped" style="width: 99.5%">
+				<tr>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;width:230px;">资产转移流水号：</td>
+					<td style="width:330px">
+						<span name="PTP.transfer_id"></span>
+					</td>
+					<td class="rightTitle tableColumnName"  style="font-weight: bolder;width:230px;">转移人工号：</td>
+					<td style="width:330px">
+						<span name="PTP.user_no"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">转移人名字：</td>
+					<td>
+						<span name="PTP.transfer_emp_name"></span>
+					</td>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">转移发起日期：</td>
+					<td>
+						<span name="PTP.transfer_date"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">接收人名字：</td>
+					<td>
+						<span name="PTP.accept_emp_name"></span>
+					</td>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">接收人工号：</td>
+					<td>
+						<span name="PTP.accept_emp_id"></span>
+					</td>
+				</tr>
+			<tr>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">资产转移名称：</td>
+					<td>
+						<span name="PTP.transferasset_name" ></span>
+					</td>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">审批状态：</td>
+					<td style="padding-bottom:7px">
+						<span name="PTP.approve_state_name" ></span>
+					</td>
+				</tr> 
+				<tr>
+					<td class="rightTitle tableColumnName" style="font-weight: bolder;">备注：</td>
+					<td colspan="3"><textarea name="PTP.approve_remark" 
+						style="width:90.8%;box-shadow:none;resize:none;padding:10px" disabled="disabled"></textarea>
+					</td>
+				</tr>
+			</table>
+	</div>
+
+	<div class="row-fluid">
+		<h3 class="header-h3">转移信息</h3>
+		<div>
+		<table id="tb_propertyTransf_personalDetailsList"></table>
+		</div>
+	</div>
+    <div align="center" style="margin-top:30px;">
+		<button class="btns ilsh_left" id="goBack_propertyTransf_personal" >返回</button>
+	</div>
+</body>
+<script src="ppe/propertyManager/propertyTransformation/propertyTransf_personal/viewPropertyTransf_personal.js"></script>
+</html>

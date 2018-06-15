@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<link  href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<!-- <link rel="stylesheet" type="text/css" href="css/form.css" /> -->
+<script src="js/commons/commons.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="pages/slog/slog_loginQueryList.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<style type="text/css">
+
+.submenuList li{float: left;position: relative;}
+.submenuList li input{border:none;}
+.tableColumnName{text-align:right!important;}
+.search.table.table-bordered.table-bor-pad tr:hover{background:#fff!important;}
+
+</style>
+</head>
+<body>
+<div class="main_iframe_con">
+<h3 class="header-h3"></h3>
+	 <form action=""  class="form-inline">
+		<div class="ecitic-inquire" id="ecitic-inquire">
+			<div class="ecitic-table" id="ecitic-table">
+				<table style="width:100%;border:0;cellspacing:0;cellpadding:0;" class="search table table-bordered table-bor-pad">
+					<tr>
+						<td class="rightTitle tableColumnName" style="border: none;">登陆账号：</td>
+						<td style="border: none;"><input type="text" name="L.login_name" id="Llogin_name" /></td>
+						<td style="border: none;" class="rightTitle tableColumnName">用户名称：</td>
+						<td style="border: none;"><input type="text" name="L.user_name" id="Luser_name" /></td>
+					
+						<td style="border: none;" class="rightTitle tableColumnName">登陆日期：</td>
+						<td style="border: none;">
+							<span class="ecitic-time">
+								<input style="width: 100px;" type="text" name="L.opt_time1" id="Lopt_time1" readonly="readonly" onclick="initDate(this)"/>
+							</span>
+							<span class="ecitic-to">至</span>
+							<span class="ecitic-time">
+								<input style="width: 100px;" type="text" name="L.opt_time2" id="Lopt_time2" readonly="readonly" onclick="initDate(this)"/>
+							</span>
+						</td>
+					</tr>					
+				</table>
+			</div>
+			<!-- <ul class="ecitic-btn-all">
+				<li><input type="button" class="btn btn-ecitic" id="queryLogin" value="查询" /></li>
+				<li><input type="reset" class="btn btn-ecitic" id="resetLogin" value="重置" /></li>
+			</ul> -->
+		</div>
+	</form>
+	
+	<div class="submenuList" style="margin-bottom: 5px;">
+		<ul class="" style="margin-left:0px">
+			<li>
+			<i class="icon-search" style="left: 5px;top: 6.5px;position: absolute;"></i>
+			<input type="button" class="ilsh submenuList1" id="queryLogin" value="&nbsp;&nbsp;&nbsp;查询" /></li>
+			
+			<li>
+			<i class="icon-repeat" style="left: 5px;top: 6.5px;position: absolute;"></i>
+			<input type="reset" class="ilsh submenuList1" id="resetLogin" value="&nbsp;&nbsp;&nbsp;重置" /></li>
+			
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<div class="ecitic-new">
+		<table id="SLogTableInfo" class="table table-bordered table-hover"></table>
+	</div>
+</div>
+</body>
+</html>

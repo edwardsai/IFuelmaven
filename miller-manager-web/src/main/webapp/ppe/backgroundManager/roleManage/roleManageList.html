@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>角色信息查询</title>
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/public.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/index.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css" />
+<link rel="stylesheet" type="text/css"
+	href="../../../css/jquery.datetimepicker.css" />
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/select2.js"></script>
+<script src="../../../js/jquery.datetimepicker.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+<style type="text/css">
+	#head{
+		font-weight:bolder;
+	}
+</style>
+<script type="text/javascript">
+	$(function() {
+		/* $("#showMore").click(function() {
+			$("#moreSearch").toggle("normal hide");
+		}); */
+		
+		$("#addRoleInfo").click(function(){
+			window.location.assign("addRoleInfo.html");			
+		});
+		
+		$("#updateRoleInfo").click(function(){
+			window.location.assign("addRoleInfo.html");	
+		});
+		$("#admissionApplication").click(function(){
+			window.location.assign("roleConfigPage.html");
+			
+		});
+		/* $("#leaveApplication").click(function(){
+			window.location.assign("../empOutManage/empOutApply2.html");
+		});
+		$("#leaveApplication").click(function(){
+			window.location.assign("../empOutManage/empOutApply2.html");
+		});
+		$("#viewEmpinfo").click(function(){
+			window.location.assign("EmpInfo.html");
+		}); */
+	})
+</script>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<form id="taskinfolist_form" action="" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			
+			<div class="span5 h50">
+				角色编号：<input type="text" class="span3"/>
+			</div>
+			<div class="span5 h50">
+				角色名 称：<input type="text" class="span3"/>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList" style="margin-bottom:7px;">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="select"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="addRoleInfo" >新增</li>
+			<li class="ilsh submenuList1" id="updateRoleInfo">修改</li>
+			<li class="ilsh submenuList1" id="deleteRole">删除</li>
+			<li class="ilsh submenuList" id="admissionApplication">权限设置</li>
+			<li class="ilshA" id="moreIlsh"></li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+	<!-- table开始 -->
+	<table class="table-list table-striped table-hover table-border" style="margin-bottom: 0px;font-size:14px">
+		<tbody>
+			<tr id="head">
+				<td><input name="chkAll" id="chkAll" title="全选"
+					onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" /></td>
+				<td class="newStyle"><span>序号</span></td>
+				<td class="newStyle"><span>角色编号</span></td>
+				<td class="newStyle"><span>角色名称</span></td>
+				<td class="newStyle"><span>标记</span></td>
+				<td class="newStyle"><span>创建人</span></td>
+				<td class="newStyle"><span>创建时间</span></td>
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>1</span></td>
+
+				<td><span>0001</span></td>
+				<td><span>部门经理</span></td>
+				<td><span>--</span></td>
+				<td><span>admin</span></td>
+				<td><span>2016-06-11 19:05:22</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>2</span></td>
+
+				<td><span>0002</span></td>
+				<td><span>普通用户</span></td>
+				<td><span>启用</span></td>
+				<td><span>admin</span></td>
+				<td><span>2016-06-11 19:05:22</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>3</span></td>
+
+				<td><span>0003</span></td>
+				<td><span>项目经理</span></td>
+				<td><span>启用</span></td>
+				<td><span>admin</span></td>
+				<td><span>2016-06-11 19:05:22</span></td>
+
+			</tr>
+			<tr class="tit" id="toSee">
+				<td><input name="chkSon" id="chkSon1" type="checkbox" value='1'
+					onclick="ChkSonClick('chkSon','chkAll')" /></td>
+				<td><span>4</span></td>
+
+				<td><span>admin</span></td>
+				<td><span>超级管理员</span></td>
+				<td><span>启用</span></td>
+				<td><span>admin</span></td>
+				<td><span>2016-06-11 19:05:22</span></td>
+
+			</tr>
+		</tbody>
+	</table>
+	<!-- table结束 -->
+	<!-- 分页开始 -->
+	<div style="font-size:13px">
+			<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+				<span class="pagination-info">每页显示5条   共4条</span>
+			</div>
+		    <div class="pull-right pagination pull-right">
+				<ul class="pagination">
+					<li class="page-first disabled">
+						<a href="javascript:void(0)">首页</a>
+					</li>
+					<li class="page-pre disabled">
+						<a href="javascript:void(0)">上一页</a>
+					</li>
+					<li class="page-next">
+						<a href="javascript:void(0)">下一页</a>
+					</li>
+					<li class="page-last">
+						<a href="javascript:void(0)">末页</a>
+					</li>
+					<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+		    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+				</ul>
+			</div>
+		</div>
+	<!-- 分页结束 -->
+</div>
+</body>
+<script src="../../../js/commons/commons.js"></script>
+</html>

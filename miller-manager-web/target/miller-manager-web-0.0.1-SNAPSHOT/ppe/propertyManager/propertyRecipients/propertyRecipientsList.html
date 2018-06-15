@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>资产领用列表</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script src="ppe\propertyManager\propertyRecipients\propertyRecipientsList.js"></script>
+<style type="text/css">
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	td {
+		height:35px;
+	}
+	.spanLink{
+		color:blue;
+	}
+	.spanLink span:hover{
+		color:blue;
+		font-weight:bolder;
+		text-decoration: underline;
+	}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3"></h3>
+	<div  class="form-inline" style="font-size:15px" id="searchDiv_propertyRecipientsList">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				申请流水号：<input type="text" class="span3" name="apply_id" id="apply_id_propertyRecipientsList"/>
+			</div>
+			<div class="span5 h50">
+				资产类型：<input type="text" class="span3" id="category_name_propertyRecipientsList" 
+				       readonly="readonly" placeholder="点击选择"/>
+				      <input type="hidden"  id="category_id_propertyRecipientsList" class="span3"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" btn="query" id="search_propertyRecipientsList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_propertyRecipientsList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_propertyRecipientsList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center" id="moreSearch_propertyRecipientsList">
+			<div class="span5 h50">
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;申请人：<input type="text" class="span3" name="apply_user" id="apply_user_propertyRecipientsList"/>
+			</div>
+			<div class="span5 h50">
+				领取状态：<select sel="receive_state" class="span3"  style="width:201px" diccode="ASS_DIC_GET_STATUS" id="get_status_propertyRecipientsList">
+				</select>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" style="margin-bottom:7px;" id="submenuList_propertyRecipientsList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="propertyRecipientsList_inform"><i class="icon-bullhorn" style="margin:4px 3px 0 0"></i>领用通知</li>
+			<li class="ilsh submenuList1" id="propertyRecipientsList_regist"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>领用登记</li>
+			<li class="ilsh submenuList1" id="propertyRecipientsList_rewrite"><i class="icon-list-alt" style="margin:4px 3px 0 0"></i>领用分配</li>		
+			<li class="ilsh submenuList1" id="propertyRecipientsList_readDet"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查看详情</li>
+		</ul>
+	<div style="clear: both;"></div>
+</div>
+<div>
+<table id="tb_propertyRecipientsList"></table>
+</div>	
+</body>
+
+</html>

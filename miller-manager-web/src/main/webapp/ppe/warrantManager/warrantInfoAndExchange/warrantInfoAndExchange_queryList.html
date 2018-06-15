@@ -1,0 +1,62 @@
+ <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>权证查询及变更</title>
+<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>
+<script src="ppe/warrantManager/warrantInfoAndExchange/warrantInfoAndExchange_queryList.js"></script>
+<style type="text/css">
+.moreSearch {display: none;}
+#head{font-weight:bolder;}
+td{height:35px;}	
+</style>
+</head>
+<body class="left_bor" style="line-height:24px;">
+	<h3  class="header-h3"></h3>
+	<div id="searchDiv_wrt_warrantList" class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50" >
+				权证编号：<input id="WARRANT_NO" type="text" class="span4"/>
+			</div>
+			<div class="span5 h50" >
+				标签编号：<input id="TAG_ID" type="text" class="span4"/>
+			</div>
+			<div class="span5 h50" >
+				<div class="ilsh_left searchBtn" id="search_wrt_warrantList"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</div>
+				<div class="ilsh_left resetBtn" id="reset_wrt_warrantList"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</div>
+				<div class="ilsh_left submenuList1 moreSearchBtn" id="showMore_wrt_warrantList"><i class="icon-zoom-in" style="margin:4px 3px 0 0"></i>高级查询</div>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center"  id="moreSearch_wrt_warrantList">
+			<div class="span5 h50">
+				权证状态：<select diccode="WRT_DIC_WARRANT_STATE" id="warrant_state" style="width: 201px;"></select>
+			</div>
+			<div class="span5 h50">
+			           权证类型：<input id="warr_classify_o" type="text" class="span4" placeholder="点击选择" readonly="readonly"/>
+			              <input type="hidden" class="span4" id="warr_typeId"/>
+			</div>
+		</div>
+	</div>
+	<div class="submenuList" id="submenuList_wrt_warrantList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="query_wrt_warrantList" ><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>查阅权证卡片</li>
+			<li class="ilsh submenuList1" id="update_wrt_tagId"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>权证标签变更</li>
+			<li class="ilsh submenuList1" id="update_wrt_area"><i class="icon-pencil" style="margin:4px 3px 0 0"></i>权证存放位置变更</li>
+			<li class="ilsh submenuList1" id="estimate_wrt_area">权证估价</li>
+			<li class="ilsh submenuList1" sel="printWarCode"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>打印条形码</li>
+			<li class="ilsh submenuList1" sel="readWarCode"><i class="icon-eye-open" style="margin:4px 3px 0 0"></i>读取条形码</li>
+		</ul>
+	<div style="clear: both;"></div>
+	</div>
+	<div style="margin-top:3px;">
+		<table id="tb_wrt_warrantList" ></table>
+	</div>
+</body>
+</html>

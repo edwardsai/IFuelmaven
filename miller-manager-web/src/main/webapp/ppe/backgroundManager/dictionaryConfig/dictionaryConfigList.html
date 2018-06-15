@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>字典类别查询</title>
+<link rel="stylesheet" href="../../../css/bootstrap.css" />
+<link rel="stylesheet" href="../../../css/matrix-style.css" />
+<link rel="stylesheet" href="../../../css/select2.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/index.css" />
+<link rel="stylesheet" type="text/css" href="../../../css/zebra_dialog.css"/>
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../js/select2.js"></script>
+<script type="text/javascript" src="../../../js/zebra_dialog.js"></script>
+<script type="text/javascript" src="../../../js/commons/commons.js"></script>
+<style>
+	.moreSearch {
+		display: none;
+	}
+	#head{
+		font-weight:bolder;
+	}
+	.table{
+		height: 30px;
+	}
+</style>
+<script type="text/javascript">
+	$(function(){
+		//確認修改按鈕
+		$('#updateDictionary').bind('click', function(e) {
+			if($("input[type='checkbox']").is(':checked')){
+				window.location.assign("updateDictionary.html");
+			}else{
+				e.preventDefault();
+		        $.Zebra_Dialog('请选择一条数据进行修改!', {
+		            'type':     'close',
+		            'title':    '提示',
+		            'buttons':  ['是'],
+		            'onClose':  function(caption) {
+		            	if(caption=="是"){
+		            	}
+		            }
+		        });
+			}
+		});
+		//確認刪除按鈕
+		$('#deleteDictionary').bind('click', function(e) {
+			if($("input[type='checkbox']").is(':checked')){
+				e.preventDefault();
+		        $.Zebra_Dialog('是否進行刪除?', {
+		            'type':     'close',
+		            'title':    '提示',
+		            'buttons':  ['是', '否'],
+		            'onClose':  function(caption) {
+		            	if(caption=="是"){
+		            	}
+		            }
+		        });
+			}else{
+				e.preventDefault();
+		        $.Zebra_Dialog('请选择一条数据进行修改!', {
+		            'type':     'close',
+		            'title':    '提示',
+		            'buttons':  ['是'],
+		            'onClose':  function(caption) {
+		            	if(caption=="是"){
+		            	}
+		            }
+		        });
+			}
+		});
+		
+		$("#addDictionary").click(function(){
+			window.location.assign("addDictionary.html");
+		});
+		$("#dictionaryConfig").click(function(){
+			window.location.assign("dictionaryConfig.html");
+		});
+	});
+		
+		
+	</script>
+</head>
+<body class="left_bor" style=" line-height:24px;">
+	<h3  class="header-h3"></h3>
+	<form id="contractInfoList" action=""  class="form-inline" style="font-size:15px">
+		<div class="row" align="center">
+			<div class="span5 h50">
+				类  别  编  码：<input type="text" class="span3"/>
+			</div>
+			<div class="span5 h50">
+				类  别  名  称：<input type="text" class="span3"/>
+			</div>
+		</div>
+		<div class="row moreSearch" align="center"  id="moreSearch">
+			<div class="span5 h50">
+				类  别  状  态：<select id="task_state" class="span3" name="T.task_state" style="width: 201px;">
+					<option>请选择</option>
+					<option>启用</option>
+					<option>停用</option>
+				</select>
+			</div>
+			<div class="span5 h50">
+				所  属  菜  单：<input type="text" class="span3"/>
+			</div>
+		</div>
+	</form>
+	<div class="submenuList">
+		<ul class="" style="margin-left:0px">
+			<li class="ilsh submenuList1" id="select"><i class="icon-search" style="margin:4px 3px 0 0"></i>查询</li>
+			<li class="ilsh submenuList1" id="reset"><i class="icon-repeat" style="margin:4px 3px 0 0"></i>重置</li>
+			<li class="ilsh submenuList1" id="showMore"><i class="icon-plus" style="margin:4px 3px 0 0"></i>高级查询</li>
+			<li class="ilsh submenuList1" id="addDictionary">新增</li>
+			<li class="ilsh submenuList1" id="updateDictionary">修改</li>
+			<li class="ilsh submenuList1" id="deleteDictionary">删除</li>
+			<li class="ilsh submenuList" id="dictionaryConfig">字典项配置</li>
+			<li class="ilshA" id="moreIlsh"></li>
+		</ul>
+		<div style="clear: both;"></div>
+	</div>
+	<div style="">
+		<table class="table table-striped table-hover table-border" style="margin-bottom: 0px;">
+			<tbody>
+				<tr id="head">
+					<td class="newStyle">
+					</td>
+					<td class="newStyle">
+						<span>类别编码</span>
+					</td>
+					<td class="newStyle">
+						<span>类别名称</span>
+					</td>
+					<td class="newStyle">
+						<span>状态</span>
+					</td>
+					<td class="newStyle">
+						<span>说明</span>
+					</td>
+					<td class="newStyle">
+						<span>所属菜单</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_DAYS</span>
+					</td>
+					<td class="newStyle">
+						<span>每月哪一天</span>
+					</td>
+					<td class="newStyle">
+						<span>启用</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>任务创建</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_MESSTYPE</span>
+					</td>
+					<td class="newStyle">
+						<span>模型类型</span>
+					</td>
+					<td class="newStyle">
+						<span>启用</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>督办模型配置</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_SENDERTYPE</span>
+					</td>
+					<td class="newStyle">
+						<span>消息发送类型</span>
+					</td>
+					<td class="newStyle">
+						<span>启用</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>消息发送类型</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_SUCC_FAIL</span>
+					</td>
+					<td class="newStyle">
+						<span>消息发送成功失败</span>
+					</td>
+					<td class="newStyle">
+						<span>停用</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>已发送记录查询</span>
+					</td>
+				</tr>
+				<tr>
+					<td class="newStyle">
+						<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('chkSon','chkAll')" type="checkbox" />
+					</td>
+					<td class="newStyle">
+						<span>M_DIC_WEEK</span>
+					</td>
+					<td class="newStyle">
+						<span>星期配置</span>
+					</td>
+					<td class="newStyle">
+						<span>启用</span>
+					</td>
+					<td class="newStyle">
+						<span>-</span>
+					</td>
+					<td class="newStyle">
+						<span>督办模型配置</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div style="font-size:13px">
+			<div style="margin:0px 0 0 0" class="pull-left pagination-detail">
+				<span class="pagination-info">每页显示5条   共5条</span>
+			</div>
+		    <div class="pull-right pagination pull-right">
+				<ul class="pagination">
+					<li class="page-first disabled">
+						<a href="javascript:void(0)">首页</a>
+					</li>
+					<li class="page-pre disabled">
+						<a href="javascript:void(0)">上一页</a>
+					</li>
+					<li class="page-next">
+						<a href="javascript:void(0)">下一页</a>
+					</li>
+					<li class="page-last">
+						<a href="javascript:void(0)">末页</a>
+					</li>
+					<li style="margin: 0px 10px;">第<input style="width: 30px; height: 18px;margin: 1px 5px;text-align: center; color: #0095e9;" type="number"/>页</li>
+		    		<li><input type="button" style="padding: 0px 10px;background-color: #0e68b1;border: none;color: #fff;font-size: 12px;" value="GO"/></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

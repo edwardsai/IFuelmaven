@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>查看入库信息</title>
+<link type="text/css" href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet"/>
+<style type="text/css">
+td {
+    height: 45px;
+}
+</style>
+</head>
+<body style="line-height:24px;">
+	<h3 class="header-h3">入库单基本信息</h3>
+	<div class="row-fluid" style="margin-bottom:5px;font-size:14px">
+		<table  class="table table-striped" style="width: 99.5%">
+			<tr>
+				<td class="rightTitle tableColumnName" style="width:230px;">入库单号：</td>
+				<td  style="width:330px"><span name="VCS.id"></span></td>
+				<td class="rightTitle tableColumnName"  style="width:230px;">供应商：</td>
+				<td  style="width:330px"><span name="VCS.supplierName"></span></td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" >入库日期：</td>
+				<td><span name="VCS.create_date"></span></td>
+				<td class="rightTitle tableColumnName" >登记人：</td>
+				<td>
+					<span name="VCS.create_name"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" >入库仓库：</td>
+				<td colspan="3">
+					<span name="VCS.room_name"></span>
+				</td>
+			</tr>
+			<tr>
+				<td class="rightTitle tableColumnName" >备注：</td>
+				<td colspan="3">
+					<span name="VCS.descr"></span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 选择物品 -->
+	<h3 class="header-h3">入库物品信息</h3>
+	<div class="row-fluid" style="margin-bottom:10px;">
+		<table id="table_goodsin"></table>
+	</div>	
+	<div align="center" style="margin-top:20px;margin-bottom:100px;">
+		<button class="ilsh_left btns"  id="back_ConsumablesStorageList">返回</button>
+	</div>
+</body>
+<script>
+
+</script>
+<script type="text/javascript" src="js/commons/Math.uuid.js"></script>
+<script src="bootstrap/js/bootstrap-table.min.js"></script>
+<script src="bootstrap/js/bootstrap-table-zh-CN.js"></script>
+<script src="ppe/consumablesManagement/consumablesStorage/viewconsumablesStorage.js"></script>
+</html>

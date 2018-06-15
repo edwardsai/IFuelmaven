@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.workFlow.WorkFlowNodeDao">
+    <!-- 查询流程下所有节点 -->
+	<select id="queryAllNode4WF" parameterType="java.util.Map" resultType="java.util.Map">
+ 		select wn.*, 
+ 		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_NODE_TYPE' and sdi.item_code=wn.N_TYPE) as note_type,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_NODE_VALUE' and sdi.item_code=wn.N_V_TYPE) as note_v_type,
+		(select sdi.item_name from s_dic_item sdi where sdi.dic_code='WF_DIC_STATE' and sdi.item_code=wn.N_STATE) as node_state
+		from WF_NODE_INFO wn where   wf_id = #{wf_id} order by to_number(order_id) asc
+	</select>
+    <!--根据条件查询对应的节点信息 -->
+	<select id="queryOneNodeInfo" parameterType="java.util.Map" resultType="java.util.Map">
+ 		select wfi.*,
+ 		(select r_name from WF_RULE wr where wr.r_id=wfi.r_id) r_name,
+ 		(select r_exp from WF_RULE wr where wr.r_id=wfi.r_id) r_exp
+ 		 from WF_NODE_INFO wfi where   1 = 1
+ 		<if test="null != n_id and n_id != ''">
+				and n_id = #{n_id}
+		</if>
+ 		<if test="null != wf_id and wf_id != ''">
+				and wf_id = #{wf_id}
+		</if>
+ 		<if test="null != order_id and order_id != ''">
+				and order_id = #{order_id}
+		</if>
+	</select>
+    <!-- 插入一个节点-->
+    <insert id="addNodeInfo" parameterType="java.util.Map">
+		insert into WF_NODE_INFO (n_id,wf_id,r_id,n_name,n_type,n_state,n_v_type,is_start,is_auto,order_id,opt_person,opt_time,memo)  
+		values(#{n_id},#{wf_id},#{r_id},#{n_name},#{n_type},#{n_state},#{n_v_type},#{is_start},#{is_auto},#{order_id},#{opt_person},#{opt_time},#{memo})
+	</insert>
+    <!-- 更新节点-->
+    <insert id="updateNodeInfo" parameterType="java.util.Map">
+    	update WF_NODE_INFO set wf_id=#{wf_id},r_id=#{r_id},n_name=#{n_name},n_type=#{n_type},n_state=#{n_state},
+    	n_v_type=#{n_v_type},is_start=#{is_start},is_auto=#{is_auto},order_id=#{order_id},
+    	opt_person=#{opt_person},opt_time=#{opt_time},memo=#{memo}
+    	where n_id=#{n_id}
+	</insert>
+	<!-- 根据选择的id删除该节点 -->
+	<delete id="deleteNodeInfo" parameterType="java.util.Map">
+		delete from WF_NODE_INFO where n_id=#{n_id}
+	</delete>
+	<!-- 根据选择的id修改该节点状态为停用 -->
+	<update id="updateNodeStateById" parameterType="java.util.Map">
+		update WF_NODE_INFO set n_state=#{n_state}
+		where n_id=#{n_id}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+	<head>
+<meta charset="utf-8"/>
+<title>导入资产信息</title>
+<link rel="stylesheet" type="text/css" href="../../../css/css_ppe/public_ppe.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+<link type="text/css" href="../../../css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/public.css"/>
+<link rel="stylesheet" type="text/css" href="../../../css/index.css"/>
+
+<script type="text/javascript" src="../../../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../../../js/commons/Math.uuid.js"></script>
+<script src="../../../js/bootstrap.min.js"></script>
+</head>
+<style type="text/css">
+.import-div{margin: 10 30px;}
+.import-div > h4 {color: #333;margin-bottom: 14px;font-size: 12px;}
+.import-div > .import-tip {line-height: 24px;margin-bottom: 20px;color: #666;}
+.import-div > .import-tip > .down-link{color:#3c8dbc;text-decoration: none;}
+.import-div > .import-tip > .down-link:hover{text-decoration: underline;}
+.import-div > .error-div{color:red;font-size: 13px;margin-top: 20px;margin-bottom: 20px;}
+</style>
+</head>
+<body class="gray-bg">	
+	<div style="margin: 20px 20px">
+		<h3 class="header-h3">导入资产信息</h3>
+		<div class="import-div">
+			<h4>注意事项：</h4>
+			<p class="import-tip">
+				1、请按模板要求导入的数据，不可更改Excel的格式；<br>
+				2、下拉框选择内容不能为空；<br>
+				3、必填项不能为空；<br>
+				4、数据间隔行不能为空；<br>
+				5、请<a href="sfile/doFileDownLoad.asp?file=supplierExcel.xlsx" class="down-link">点击下载模板</a><br>
+			</p>
+			
+			<!-- <div>
+				<input type="hidden"  name="Afile_id" id="Afile_id"/>
+				<input type="file" value="上 传" class="" id="AuploadFile">
+			</div> -->
+            <div  style="margin: 20px">
+           	 <button class="btns ilsh_left" type="button" onclick="">上传</button>
+            	<button class="btns ilsh_left" type="button" onclick="uploadFiel();">提交</button>
+                <button class="btns ilsh_left" type="button" onclick="closeWin();">返回</button>
+            </div>
+	    
+		
+			<div id="errorRes" class="error-div" style="color:red"></div>
+		</div>
+		<div id="marsk"></div>
+		<!-- 
+		<div id="marsk" style="text-align:center;display: none; position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; background:white url(../../../images/progressBar_m.gif) no-repeat 50% 50%; z-index:1001; -moz-opacity: 0.7; opacity:.70; filter: alpha(opacity=70);">
+		</div>
+		 -->
+		<iframe name="iframe" style="display: none;"></iframe>
+	</div>
+	<!-- 全局js -->
+	
+	<script type="text/javascript">	
+	
+	function closeWin() {	
+		window.location.assign("assetList.html");
+	}
+	function uploadFiel(){
+		window.location.assign("assetList.html");
+	}
+	</script>
+</body>
+
+</html>

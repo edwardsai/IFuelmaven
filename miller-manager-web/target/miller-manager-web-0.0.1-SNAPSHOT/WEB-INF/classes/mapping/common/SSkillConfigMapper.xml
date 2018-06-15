@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SSkillConfigDao">
+
+	<!-- 新增技能配置 -->
+	<insert id="addskillconfig" parameterType="java.util.Map">
+		insert into s_skill_config (
+			skill_num,skill_name,skill_type,skill_type_name,pre_skill_num,prof_level,prof_level_name,
+			menu_level,marks,order_id,create_user,create_org,create_date,last_update_user,last_update_date) 
+		values(
+			#{skill_num},#{skill_name},#{skill_type},#{skill_type_name},#{pre_skill_num},#{prof_level},#{prof_level_name},
+			#{menu_level},#{marks},#{order_id},#{create_user},#{create_org},#{create_date},#{last_update_user},#{last_update_date})
+	</insert>
+     <!-- 更新技能配置-->
+	<update id="updateskillconfig" parameterType="java.util.Map">
+		update s_skill_config set skill_num=#{skill_num},skill_name=#{skill_name},skill_type=#{skill_type},
+		skill_type_name=#{skill_type_name},pre_skill_num=#{pre_skill_num},prof_level=#{prof_level},
+		prof_level_name=#{prof_level_name},marks=#{marks},
+		order_id=#{order_id},last_update_user=#{last_update_user},last_update_date=#{last_update_date}
+			 where skill_num=#{old_skill_num}
+	</update>
+	
+	<!-- 查询所有的技能配置 -->
+	<select id="queryAllskillconfig" parameterType="java.util.Map" resultType="java.util.Map">
+		select skill_num id,skill_name name,pre_skill_num pId from s_skill_config where 1=1 order by to_number(menu_level),to_number(order_id) asc
+    </select>
+    
+    <!-- 具体查询技能配置 -->
+    <select id="queryoneskillconfig" parameterType="java.lang.String" resultType="com.yusys.entity.SSkillConfig">
+		select * from s_skill_config where skill_num=#{skill_num}
+    </select>
+    
+    <!-- 具体删除技能配置 -->
+    <delete id="deleteskillconfigByid" parameterType="java.util.Map">
+		delete from s_skill_config where skill_num=#{skill_num}
+	</delete>
+	
+	<!-- 修改子菜单的父级菜单编号 -->
+    <update id="updateChilMenuSupNo" parameterType="java.util.Map">
+		update s_skill_config set pre_skill_num=#{skill_num},last_update_user=#{last_update_user},last_update_date=#{last_update_date}
+		where pre_skill_num=#{old_skill_num} and pre_skill_num!=#{skill_num}
+	</update>
+	<!-- 修改子菜单的菜单级别-->
+    <update id="updateChilMenuLevel" parameterType="java.util.Map">
+		update s_skill_config set last_update_user=#{last_update_user},last_update_date=#{last_update_date},
+		menu_level=to_number(menu_level)+to_number(#{gap}) where skill_num in(
+			select skill_num from s_skill_config t start with t.skill_num = #{skill_num}
+			connect by prior t.skill_num=t.pre_skill_num		
+		)
+	</update>
+	<!-- 清空菜单父节点 -->
+    <update id="clearMenuSupNoInfo" parameterType="java.lang.String">
+		update s_skill_config set pre_skill_num=''  where skill_num=#{haveId}
+	</update>
+</mapper>

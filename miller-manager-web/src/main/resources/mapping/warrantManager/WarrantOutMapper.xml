@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.warrantmanager.WarrantOutDao">
+	<select id="queryListWarrantOut" parameterType="java.util.Map" resultType="java.util.Map">
+	 select a.*,c.exchange_user from
+		 (select w.*,cat1.category_name warr_type_name ,cat2.category_name warr_type2_name,
+		 	b.area,b.floor,b.machine_room,b.cab_num,b.layer,b.serno,
+	        (select s.cab_name from amc_cabinet s where s.cab_num=b.cab_num) as cab_name,
+	        (select s.store_name from amc_store_house s where s.store_id=b.machine_room) as machine_room_name,
+	        (select s.store_name from amc_store_house s where s.store_id=b.floor) as floor_name,
+	        (select s.store_name from amc_store_house s where s.store_id=b.area) as area_name,
+		 	(select su.user_name from s_user su where su.user_no=w.property_owner) as property_owner_name,
+		 	(select su.user_name from s_user su where su.user_no=w.apply_user) as apply_user_name,
+	      	(select s.item_name from s_dic_item s where s.dic_code='WRT_DIC_ENTER_TYPE' and s.item_code=w.storage_type) as storage_type_name,
+	      	(select s.item_name from s_dic_item s where s.dic_code='WRT_DIC_ENTER_FLAG' and s.item_code=w.enter_flag) as enter_flag_name,
+	      	(select s.item_name from s_dic_item s where s.dic_code='WRT_DIC_ID_TYPE' and s.item_code=w.id_type) id_type_name,
+	      	(select s.item_name from s_dic_item s where s.dic_code='WRT_DIC_WARR_CLASSIFY' and s.item_code=w.warr_classify) warr_classify_name
+	      from WRT_MIDDLE_TABLE w left join CAT_CATEGORY_CONFIG cat2 on cat2.category_id = w.warr_type
+	      left join CAT_CATEGORY_CONFIG cat1 on cat1.category_id = cat2.pre_category_id
+	      left join WRT_WARRANT_STOCK b on b.warrant_no = w.warrant_no and b.warr_status!='05'
+	      where w.storage_type in ('03','04','05'))a 
+      left join wrt_warrant_history c on c.serno=a.serno and c.batch_id=a.batch_id
+      where 1=1
+      <if test="warrant_no!=null and warrant_no!=''">
+      	and a.warrant_no like #{warrant_no}
+      </if>
+      <if test="property_owner_name!=null and property_owner_name!=''">
+      	and a.property_owner_name like #{property_owner_name}
+      </if>
+      <if test="batch_id!=null and batch_id!=''">
+      	and a.batch_id like #{batch_id}
+      </if>
+      <if test="guarantee_id!=null and guarantee_id!=''">
+      	and a.guarantee_id like #{guarantee_id}
+      </if>
+      <if test="guarantee_name!=null and guarantee_name!=''">
+      	and a.guarantee_name like #{guarantee_name}
+      </if>
+      <if test="ENTER_FLAG !=null and ENTER_FLAG !=''">
+      	and ENTER_FLAG = #{ENTER_FLAG}
+      </if>
+	</select>
+	<!-- 更新库存表 -->
+	<update id="updateWarrantOut" parameterType="java.util.Map">
+		update WRT_WARRANT_STOCK SET warr_status=#{WARR_STATUS}
+		where warrant_no=#{WARRANT_NO} and warr_status != '05'
+	</update>
+	<!-- 新增一条记录 -->
+	<insert id="saveWarrantOutRecord" parameterType="java.util.Map">
+		INSERT INTO WRT_WARRANT_HISTORY (ID,SERNO,STORAGE_TYPE,APPLY_USER,EXECUTE_DATE,EXCHANGE_USER,APPROVE_USER,RETURN_DATE,BATCH_ID)
+		VALUES(#{ID},#{SERNO},#{STORAGE_TYPE},#{APPLY_USER},#{EXECUTE_DATE},#{EXCHANGE_USER},#{APPROVE_USER},#{RETURN_DATE},#{BATCH_ID})
+	</insert>
+	<!-- 更新中间表标识 -->
+	<update id="updateWarrantFlag">
+		UPDATE WRT_MIDDLE_TABLE SET ENTER_FLAG=#{ENTER_FLAG}
+        WHERE WARRANT_NO=#{WARRANT_NO} AND BATCH_ID=#{BATCH_ID}
+	</update>
+	<!-- 查询流水号 -->
+	<select id="queryListSerno" parameterType="java.util.Map" resultType="java.util.Map">
+	 select b.serno
+      from  WRT_WARRANT_STOCK b 
+      where b.warrant_no = #{WARRANT_NO}  and b.warr_status!='05'
+	</select>
+	<!-- 打回 -->
+	<update id="beatWarrantOut">
+		UPDATE WRT_MIDDLE_TABLE SET ENTER_FLAG=#{ENTER_FLAG}
+		<if test="RETURN_REASON!=null and RETURN_REASON!=''">
+      	,RETURN_REASON=#{RETURN_REASON}
+      </if>
+        WHERE WARRANT_NO=#{WARRANT_NO} AND BATCH_ID=#{BATCH_ID}
+	</update>
+</mapper>

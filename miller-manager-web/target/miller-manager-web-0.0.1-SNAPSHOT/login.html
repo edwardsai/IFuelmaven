@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0;" name="viewport" />
+<link href="css/index2.css" rel="stylesheet" type="text/css" />
+<script src="js/jquery/jquery.min.js"></script>
+<title>固定资产管理系统</title>
+<style rel="stylesheet" type="text/css">
+	.showError{
+		display: block;
+    color: #F9D491;
+    font-size: 14px;
+    text-align: center;
+    padding: 4px 0;
+    width: 60%;
+    margin: 0 20%;position: absolute;
+    margin-top: -12px;
+	}
+	.hideError{
+		display:none;
+	}
+	input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill
+	{background-color: #fff!important;}
+</style>
+</head>
+
+<body onkeydown="if(event.keyCode==13){onLogin()}">
+	<div class="ht">
+	<div class="m"><img src="images/login1.png" /></div>
+</div>
+<div class="mc" style="background:url('images/login_bg.jpg') no-repeat;">
+
+<img src="images/login_img.png" style="width: 460px;margin: 95.5px 110px 0 160px;"/>
+<div class="loginArea" >
+    <div class="title">欢迎登录：固定资产管理系统</div>
+    <ul class="content">
+    	<li>
+    	<img src="images/userN.png" /><i></i>
+    	<input id="loginname" type="text" placeholder="请输入用户名" onfocus="if(this.placeholder=='请输入用户名')this.placeholder =''" onblur="if(this.placeholder=='')this.placeholder='请输入用户名'" />
+		
+		<span class="hideError"><i></i>请输入用户名</span>
+    	</li>
+    	<li><img src="images/code.png" /><i></i>
+    	<input id="password" type="password" placeholder="请输入密码" onfocus="if(this.placeholder=='请输入密码')this.placeholder =''" onblur="if(this.placeholder=='')this.placeholder='请输入密码'" />
+		
+		<span class="hideError"><i></i>请输入密码</span>
+    	</li>
+    	<li><img src="images/yzm.png" /><i></i>
+    	<input type="text" name="check_code" id="check_code" data-role="none" placeholder="请输入验证码" onfocus="codefocus()"  />	
+      		<div class="right">
+     			<a class="login_ipyz_a" href="#" title="点击更换验证码">
+     			<img id="createCheckCode" src="PictureCheckCode.jpeg" onClick="myReload();" width="90" height="35" style="margin-top:-2px"/></a>
+    		</div></li>
+    </ul>
+    <div class="loginBtn"><label class="hideErr" id="errorTip"></label>
+      <label class="login_error" style="display:none; color: rgb(236, 186, 141);position: absolute;width: 72%;text-align: center;margin: -10px 14% 5px 14%;"></label>
+       
+      <button id="login_btn">立即登录</button></div>
+</div>
+</div>
+<div style="clear:both;"></div>
+<div class="bm">北京宇信科技集团有限公司 | 固定资产管理系统  版权所有      　　Copyright@ Yusys Technologies Co.ltd All Rights Reserved.</div>
+    <script type="text/javascript">
+    //切换验证码
+    function myReload(){
+      document.getElementById("createCheckCode").src=
+    	  document.getElementById("createCheckCode").src + "?nocache="+new Date().getTime();  
+    }
+
+    
+	    function userfocus(){
+	    	$("input").attr("style","outline:none;border:0px")
+			
+			$("#errorTip")[0].innerText="";
+			$("#errorTip").removeClass("showError");
+			$("#errorTip").addClass("hideError");
+	    }
+	    function passfocus(){
+			$("input").attr("style","outline:none;border:0px")
+			
+			$("#errorTip")[0].innerText="";
+			$("#errorTip").removeClass("showError");
+			$("#errorTip").addClass("hideError");
+	    }
+	    function codefocus(){
+			$("input").attr("style","outline:none;border:0px")
+			
+			$("#errorTip")[0].innerText="";
+			$("#errorTip").removeClass("showError");
+			$("#errorTip").addClass("hideError");
+	    }
+	    function onLogin(){
+	    	var loginname=$("#loginname");
+	    	var password=$("#password");
+	    	var check_code=$("#check_code");
+	    	if($("#loginname").val()==""||$("#loginname").val()==undefined){
+				$("#errorTip")[0].innerText="请输入用户名！";
+				
+				$("#errorTip").addClass("showError");
+				return;
+			}
+			if($("#password").val()==""||$("#password").val()==undefined){
+				$("#errorTip")[0].innerText="请输入密码！";
+				
+				$("#errorTip").addClass("showError");
+				return;
+			}
+			if($("#check_code").val()==""||$("#check_code").val()==undefined){
+				$("#errorTip")[0].innerText="请输入验证码！";
+				
+				$("#errorTip").addClass("showError");
+				return;
+			}
+	    	
+	    	if(onLogin.state==false){
+	    		return;
+	    	}
+	    	onLogin.state=false;
+	    	$("#login_btn").text("登录中....");
+	    	
+	    	$(".login_error").text("");
+	    	$(".login_error").hide();
+        	$.ajax({
+    			type : "post",
+    			url : "login.asp",
+    			async : true,
+    			data : {loginname:loginname.val(),password:password.val(),check_code:check_code.val()},
+    			dataType : "json",
+    			success : function(msg) {
+    				if(msg!=undefined&&"true"==msg.result){
+    					window.location="main.asp";
+    					return;
+    				}
+    				if(msg!=undefined&&msg.msg!=undefined){
+    					$(".login_error").show();
+    					$(".login_error").text(msg.msg);
+    				}else if(msg.result=="usermax"){
+    					$(".login_error").show();
+    					$(".login_error").text("服务器忙,请稍后登陆!");
+    				}else{
+    					$(".login_error").show();
+    					$(".login_error").text("登录异常!");
+    				}
+    				myReload();
+    				onLogin.state=true;
+    				$("#login_btn").text("登录");
+    			},
+    			error : function() {
+    				$(".login_error").show();
+					$(".login_error").text("登录异常!");
+    				myReload();
+    				onLogin.state=true;
+    				$("#login_btn").text("登录");
+    			}
+    		});
+        }
+	    $(document).ready(function(){
+	    	$("#login_btn").click(function(){
+	    		onLogin();
+	    	});
+	    	$("#check_code").keydown(function(event){
+	    		if(event.keyCode==13){
+	    			onLogin();
+	    		}
+	    	});
+	    });
+	    
+	    /* 轮播 */
+	    $(document).ready(function(){
+
+    startTimer();
+
+    /** Main Slider **/
+    var timer;
+    var slideCount = $('.thumbs li').length;
+    var currSlide = $('.thumbs li').filter('.curr').index();
+    var nextSlide = currSlide + 1;
+    var fadeSpeed = 1000;
+	
+    //Start slides timer functions
+    function startTimer() {
+        timer = setInterval(function () {
+            $('.slide-item').eq(currSlide).fadeOut(fadeSpeed);
+            $('.slide-item, .thumbs li').removeClass('curr');
+
+            $('.slide-item').eq(nextSlide).addClass('curr').fadeIn(fadeSpeed);
+            $('.thumbs li').eq(nextSlide).addClass('curr');
+
+            currSlide = nextSlide;
+            nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;
+
+        }, 6000);
+    }
+    
+    $('.thumbs li').click(function () {
+	    currSlide = $(this).index();
+	    var currentSelectThumbIndex = $('.thumbs li').filter('.curr').index();
+	    if(currSlide == currentSelectThumbIndex){
+	    		return ;
+	    }
+    clearInterval(timer);
+    startTimer();
+    nextSlide = currSlide + 1 < slideCount ? currSlide + 1 : 0;;
+    $('.slide-item').fadeOut(fadeSpeed);
+    $('.slide-item, .thumbs li').removeClass('curr');
+
+    $('.slide-item').eq($(this).index()).addClass('curr').fadeIn(fadeSpeed);
+    $(this).addClass('curr');
+});
+
+
+});
+    </script>
+</body>
+</html>

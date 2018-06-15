@@ -1,0 +1,65 @@
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="ztree3.5.22/css/zTreeStyle/zTreeStyle.css" type="text/css">
+		<link href="bootstrap/css/bootstrap-table.min.css" rel="stylesheet">
+		<script src="pages/sdic/sdic_update.js"></script>
+		<style>
+			<!--
+			.select2-container{
+			margin-left:4px;
+			margin-right:1px;
+			}
+			-->
+		</style>
+	</head>
+	<body>	
+			<div >
+				<h3 class="header-h3">
+					修改字典类
+				</h3>
+				<form action="" class="form-inline" id="sdic_form_update">
+					<div class="row">
+						<div class="span6 h50">
+							<label class="pl60">类别编码 :</label>
+							<input type="text" name="" id="dic_update_code" validate="v.required" valititle="该项为必填项" style="cursor: pointer;background:#fff;" readonly/>
+						</div>
+						<div class="span6 h50">
+							<label class="pl60">类别名称 :</label>
+							<input type="text" name=""" id="dic_update_codename"  validate="v.required" valititle="该项为必填项" />
+						</div>
+					</div>
+					 <div class="row">
+			 			<div class="span6 h50">
+			 				<label class="pl60" style="float:left;">类别状态 :	</label>
+			 				<select id="dic_update_state"  name=""  validate="v.required" style="width:53%;" valititle="该项为必填项">
+							</select>
+			 			</div>
+			  			<div class="span6 h50" >
+							<label class="pl60">所属菜单 :</label>
+							<input type="text" name="" id="dic_update_menuname"    style="cursor: pointer;background:#fff;" readonly/>
+							<input type="hidden" id="dic_update_menucode">
+						</div>
+			 		</div>
+			 		<div class="row">
+						<div class="span12 h50">
+							<label class="pl60">类别说明：</label>
+							<textarea  class="span6" name="" id="dic_update_memo" rows="3" cols="3"   ></textarea>
+						</div>
+					</div>	 		
+				</form>
+				<div class="row" align="center" style="margin-top:40px;width:752px;">
+					<div class="span10">
+						<button type="button" class="ilsh_left btns"  id="dic_update_save">保存</button>   
+			   			<button type="button" class="ilsh_left btns"	id="dic_update_return">返回</button> 
+					</div>
+				</div>
+		</div>
+	</body>	
+	<script src="ztree3.5.22/js/jquery.ztree.core.min.js"></script>
+	<script src="ztree3.5.22/js/jquery.ztree.excheck.min.js"></script>
+	<script src="ztree3.5.22/js/jquery.ztree.exedit.min.js"></script>	
+	<script type="text/javascript">
+		initVlidate($("#sdic_form_update"));
+	</script>
+ </html>   

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.category.CommonConfigDao">
+
+<!-- 查询所有公共字段 -->
+	<select id="queryAllCommonField" parameterType="java.util.Map" resultType="java.util.Map">
+		select col_id, tag_id, tag_name, 
+			(select item_name from s_dic_item where dic_code = 'CAT_DIC_COL_REQUIRED' and item_code = col_required) col_required,
+			(select item_name from s_dic_item where dic_code = 'CAT_DIC_TAG_TYPE' and item_code = tag_type) tag_type,
+			max_length, dic_code, order_id, default_value, init_template, t1.category_id, 
+      		(select t2.category_name from cat_category_config t2 where t1.category_id = t2.category_id) category_name
+		from cat_field_config t1 where 1=1 and is_common='00'
+		<if test="tag_id!=null and tag_id!=''">
+			and tag_id like #{tag_id}
+		</if>
+		<if test="tag_name!=null and tag_name!=''">
+			and tag_name like #{tag_name}
+		</if>
+		order by to_number(col_id) desc
+    </select>
+<!-- 新增字段 -->
+    <insert id="addField" parameterType="java.util.Map">
+    	insert into cat_field_config (
+			col_id, tag_id, tag_name, col_required, tag_type,
+			max_length, dic_code, order_id, default_value, 
+			init_template, category_id,is_common)
+		values (
+			#{col_id}, #{tag_id}, #{tag_name}, #{col_required}, #{tag_type}, 
+			#{max_length}, #{dic_code}, #{order_id}, #{default_value}, 
+			#{init_template}, #{category_id},#{is_common})
+    </insert>
+<!-- 查询一条字段信息 -->
+    <select id="queryOneFieldInfo" parameterType="java.lang.String" resultType="com.yusys.category.CommonConfig">
+    	select t1.*, 
+    		(select t2.category_name from cat_category_config t2 where t1.category_id = t2.category_id) category_name
+    	from cat_field_config t1 where col_id = #{col_id}
+    </select>
+<!-- 查询一条字段信息 (通过标签名称查询)-->
+    <select id="queryOneFieldByTag_id" parameterType="java.lang.String" resultType="java.util.Map">
+    	select * from cat_field_config  where tag_id = #{tag_id} and category_id=#{category_id}
+    </select>
+<!-- 修改一条字段信息 -->   	
+    <update id="updateField" parameterType="java.util.Map">
+    	update cat_field_config 
+		set	
+			tag_id = #{tag_id}, tag_name= #{tag_name}, col_required= #{col_required}, tag_type= #{tag_type},
+			max_length= #{max_length}, dic_code= #{dic_code}, order_id= #{order_id}, is_common=#{is_common},
+			default_value= #{default_value}, init_template= #{init_template}, category_id= #{category_id}
+		where col_id = #{col_id}
+    </update>
+<!-- 删除一条字段信息 -->
+	<delete id="deleteField" parameterType="java.util.Map">
+		delete from cat_field_config where col_id = #{col_id}
+	</delete>   
+	
+	
+<!-- 查询类别对应的所有字段 -->
+	<select id="queryAllPrivateField" parameterType="java.util.Map" resultType="java.util.Map">
+		select col_id, tag_id, tag_name, 
+			(select item_name from s_dic_item where dic_code = 'CAT_DIC_COL_REQUIRED' and item_code = col_required) col_required,
+			(select item_name from s_dic_item where dic_code = 'CAT_DIC_TAG_TYPE' and item_code = tag_type) tag_type,
+			max_length, dic_code, order_id, default_value, init_template, category_id,
+			(select t2.category_name from cat_category_config t2 where t1.category_id = t2.category_id) category_name
+		from cat_field_config t1 where t1.category_id = #{category_id} and t1.is_common='01'
+    </select>
+	 
+</mapper>

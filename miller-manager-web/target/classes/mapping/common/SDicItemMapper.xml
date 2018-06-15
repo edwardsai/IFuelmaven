@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"      
+ "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.yusys.dao.SDicItemDao">
+	
+	<insert id="save" 		parameterType="java.util.Map">
+	insert into s_dic_item
+	 (item_code,item_name, dic_code,state,  is_default,order_id,memo,opt_no,opt_time)
+			
+		values (#{item_code},#{item_name},
+			#{dic_code},#{state},
+			#{is_default},#{order_id},#{memo},#{opt_no},#{opt_time})
+	</insert>
+	
+	<delete id = "delete"  parameterType="java.util.Map">  
+	   <![CDATA[  
+	    update s_dic_item set 		
+	       		state = '01'
+		where dic_code=#{dic_code}   and  item_code =#{item_code}
+	    ]]>  
+	</delete>
+  
+    <update id="update" parameterType="java.util.Map">
+		update s_dic_item set 		
+			item_name=#{item_name},
+			state=#{state},
+			is_default=#{is_default},
+			order_id=#{order_id},
+			memo=#{memo},
+			opt_no=#{opt_no},
+			opt_time=#{opt_time}
+		where item_code=#{item_code}   and dic_code=#{dic_code}
+	</update>	
+			
+	<select id="findById" parameterType="java.util.Map"	resultType="com.yusys.common.SDicItem">
+		select * from s_dic_item  where item_code = #{item_code} 
+			<if test="null != dic_code and dic_code != ''">
+					and dic_code = #{dic_code}
+			</if>			
+			
+			
+	</select>
+	
+	<select id="findAll" 	parameterType="java.util.Map"	resultType="java.util.Map">
+			select sd.*,s.dic_name from s_dic_item sd  left join s_dic s  on  s.dic_code = sd.dic_code
+			where 1=1
+			<if test="null != dic_code and dic_code != ''">
+					and sd.dic_code = #{dic_code}
+			</if>			
+			<if test="null != item_code and item_code != ''">
+					and sd.item_code = #{item_code}
+			</if>
+			<if test="null != item_name and item_name != ''">
+					and sd.item_name = #{item_name}
+			</if>
+			<if test="null == order_by or order_by == ''">
+					order by  sd.item_code
+			</if>	
+	</select>	
+
+</mapper>
